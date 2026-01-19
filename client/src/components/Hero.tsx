@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import HeroImage from '../assets/Hero_Image.png';
 
 const Hero = () => {
@@ -27,9 +28,12 @@ const Hero = () => {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <button className="px-8 py-3 bg-[#fd7e14] hover:bg-[#e36d0d] text-white font-lato font-bold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        <Link
+                            to="/contact"
+                            className="px-8 py-3 bg-[#fd7e14] hover:bg-[#e36d0d] text-white font-lato font-bold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg inline-block"
+                        >
                             Get a Quote
-                        </button>
+                        </Link>
                         <button className="px-8 py-3 bg-transparent border-2 border-white/30 hover:bg-white/10 text-white font-lato font-medium rounded-full transition-all duration-300 backdrop-blur-sm">
                             Speak to an Expert
                         </button>

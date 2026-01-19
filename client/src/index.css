@@ -32,17 +32,15 @@ body {
     font-weight: 700 !important;
 }
 
-/* Global Heading Sizes for Mobile */
+/* Global Heading Sizes */
 h1,
 h2 {
-    font-size: 32px !important;
+    font-size: 32px;
 }
 
 @media (min-width: 768px) {
-
-    h1,
     h2 {
-        font-size: inherit !important;
+        font-size: 48px;
     }
 }
 

@@ -61,7 +61,7 @@ const CertificationsSection = ({ limit = false, showTitle = true }: Certificatio
                         className={`text-center mb-12 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                             }`}
                     >
-                        <h2 className="text-[32px] md:text-5xl font-playfair font-bold text-[#000040] mb-4 text-center md:text-left">
+                        <h2 className="text-[32px] md:text-5xl font-playfair font-bold text-[#000040] mb-4 text-center">
                             Our <span className="font-playfair font-bold italic text-blue-900">Certifications</span>
                         </h2>
                     </div>

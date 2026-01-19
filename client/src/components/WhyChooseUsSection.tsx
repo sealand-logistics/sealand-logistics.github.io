@@ -44,19 +44,21 @@ const WhyChooseUsSection = () => {
           {cards.map((card) => (
             <div
               key={card.id}
-              className="group flex gap-4 rounded-2xl bg-white shadow-md border border-gray-100 px-6 py-5 transition-colors duration-300 hover:bg-[#ff7a1a] hover:text-white"
+              className="group flex flex-col gap-4 rounded-2xl bg-white shadow-md border border-gray-100 px-6 py-5 transition-colors duration-300 hover:bg-[#ff7a1a] hover:text-white"
             >
-              <div className="mt-1 h-9 w-9 flex shrink-0 items-center justify-center rounded-full bg-[#ff7a1a] text-white text-xl font-semibold transition-colors duration-300 group-hover:bg-white group-hover:text-[#ff7a1a]">
-                <span>★</span>
-              </div>
-              <div className="space-y-2">
-                <h3 className="font-lato font-bold text-sm md:text-base">
+              <div className="flex items-center gap-2">
+                <div className="flex shrink-0 items-center justify-center text-[#ff7a1a] transition-colors duration-300 group-hover:text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-9 h-9">
+                    <path fillRule="evenodd" d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <h3 className="font-lato font-bold text-lg md:text-base">
                   {card.title}
                 </h3>
-                <p className="font-lato text-xs md:text-sm text-gray-600 group-hover:text-white">
-                  {card.text}
-                </p>
               </div>
+              <p className="font-lato text-xs md:text-sm text-gray-600 group-hover:text-white">
+                {card.text}
+              </p>
             </div>
           ))}
         </div>

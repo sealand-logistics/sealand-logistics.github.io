@@ -1,4 +1,6 @@
 import ContactBG from '../assets/ContactBG.png';
+import PortMap from '../components/PortMap';
+
 
 const Contact = () => {
     return (
@@ -88,30 +90,20 @@ const Contact = () => {
                             </div>
                         </div>
 
-                        {/* Sea Port Services */}
-                        <div className="mt-4">
-                            <h3 className="text-xl md:text-2xl font-playfair font-bold text-[#000040] mb-4">Sea Port Services :</h3>
-                            <p className="text-[#00008B] font-lato font-semibold text-lg md:text-xl flex flex-wrap gap-x-2 gap-y-1">
-                                <span>Kolkata – Haldia</span>
-                                <span className="text-gray-400">|</span>
-                                <span>Nhava Sheva</span>
-                                <span className="text-gray-400">|</span>
-                                <span>Mundra</span>
-                                <span className="text-gray-400">|</span>
-                                <span>Paradeep</span>
-                                <span className="text-gray-400">|</span>
-                                <span>Visakhapatnam – Gangavaram</span>
-                                <span className="text-gray-400">|</span>
-                                <span>Chennai</span>
-                                <span className="text-gray-400">|</span>
-                                <span>Tuticorin</span>
-                            </p>
-                        </div>
                     </div>
                 </div>
             </div>
 
+            {/* Sea Port Services Map Section */}
+            <div className="container mx-auto px-[15px] md:px-[60px] pb-16 md:pb-20">
+                <h2 className="text-[32px] md:text-4xl font-playfair font-bold text-[#000040] mb-8 text-center lg:text-left">
+                    Sea Port Services
+                </h2>
+                <PortMap />
+            </div>
+
             {/* Contact Form Section */}
+
             <div className="container mx-auto px-[15px] md:px-[60px] py-16 md:py-20">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                     {/* Left Side - Map Embed */}

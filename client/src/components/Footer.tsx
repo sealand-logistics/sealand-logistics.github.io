@@ -104,7 +104,7 @@ const Footer = () => {
                     <path fillRule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 3.58-3.14c.6-.67 1.157-1.318 1.636-1.928C19.225 15.228 21 12.11 21 9.45c0-5.135-4.067-9.3-9.102-9.45a.75.75 0 0 0-.102 0C6.767-.15 2.7 4.015 2.7 9.15c0 2.66 1.775 5.778 3.337 7.783.48.61 1.035 1.258 1.636 1.928a16.975 16.975 0 0 0 3.58 3.14ZM12 11.25a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <span>30 Rafi Ahmed Kidwai Road, 2B, 2nd Floor, Kolkata 700016, INDIA</span>
+                <span>9th Floor,Park NX, 43 Rafi Ahmed Kidwai Road, Kolkata -700016</span>
               </li>
               <li className="flex items-center gap-4">
                 <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shrink-0">
@@ -114,8 +114,7 @@ const Footer = () => {
                   </svg>
                 </div>
                 <div className="flex flex-col">
-                  <span>info@sealandlogistics.net</span>
-                  <span>corporate@sealandlogistics.net</span>
+                  <span>corporate@sealandlogisticsgroup.com</span>
                 </div>
               </li>
               <li className="flex items-center gap-4">
@@ -124,7 +123,7 @@ const Footer = () => {
                     <path fillRule="evenodd" d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.915l-1.007.755a.75.75 0 0 0-.15.98 11.235 11.235 0 0 0 4.96 4.96.75.75 0 0 0 .98-.15l.755-1.007a1.875 1.875 0 0 1 1.915-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5Z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <span>(+91) 8013330628</span>
+                <span>+91 8013330628 / +91 9830789141</span>
               </li>
             </ul>
           </div>

@@ -2,6 +2,7 @@ import { HashRouter, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import CTASection from './components/CTASection';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import Specializations from './pages/Specializations';
@@ -15,6 +16,7 @@ import Contact from './pages/Contact';
 function App() {
   return (
     <HashRouter>
+      <ScrollToTop />
       <div className="min-h-screen bg-gray-50 font-lato relative flex flex-col">
         <Navigation />
         <main className="flex-1">

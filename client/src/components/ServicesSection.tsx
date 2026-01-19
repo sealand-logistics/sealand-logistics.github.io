@@ -6,7 +6,7 @@ const ServicesSection = () => {
     <section
       className="w-full py-16 text-white"
       style={{
-        backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${ServicesBg})`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 64, 0.85), rgba(0, 0, 139, 0.75)), url(${ServicesBg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

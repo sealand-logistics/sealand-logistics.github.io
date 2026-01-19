@@ -37,12 +37,12 @@ const ClientsSection = ({ limit = false }: ClientsSectionProps) => {
                     {displayClients.map((logo, index) => (
                         <div
                             key={index}
-                            className="flex items-center justify-center p-8 h-32 border-r border-b border-gray-100 transition-shadow duration-300 bg-white"
+                            className="flex items-center justify-center p-8 h-40 border-r border-b border-gray-100 transition-shadow duration-300 bg-white"
                         >
                             <img
                                 src={logo}
                                 alt={`Client ${index + 1}`}
-                                className="max-w-[120px] max-h-[60px] object-contain"
+                                className="max-w-[168px] max-h-[84px] object-contain"
                             />
                         </div>
                     ))}

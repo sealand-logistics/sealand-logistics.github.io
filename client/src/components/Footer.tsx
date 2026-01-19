@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import FooterBg from '../assets/Footer.png';
+import LogoWhite from '../assets/sealand_logowhite.png';
 
 const Footer = () => {
   return (
@@ -17,13 +18,8 @@ const Footer = () => {
         <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
           {/* Brand + description */}
           <div>
-            <div className="inline-block bg-white px-3 py-2 mb-4">
-              <span className="block text-xs tracking-[0.25em] text-[#FF5A1F] font-bold">
-                SEALAND
-              </span>
-              <span className="block text-[10px] tracking-[0.35em] text-[#02043A] font-semibold">
-                LOGISTICS
-              </span>
+            <div className="mb-6">
+              <img src={LogoWhite} alt="Sealand Logistics" className="h-16 w-auto" />
             </div>
             <p className="text-sm text-gray-200 max-w-xs">
               Your trusted partner for end-to-end global freight, transportation,
@@ -36,24 +32,6 @@ const Footer = () => {
                 className="h-8 w-8 rounded-full border border-white flex items-center justify-center hover:bg-white hover:text-[#02043A] transition"
               >
                 in
-              </button>
-              <button
-                type="button"
-                className="h-8 w-8 rounded-full border border-white flex items-center justify-center hover:bg-white hover:text-[#02043A] transition"
-              >
-                X
-              </button>
-              <button
-                type="button"
-                className="h-8 w-8 rounded-full border border-white flex items-center justify-center hover:bg-white hover:text-[#02043A] transition"
-              >
-                ⓘ
-              </button>
-              <button
-                type="button"
-                className="h-8 w-8 rounded-full border border-white flex items-center justify-center hover:bg-white hover:text-[#02043A] transition"
-              >
-                ◎
               </button>
             </div>
           </div>
@@ -119,11 +97,35 @@ const Footer = () => {
             <h3 className="text-sm font-semibold mb-4 tracking-wide">
               Contact Details
             </h3>
-            <ul className="space-y-3 text-sm text-gray-200">
-              <li>Client Address Here</li>
-              <li>info@sealandlogistics.net</li>
-              <li>+91 [Number]</li>
-              <li>+91 [Number]</li>
+            <ul className="space-y-6 text-sm text-gray-200">
+              <li className="flex items-center gap-4">
+                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-[#FF6600]">
+                    <path fillRule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 3.58-3.14c.6-.67 1.157-1.318 1.636-1.928C19.225 15.228 21 12.11 21 9.45c0-5.135-4.067-9.3-9.102-9.45a.75.75 0 0 0-.102 0C6.767-.15 2.7 4.015 2.7 9.15c0 2.66 1.775 5.778 3.337 7.783.48.61 1.035 1.258 1.636 1.928a16.975 16.975 0 0 0 3.58 3.14ZM12 11.25a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <span>30 Rafi Ahmed Kidwai Road, 2B, 2nd Floor, Kolkata 700016, INDIA</span>
+              </li>
+              <li className="flex items-center gap-4">
+                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-[#FF6600]">
+                    <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
+                    <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
+                  </svg>
+                </div>
+                <div className="flex flex-col">
+                  <span>info@sealandlogistics.net</span>
+                  <span>corporate@sealandlogistics.net</span>
+                </div>
+              </li>
+              <li className="flex items-center gap-4">
+                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-[#FF6600]">
+                    <path fillRule="evenodd" d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.915l-1.007.755a.75.75 0 0 0-.15.98 11.235 11.235 0 0 0 4.96 4.96.75.75 0 0 0 .98-.15l.755-1.007a1.875 1.875 0 0 1 1.915-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5Z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <span>(+91) 8013330628</span>
+              </li>
             </ul>
           </div>
         </div>

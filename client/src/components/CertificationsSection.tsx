@@ -1,10 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import Cert1 from '../assets/Certifications/1.png';
-import Cert2 from '../assets/Certifications/2.png';
-import Cert3 from '../assets/Certifications/3.png';
 import Cert4 from '../assets/Certifications/4.png';
-import Cert5 from '../assets/Certifications/5.png';
-import Cert6 from '../assets/Certifications/6.png';
 import Cert7 from '../assets/Certifications/7.png';
 import Cert8 from '../assets/Certifications/8.png';
 import Cert9 from '../assets/Certifications/9.png';
@@ -38,12 +33,7 @@ const CertificationsSection = ({ limit = false, showTitle = true }: Certificatio
     }, []);
 
     const allCertifications = [
-        { id: 1, src: Cert1, alt: 'Federal Maritime Commission' },
-        { id: 2, src: Cert2, alt: 'ISO 9001:2015' },
-        { id: 3, src: Cert3, alt: 'ISO 45001:2018' },
         { id: 4, src: Cert4, alt: 'MTO' },
-        { id: 5, src: Cert5, alt: 'AEO Indian Customs' },
-        { id: 6, src: Cert6, alt: 'Certification 6' },
         { id: 7, src: Cert7, alt: 'Certification 7' },
         { id: 8, src: Cert8, alt: 'Certification 8' },
         { id: 9, src: Cert9, alt: 'Certification 9' },

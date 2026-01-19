@@ -45,15 +45,35 @@ const regions: Record<string, RegionData> = {
         center: [20.0, 0.0],
         zoom: 2,
         locations: [
-            { name: 'China Network', coords: [35.0, 105.0], type: 'Regional Hub', description: 'Comprehensive port services across 10 major Chinese maritime gateways.' },
-            { name: 'SE Asia Hub', coords: [1.3521, 103.8198], type: 'Strategic Hub', description: 'Connectivity focal point for ASEAN trade corridors and transshipment.' },
-            { name: 'UK & Europe', coords: [51.5074, -0.1278], type: 'Regional Hub', description: 'Advanced logistics coordination for EU and UK industrial sectors.' },
-            { name: 'North America', coords: [40.7128, -74.0060], type: 'Regional Hub', description: 'Specialized cargo handling and project logistics across US and Canada.' },
+            { name: 'United States', coords: [40.7128, -74.0060], type: 'Regional Hub', description: 'Specialized cargo handling and project logistics across major US gateways.' },
+            { name: 'China', coords: [31.2304, 121.4737], type: 'Regional Hub', description: 'Connectivity focal point for China\'s massive maritime trade network.' },
+            { name: 'United Arab Emirates', coords: [25.2769, 55.2962], type: 'Strategic Hub', description: 'Major transshipment hub connecting East and West trade lanes.' },
+            { name: 'Russia', coords: [59.9311, 30.3609], type: 'Network Office', description: 'Baltic and Far East logistics operations serving the Eurasian corridor.' },
+            { name: 'Saudi Arabia', coords: [21.4858, 39.1925], type: 'Regional Hub', description: 'Key maritime gateway for the Red Sea and Arabian Peninsula.' },
+            { name: 'Singapore', coords: [1.3521, 103.8198], type: 'Strategic Hub', description: 'World-class transshipment hub and focal point for ASEAN trade.' },
+            { name: 'Indonesia', coords: [-6.2088, 106.8456], type: 'Network Office', description: 'Serving the maritime logistics needs of the Indonesian archipelago.' },
+            { name: 'Hong Kong', coords: [22.3193, 114.1694], type: 'Strategic Hub', description: 'Vital gateway and financial hub for South China and international trade.' },
             { name: 'South Korea', coords: [37.5665, 126.9780], type: 'Network Office', description: 'Far East operations serving high-tech and industrial manufacturing.' },
+            { name: 'Netherlands', coords: [51.9225, 4.4791], type: 'Regional Hub', description: 'Gateway to Europe via Rotterdam, the continent\'s largest port.' },
+            { name: 'Germany', coords: [53.5511, 9.9937], type: 'Regional Hub', description: 'Central European logistics hub serving global industrial sectors.' },
+            { name: 'Australia', coords: [-33.8688, 151.2093], type: 'Strategic Hub', description: 'Regional logistics hub for Oceania trade lanes.' },
             { name: 'Japan', coords: [35.6762, 139.6503], type: 'Network Office', description: 'Strategic logistics support for Japan\'s global trade networks.' },
-            { name: 'Latin America', coords: [19.4326, -99.1332], type: 'Strategic Hub', description: 'Emerging gateway for Mexico and Latin American market sectors.' },
-            { name: 'East Africa', coords: [-1.2921, 36.8219], type: 'Network Office', description: 'Serving the growing logistics needs of Kenya, Tanzania, and Ethiopia.' },
-            { name: 'Australia & NZ', coords: [-33.8688, 151.2093], type: 'Strategic Hub', description: 'Regional logistics hub for Oceania trade lanes.' },
+            { name: 'Switzerland', coords: [46.8182, 8.2275], type: 'Network Office', description: 'Specialized inland logistics and freight forwarding coordination.' },
+            { name: 'United Kingdom', coords: [51.5074, -0.1278], type: 'Regional Hub', description: 'Advanced logistics coordination for UK industrial and retail sectors.' },
+            { name: 'Malaysia', coords: [3.1390, 101.6869], type: 'Network Office', description: 'Strategic maritime support in Southeast Asia\'s growing economy.' },
+            { name: 'South Africa', coords: [-33.9249, 18.4241], type: 'Regional Hub', description: 'Major gateway for Southern African trade and logistics.' },
+            { name: 'Belgium', coords: [51.2194, 4.4025], type: 'Network Office', description: 'European logistics hub specializing in bulk and containerized cargo.' },
+            { name: 'Thailand', coords: [13.7563, 100.5018], type: 'Network Office', description: 'Serving the industrial heartland of Southeast Asia.' },
+            { name: 'Vietnam', coords: [10.8231, 106.6297], type: 'Network Office', description: 'High-growth logistics hub for manufacturing and textile exports.' },
+            { name: 'Italy', coords: [41.8719, 12.5674], type: 'Network Office', description: 'Mediterranean logistics gateway for Southern Europe.' },
+            { name: 'Qatar', coords: [25.2854, 51.5310], type: 'Network Office', description: 'Specialized logistics services for the energy and infrastructure sectors.' },
+            { name: 'France', coords: [48.8566, 2.3522], type: 'Regional Hub', description: 'Strategic Western European hub for global trade and logistics.' },
+            { name: 'Bangladesh', coords: [22.3475, 91.8123], type: 'Network Office', description: 'Essential maritime gateway for South Asian textile and garment trade.' },
+            { name: 'Turkey', coords: [41.0082, 28.9784], type: 'Regional Hub', description: 'Transcontinental logistics hub connecting Europe and Asia.' },
+            { name: 'Canada', coords: [49.2827, -123.1207], type: 'Regional Hub', description: 'North American gateway for trans-Pacific trade and project cargo.' },
+            { name: 'Brazil', coords: [-23.9618, -46.3322], type: 'Regional Hub', description: 'Largest maritime gateway in South America for commodities and goods.' },
+            { name: 'Mexico', coords: [19.4326, -99.1332], type: 'Strategic Hub', description: 'Emerging gateway for Mexico and Latin American market sectors.' },
+            { name: 'Nepal', coords: [27.7172, 85.3240], type: 'Network Office', description: 'Specialized landlocked logistics and transshipment services.' },
         ]
     },
     'india-sea': {
@@ -82,14 +102,18 @@ const regions: Record<string, RegionData> = {
     },
     'china': {
         name: 'China Port Services',
-        center: [35.0, 115.0],
+        center: [34.0, 110.0],
         zoom: 4,
         locations: [
-            { name: 'Shanghai', coords: [31.2304, 121.4737], type: 'Primary Port', description: 'The world\'s busiest container port and a global logistics powerhouse.' },
-            { name: 'Ningbo-Zhoushan', coords: [29.8683, 121.5440], type: 'Deepwater Port', description: 'World-class maritime hub serving the Yangtze River Delta.' },
-            { name: 'Shenzhen', coords: [22.5431, 114.0579], type: 'South China Gateway', description: 'Strategic hub for manufacturing exports from the Pearl River Delta.' },
-            { name: 'Qingdao', coords: [36.0671, 120.3826], type: 'Northern Gateway', description: 'Major port for heavy industry and mineral imports in North China.' },
-            { name: 'Guangzhou', coords: [23.1291, 113.2644], type: 'River-Sea Port', description: 'Historic trade hub connecting inland China to global maritime routes.' },
+            { name: 'Port of Shanghai (CNSHA)', coords: [31.2304, 121.4737], type: 'Primary Port', description: 'China’s largest and most strategic port, Shanghai sits at the meeting point of the Yangtze River and coastal trade routes, connecting inland China to global shipping lanes. Operated by SIPG, it has world-class road/rail connectivity and massive cargo distribution networks, making it a key gateway for exports like cars and electronics and imports like iron ore and processors.' },
+            { name: 'Port of Shenzhen (CNSZX)', coords: [22.5431, 114.0579], type: 'Primary Port', description: 'Located in Guangdong along a 260 km coastline, Shenzhen is one of China’s most important foreign-trade hubs, linking to 300+ ports across 100+ countries through 230 international routes. Its key zones (Yantian, Nanshan, Dachan Bay) focus strongly on container shipping, supporting exports like electronics, computers, and mobile devices.' },
+            { name: 'Port of Ningbo-Zhoushan (CNNGB)', coords: [29.8683, 121.5440], type: 'Primary Port', description: 'Managed by Zhejiang Seaport Group, this port is a giant in deep-water infrastructure with 19 port areas and 200+ deep-water berths, making it a global leader in cargo throughput. It is a major gateway for trade with the EU, US, and ASEAN, and is especially strong in bulk commodities like crude oil imports.' },
+            { name: 'Port of Guangzhou (CNCAN)', coords: [23.1291, 113.2644], type: 'Primary Port', description: 'South China’s largest comprehensive port, Guangzhou is a major logistics and economic hub for the Pearl River Delta and surrounding provinces. With strong multi-modal connectivity (waterway, rail, road, air), it serves 300+ ports in 80+ countries and supports exports ranging from traditional goods like tea and silk to industrial commodities.' },
+            { name: 'Port of Hong Kong (HKHKG)', coords: [22.3964, 114.1095], type: 'Primary Port', description: 'A deep-water port centered around Victoria Harbor, Hong Kong is a long-standing global container and maritime movement hub, historically ranked among the world’s busiest. It mainly handles containerized manufactured goods, with strong trade links across Asia and beyond, supported by multiple berths and dedicated mid-stream yard sites.' },
+            { name: 'Port of Qingdao (CNTAO)', coords: [36.0671, 120.3826], type: 'Primary Port', description: 'Situated on the Yellow Sea in Shandong, Qingdao is among the world’s busiest ports and plays a major role in Northeast Asia logistics. It operates through multiple port sections handling both domestic and international cargo, with strong capabilities in bulk commodities like iron ore, grains, steel products, and fertilizers.' },
+            { name: 'Port of Tianjin (CNTXG)', coords: [38.9673, 117.7416], type: 'Primary Port', description: 'The largest port in Northern China and Beijing’s main sea gateway, Tianjin handles huge volumes of cargo annually and operates year-round. It is well known for bulk liquid and oil cargo handling, including specialized facilities for chemicals and edible oils, along with strong import-export activity in machinery and electronics.' },
+            { name: 'Port of Dalian (CNDLC)', coords: [38.9140, 121.6147], type: 'Primary Port', description: 'China’s northernmost ice-free port, Dalian is a major deep-water transshipment hub with 80+ berths and strong links to Pacific Rim trade. It primarily handles refined oil, coal, grain, and mineral oil, supported by good rail/road connectivity and modernized deep berths for large vessels.' },
+            { name: 'Port of Xiamen (CNXMN)', coords: [24.4798, 118.0894], type: 'Primary Port', description: 'A major deep-sea port in Southeast China, Xiamen can handle mega vessels and became a larger global hub after merging with Zhangzhou. With 74 berths across 12 zones and advanced technology, it serves major global routes across Europe, the Americas, and Africa, handling both cargo and passenger ferry services.' },
         ]
     }
 };
@@ -112,13 +136,13 @@ const PortMap = () => {
             <MapContainer
                 center={regions[activeRegion].center}
                 zoom={regions[activeRegion].zoom}
-                className="h-full w-full grayscale-0 contrast-[1.05] brightness-[1.02]"
+                className="h-full w-full"
                 zoomControl={false}
                 scrollWheelZoom={false}
             >
                 <ChangeView center={regions[activeRegion].center} zoom={regions[activeRegion].zoom} />
                 <TileLayer
-                    url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                    url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     className="map-tiles"
                 />
@@ -137,7 +161,7 @@ const PortMap = () => {
 
             {/* In-Map Region Selector */}
             <div className="absolute top-6 left-6 z-[1000] flex flex-col gap-2">
-                <div className="bg-white/95 backdrop-blur-md p-2 rounded-2xl shadow-xl border border-white/50 flex flex-col gap-1.5">
+                <div className="bg-white/95 backdrop-blur-md p-2 rounded-2xl shadow-xl border border-blue-900/10 flex flex-col gap-1.5">
                     {Object.entries(regions).map(([key, region]) => (
                         <button
                             key={key}
@@ -147,7 +171,7 @@ const PortMap = () => {
                             }}
                             className={`px-5 py-3 rounded-xl font-lato font-bold text-xs transition-all duration-300 text-left min-w-[160px] ${activeRegion === key
                                 ? 'bg-[#FF6600] text-white shadow-lg translate-x-1'
-                                : 'text-gray-500 hover:bg-gray-50 hover:text-[#000040]'
+                                : 'text-[#000040]/70 hover:bg-gray-50 hover:text-[#000040]'
                                 }`}
                         >
                             {region.name}
@@ -210,16 +234,6 @@ const PortMap = () => {
                             )}
                         </div>
 
-                        <div className="mt-10 pt-8 border-t border-gray-100 grid grid-cols-2 gap-6">
-                            <div>
-                                <h4 className="font-lato text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-1">Visibility</h4>
-                                <p className="text-[#000040] font-lato font-bold text-[10px] uppercase">Full Live Tracking</p>
-                            </div>
-                            <div>
-                                <h4 className="font-lato text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-1">Type</h4>
-                                <p className="text-[#000040] font-lato font-bold text-[10px] uppercase">Direct Service</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             )}
@@ -233,11 +247,7 @@ const PortMap = () => {
                     100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; }
                 }
                 .leaflet-container {
-                    background-color: #f8f9fa !important;
-                }
-                .leaflet-tile-container {
-                    filter: grayscale(1) invert(0.05) contrast(0.9);
-                    opacity: 0.8 !important;
+                    background-color: #f0f4f8 !important;
                 }
             `}} />
         </div>

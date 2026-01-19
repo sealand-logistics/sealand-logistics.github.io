@@ -31,6 +31,7 @@ body {
 .italic {
     font-family: 'Playfair Display', serif !important;
     font-weight: 700 !important;
+    font-style: italic !important;
 }
 
 /* Global Heading Sizes */
@@ -48,4 +49,16 @@ h2 {
 /* Global H2 Color */
 h2 {
     color: #000040;
+}
+
+/* Ensure all interactive elements have a pointer cursor */
+button,
+a,
+select,
+input[type="submit"],
+input[type="button"],
+input[type="checkbox"],
+input[type="radio"],
+[role="button"] {
+    cursor: pointer !important;
 }

@@ -88,11 +88,72 @@ const Contact = () => {
                                     </svg>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
+
+            {/* Other Locations Section */}
+            <div className="container mx-auto px-[15px] md:px-[60px] pb-16 md:pb-20">
+                <h2 className="text-lg md:text-xl font-lato font-bold text-[#000040] mb-6">
+                    Other locations are :
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {/* Mumbai */}
+                    <div className="flex items-center justify-between p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                        <div className="space-y-1">
+                            <p className="text-gray-500 font-lato text-xs font-medium uppercase tracking-wider">Mumbai Office</p>
+                            <p className="text-[#000040] font-lato font-semibold text-xs leading-relaxed">Vaswani Chambers, Dr Annie Besant Rd, Worli, Mumbai 400025</p>
+                        </div>
+                        <div className="w-10 h-10 rounded-full bg-[#00008B] flex items-center justify-center text-white shrink-0 ml-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                                <path fillRule="evenodd" d="M3 2.25a.75.75 0 0 1 .75.75v.54l1.838-.46a9.75 9.75 0 0 1 6.725.738l.108.054a8.25 8.25 0 0 0 5.58.652l3.109-.732a.75.75 0 0 1 .917.81 47.784 47.784 0 0 0 .005 10.337.75.75 0 0 1-.574.812l-3.114.733a9.75 9.75 0 0 1-6.594-.158l-.108-.054a8.25 8.25 0 0 0-5.69-.625l-2.202.55V21a.75.75 0 0 1-1.5 0V3A.75.75 0 0 1 3 2.25Z" clipRule="evenodd" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    {/* Chennai */}
+                    <div className="flex items-center justify-between p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                        <div className="space-y-1">
+                            <p className="text-gray-500 font-lato text-xs font-medium uppercase tracking-wider">Chennai Office</p>
+                            <p className="text-[#000040] font-lato font-semibold text-xs leading-relaxed">Mount Chambers, No: 758A, Anna Salai, Chennai – 600 002</p>
+                        </div>
+                        <div className="w-10 h-10 rounded-full bg-[#00008B] flex items-center justify-center text-white shrink-0 ml-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                                <path fillRule="evenodd" d="M3 2.25a.75.75 0 0 1 .75.75v.54l1.838-.46a9.75 9.75 0 0 1 6.725.738l.108.054a8.25 8.25 0 0 0 5.58.652l3.109-.732a.75.75 0 0 1 .917.81 47.784 47.784 0 0 0 .005 10.337.75.75 0 0 1-.574.812l-3.114.733a9.75 9.75 0 0 1-6.594-.158l-.108-.054a8.25 8.25 0 0 0-5.69-.625l-2.202.55V21a.75.75 0 0 1-1.5 0V3A.75.75 0 0 1 3 2.25Z" clipRule="evenodd" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    {/* Hyderabad */}
+                    <div className="flex items-center justify-between p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                        <div className="space-y-1">
+                            <p className="text-gray-500 font-lato text-xs font-medium uppercase tracking-wider">Hyderabad Office</p>
+                            <p className="text-[#000040] font-lato font-semibold text-xs leading-relaxed">6th Floor, N Heights, Plot No 38, Phase 2 Hitec City, Hyderabad</p>
+                        </div>
+                        <div className="w-10 h-10 rounded-full bg-[#00008B] flex items-center justify-center text-white shrink-0 ml-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                                <path fillRule="evenodd" d="M3 2.25a.75.75 0 0 1 .75.75v.54l1.838-.46a9.75 9.75 0 0 1 6.725.738l.108.054a8.25 8.25 0 0 0 5.58.652l3.109-.732a.75.75 0 0 1 .917.81 47.784 47.784 0 0 0 .005 10.337.75.75 0 0 1-.574.812l-3.114.733a9.75 9.75 0 0 1-6.594-.158l-.108-.054a8.25 8.25 0 0 0-5.69-.625l-2.202.55V21a.75.75 0 0 1-1.5 0V3A.75.75 0 0 1 3 2.25Z" clipRule="evenodd" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    {/* Delhi & NCR */}
+                    <div className="flex items-center justify-between p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                        <div className="space-y-1">
+                            <p className="text-gray-500 font-lato text-xs font-medium uppercase tracking-wider">Delhi & NCR Office</p>
+                            <p className="text-[#000040] font-lato font-semibold text-xs leading-relaxed">07th Floor, Ambience Island, NH 48, Gurugram, 122002</p>
+                        </div>
+                        <div className="w-10 h-10 rounded-full bg-[#00008B] flex items-center justify-center text-white shrink-0 ml-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                                <path fillRule="evenodd" d="M3 2.25a.75.75 0 0 1 .75.75v.54l1.838-.46a9.75 9.75 0 0 1 6.725.738l.108.054a8.25 8.25 0 0 0 5.58.652l3.109-.732a.75.75 0 0 1 .917.81 47.784 47.784 0 0 0 .005 10.337.75.75 0 0 1-.574.812l-3.114.733a9.75 9.75 0 0 1-6.594-.158l-.108-.054a8.25 8.25 0 0 0-5.69-.625l-2.202.55V21a.75.75 0 0 1-1.5 0V3A.75.75 0 0 1 3 2.25Z" clipRule="evenodd" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             {/* Sea Port Services Map Section */}
             <div className="container mx-auto px-[15px] md:px-[60px] pb-16 md:pb-20">

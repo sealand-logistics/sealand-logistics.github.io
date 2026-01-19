@@ -1,6 +1,7 @@
 import AboutBG from '../assets/AboutBG.png';
 import VisionImg from '../assets/OurVison.png'; // Note: filename has typo
 import MissionImg from '../assets/OurMission.png';
+import LeadershipSection from '../components/LeadershipSection';
 
 const AboutUs = () => {
     return (
@@ -78,7 +79,7 @@ const AboutUs = () => {
                     </div>
 
                     {/* Mission Section */}
-                    <div className="flex flex-col md:flex-row-reverse items-center gap-12">
+                    <div className="flex flex-col md:flex-row-reverse items-center gap-12 mb-24">
                         <div className="w-full md:w-1/2">
                             <img
                                 src={MissionImg}
@@ -98,6 +99,9 @@ const AboutUs = () => {
                             </p>
                         </div>
                     </div>
+
+                    {/* Leadership Section */}
+                    <LeadershipSection />
 
                 </div>
             </div>

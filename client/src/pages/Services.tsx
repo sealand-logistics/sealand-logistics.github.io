@@ -84,7 +84,7 @@ const Services = () => {
         <div
           className="absolute top-2 left-[10px] right-[10px] bottom-0 bg-cover bg-center flex items-center justify-center"
           style={{
-            backgroundImage: `url(${ServicesBG})`,
+            backgroundImage: `linear-gradient(rgba(0, 0, 64, 0.7), rgba(0, 0, 139, 0.5)), url(${ServicesBG})`,
           }}
         >
           <h1 className="text-[32px] md:text-7xl font-playfair font-bold text-white italic drop-shadow-md text-center">

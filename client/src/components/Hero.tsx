@@ -1,7 +1,10 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import HeroImage from '../assets/Hero_Image.png';
+import QuotePopup from './QuotePopup';
 
 const Hero = () => {
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
     return (
         <div className="relative h-[800px] w-full overflow-hidden">
             {/* Background Image */}
@@ -28,18 +31,20 @@ const Hero = () => {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link
-                            to="/contact"
+                        <button
+                            onClick={() => setIsPopupOpen(true)}
                             className="px-8 py-3 bg-[#fd7e14] hover:bg-[#e36d0d] text-white font-lato font-bold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg inline-block"
                         >
                             Get a Quote
-                        </Link>
+                        </button>
                         <button className="px-8 py-3 bg-transparent border-2 border-white/30 hover:bg-white/10 text-white font-lato font-medium rounded-full transition-all duration-300 backdrop-blur-sm">
                             Speak to an Expert
                         </button>
                     </div>
                 </div>
             </div>
+
+            <QuotePopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
         </div>
     );
 };

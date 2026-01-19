@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import CTASection from './components/CTASection';
 import Footer from './components/Footer';
@@ -14,7 +14,7 @@ import Contact from './pages/Contact';
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter basename="/sealand-frontend">
       <div className="min-h-screen bg-gray-50 font-lato relative flex flex-col">
         <Navigation />
         <main className="flex-1">
@@ -33,7 +33,7 @@ function App() {
         <CTASection />
         <Footer />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

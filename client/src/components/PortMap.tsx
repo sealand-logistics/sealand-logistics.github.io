@@ -3,19 +3,17 @@ import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-// Hexagon SVG Icons
-const createHexIcon = (color: string, size: number = 24, isActive: boolean = false) => {
+// Custom Dot Icon using SVG
+const createDotIcon = (color: string, size: number = 16, isActive: boolean = false) => {
     return L.divIcon({
-        className: 'custom-hex-icon',
+        className: 'custom-dot-icon',
         html: `
             <div style="position: relative; width: ${size}px; height: ${size}px;">
                 ${isActive ? `
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: ${size * 2.5}px; height: ${size * 2.5}px; background: rgba(255, 102, 0, 0.2); border-radius: 50%; animation: pulse 2s infinite;"></div>
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: ${size * 1.8}px; height: ${size * 1.8}px; background: rgba(255, 102, 0, 0.15); clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);"></div>
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: ${size * 3}px; height: ${size * 3}px; background: rgba(255, 102, 0, 0.25); border-radius: 50%; animation: pulse 2s infinite;"></div>
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: ${size * 2}px; height: ${size * 2}px; background: rgba(255, 102, 0, 0.15); border-radius: 50%;"></div>
                 ` : ''}
-                <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: relative; z-index: 10;">
-                    <path d="M12 2L20.6603 7V17L12 22L3.33975 17V7L12 2Z" fill="${color}" fill-opacity="${isActive ? '1' : '0.8'}"/>
-                </svg>
+                <div style="width: ${size}px; height: ${size}px; background: ${color}; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: relative; z-index: 10;"></div>
             </div>
         `,
         iconSize: [size, size],
@@ -23,8 +21,8 @@ const createHexIcon = (color: string, size: number = 24, isActive: boolean = fal
     });
 };
 
-// Larger Orange Icon for global/default view
-const orangeIcon = createHexIcon('#FF6600', 22, true);
+const defaultOrangeIcon = createDotIcon('#FF6600', 16, false);
+const activeOrangeIcon = createDotIcon('#FF6600', 18, true);
 
 interface PortLocation {
     name: string;
@@ -41,7 +39,6 @@ interface RegionData {
     locations: PortLocation[];
 }
 
-// Regions order matters: 'global' is now first
 const regions: Record<string, RegionData> = {
     'global': {
         name: 'Global Network',
@@ -106,17 +103,16 @@ const ChangeView = ({ center, zoom }: { center: [number, number], zoom: number }
 };
 
 const PortMap = () => {
-    // Default region is now 'global'
     const [activeRegion, setActiveRegion] = useState('global');
     const [selectedLocation, setSelectedLocation] = useState<PortLocation | null>(null);
 
     return (
         <div className="relative w-full h-[600px] md:h-[650px] rounded-3xl overflow-hidden border border-gray-100 group z-0">
-            {/* Map Container - Shadow removed */}
+            {/* Map Container */}
             <MapContainer
                 center={regions[activeRegion].center}
                 zoom={regions[activeRegion].zoom}
-                className="h-full w-full grayscale-[0.85] contrast-[1.15] brightness-[1.02]"
+                className="h-full w-full grayscale-0 contrast-[1.05] brightness-[1.02]"
                 zoomControl={false}
                 scrollWheelZoom={false}
             >
@@ -124,13 +120,14 @@ const PortMap = () => {
                 <TileLayer
                     url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    className="map-tiles"
                 />
 
                 {regions[activeRegion].locations.map((loc, idx) => (
                     <Marker
                         key={`${activeRegion}-${idx}`}
                         position={loc.coords}
-                        icon={orangeIcon}
+                        icon={selectedLocation?.name === loc.name ? activeOrangeIcon : defaultOrangeIcon}
                         eventHandlers={{
                             click: () => setSelectedLocation(loc),
                         }}
@@ -149,8 +146,8 @@ const PortMap = () => {
                                 setSelectedLocation(null);
                             }}
                             className={`px-5 py-3 rounded-xl font-lato font-bold text-xs transition-all duration-300 text-left min-w-[160px] ${activeRegion === key
-                                    ? 'bg-[#FF6600] text-white shadow-lg translate-x-1'
-                                    : 'text-gray-500 hover:bg-gray-50 hover:text-[#000040]'
+                                ? 'bg-[#FF6600] text-white shadow-lg translate-x-1'
+                                : 'text-gray-500 hover:bg-gray-50 hover:text-[#000040]'
                                 }`}
                         >
                             {region.name}
@@ -216,11 +213,11 @@ const PortMap = () => {
                         <div className="mt-10 pt-8 border-t border-gray-100 grid grid-cols-2 gap-6">
                             <div>
                                 <h4 className="font-lato text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-1">Visibility</h4>
-                                <p className="text-[#000040] font-lato font-bold text-xs uppercase">Full Live Tracking</p>
+                                <p className="text-[#000040] font-lato font-bold text-[10px] uppercase">Full Live Tracking</p>
                             </div>
                             <div>
                                 <h4 className="font-lato text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-1">Type</h4>
-                                <p className="text-[#000040] font-lato font-bold text-xs uppercase">Direct Service</p>
+                                <p className="text-[#000040] font-lato font-bold text-[10px] uppercase">Direct Service</p>
                             </div>
                         </div>
                     </div>
@@ -232,11 +229,15 @@ const PortMap = () => {
                 __html: `
                 @keyframes pulse {
                     0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; }
-                    50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.4; }
+                    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.4; }
                     100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; }
                 }
                 .leaflet-container {
-                    background-color: #f7f8f9 !important;
+                    background-color: #f8f9fa !important;
+                }
+                .leaflet-tile-container {
+                    filter: grayscale(1) invert(0.05) contrast(0.9);
+                    opacity: 0.8 !important;
                 }
             `}} />
         </div>

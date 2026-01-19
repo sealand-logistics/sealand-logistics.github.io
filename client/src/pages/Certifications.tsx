@@ -23,7 +23,7 @@ const Certifications = () => {
                 If we need global consistency with margins, we might wrap it, but Services page 
                 uses ServicesSection directly (after moving it out). 
             */}
-            <CertificationsSection />
+            <CertificationsSection showTitle={false} />
         </div>
     );
 };

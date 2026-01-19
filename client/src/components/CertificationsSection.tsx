@@ -12,9 +12,10 @@ import Cert10 from '../assets/Certifications/10.png';
 
 interface CertificationsSectionProps {
     limit?: boolean;
+    showTitle?: boolean;
 }
 
-const CertificationsSection = ({ limit = false }: CertificationsSectionProps) => {
+const CertificationsSection = ({ limit = false, showTitle = true }: CertificationsSectionProps) => {
     const sectionRef = useRef<HTMLElement>(null);
     const [isVisible, setIsVisible] = useState(false);
 
@@ -55,14 +56,16 @@ const CertificationsSection = ({ limit = false }: CertificationsSectionProps) =>
     return (
         <section ref={sectionRef} className="py-20 bg-gray-50">
             <div className="container mx-auto px-4">
-                <div
-                    className={`text-center mb-12 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                        }`}
-                >
-                    <h2 className="text-[32px] md:text-5xl font-playfair font-bold text-[#000040] mb-4 text-center md:text-left">
-                        Our <span className="font-playfair font-bold italic text-blue-900">Certifications</span>
-                    </h2>
-                </div>
+                {showTitle && (
+                    <div
+                        className={`text-center mb-12 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                            }`}
+                    >
+                        <h2 className="text-[32px] md:text-5xl font-playfair font-bold text-[#000040] mb-4 text-center md:text-left">
+                            Our <span className="font-playfair font-bold italic text-blue-900">Certifications</span>
+                        </h2>
+                    </div>
+                )}
 
                 <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
                     {certifications.map((cert, index) => (

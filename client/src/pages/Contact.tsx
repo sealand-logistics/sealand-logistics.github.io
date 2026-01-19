@@ -96,7 +96,7 @@ const Contact = () => {
 
             {/* Sea Port Services Map Section */}
             <div className="container mx-auto px-[15px] md:px-[60px] pb-16 md:pb-20">
-                <h2 className="text-[32px] md:text-4xl font-playfair font-bold text-[#000040] mb-8 text-center lg:text-left">
+                <h2 className="text-[32px] md:text-5xl font-playfair font-bold italic text-[#000040] mb-10 text-center lg:text-left">
                     Sea Port Services
                 </h2>
                 <PortMap />

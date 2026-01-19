@@ -10,11 +10,11 @@ const createHexIcon = (color: string, size: number = 24, isActive: boolean = fal
         html: `
             <div style="position: relative; width: ${size}px; height: ${size}px;">
                 ${isActive ? `
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: ${size * 2.5}px; height: ${size * 2.5}px; background: rgba(255, 102, 0, 0.15); border-radius: 50%; animation: pulse 2s infinite;"></div>
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: ${size * 1.8}px; height: ${size * 1.8}px; background: rgba(255, 102, 0, 0.1); clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);"></div>
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: ${size * 2.5}px; height: ${size * 2.5}px; background: rgba(255, 102, 0, 0.2); border-radius: 50%; animation: pulse 2s infinite;"></div>
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: ${size * 1.8}px; height: ${size * 1.8}px; background: rgba(255, 102, 0, 0.15); clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);"></div>
                 ` : ''}
                 <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: relative; z-index: 10;">
-                    <path d="M12 2L20.6603 7V17L12 22L3.33975 17V7L12 2Z" fill="${color}" fill-opacity="${isActive ? '1' : '0.6'}"/>
+                    <path d="M12 2L20.6603 7V17L12 22L3.33975 17V7L12 2Z" fill="${color}" fill-opacity="${isActive ? '1' : '0.8'}"/>
                 </svg>
             </div>
         `,
@@ -23,14 +23,14 @@ const createHexIcon = (color: string, size: number = 24, isActive: boolean = fal
     });
 };
 
-const greyIcon = createHexIcon('#4A4A4A', 16);
-const orangeIcon = createHexIcon('#FF6600', 20, true);
+// Larger Orange Icon for global/default view
+const orangeIcon = createHexIcon('#FF6600', 22, true);
 
 interface PortLocation {
     name: string;
     coords: [number, number];
     type: string;
-    details?: string;
+    description?: string;
     route?: string[];
 }
 
@@ -41,23 +41,36 @@ interface RegionData {
     locations: PortLocation[];
 }
 
+// Regions order matters: 'global' is now first
 const regions: Record<string, RegionData> = {
+    'global': {
+        name: 'Global Network',
+        center: [20.0, 0.0],
+        zoom: 2,
+        locations: [
+            { name: 'China Network', coords: [35.0, 105.0], type: 'Regional Hub', description: 'Comprehensive port services across 10 major Chinese maritime gateways.' },
+            { name: 'SE Asia Hub', coords: [1.3521, 103.8198], type: 'Strategic Hub', description: 'Connectivity focal point for ASEAN trade corridors and transshipment.' },
+            { name: 'UK & Europe', coords: [51.5074, -0.1278], type: 'Regional Hub', description: 'Advanced logistics coordination for EU and UK industrial sectors.' },
+            { name: 'North America', coords: [40.7128, -74.0060], type: 'Regional Hub', description: 'Specialized cargo handling and project logistics across US and Canada.' },
+            { name: 'South Korea', coords: [37.5665, 126.9780], type: 'Network Office', description: 'Far East operations serving high-tech and industrial manufacturing.' },
+            { name: 'Japan', coords: [35.6762, 139.6503], type: 'Network Office', description: 'Strategic logistics support for Japan\'s global trade networks.' },
+            { name: 'Latin America', coords: [19.4326, -99.1332], type: 'Strategic Hub', description: 'Emerging gateway for Mexico and Latin American market sectors.' },
+            { name: 'East Africa', coords: [-1.2921, 36.8219], type: 'Network Office', description: 'Serving the growing logistics needs of Kenya, Tanzania, and Ethiopia.' },
+            { name: 'Australia & NZ', coords: [-33.8688, 151.2093], type: 'Strategic Hub', description: 'Regional logistics hub for Oceania trade lanes.' },
+        ]
+    },
     'india-sea': {
         name: 'Indian Sea Ports',
         center: [20.5937, 78.9629],
         zoom: 5,
         locations: [
-            { name: 'Kolkata', coords: [22.5726, 88.3639], type: 'East Coast', details: 'Primary gateway for Eastern India and neighboring landlocked countries.', route: ['Kolkata, India', 'Global Network'] },
-            { name: 'Haldia', coords: [22.0645, 88.0772], type: 'East Coast', details: 'Major industrial port handling bulk, liquid, and containerized cargo.', route: ['Haldia, India', 'SE Asian Hubs'] },
-            { name: 'Paradeep', coords: [20.2706, 86.6664], type: 'East Coast', details: 'Deepwater port specializing in iron ore and coal handling.' },
-            { name: 'Visakhapatnam', coords: [17.6868, 83.2185], type: 'East Coast', details: 'One of the largest ports on the East Coast with advanced terminal facilities.' },
-            { name: 'Gangavaram', coords: [17.6253, 83.2427], type: 'East Coast', details: 'Private deep-water port with modern infrastructure for heavy cargo.' },
-            { name: 'Chennai', coords: [13.0827, 80.2707], type: 'East Coast', details: 'Major hub for automotive and engineering cargo in South India.' },
-            { name: 'Ennore', coords: [13.2505, 80.3344], type: 'East Coast', details: 'Energy and bulk cargo focused port near Chennai.' },
-            { name: 'Tuticorin', coords: [8.7642, 78.1348], type: 'East Coast', details: 'Strategically located for South Indian and coastal trade routes.' },
-            { name: 'Nhava Sheva', coords: [18.9497, 72.9482], type: 'West Coast', details: 'India\'s largest container port, handling over 50% of the country\'s throughput.' },
-            { name: 'Mundra', coords: [22.8256, 69.7431], type: 'West Coast', details: 'Largest private port in India with state-of-the-art logistics infrastructure.' },
-            { name: 'ICD TKD, Delhi', coords: [28.5085, 77.2917], type: 'North Zone', details: 'Largest Inland Container Depot in India, serving the NCR region.' },
+            { name: 'Kolkata', coords: [22.5726, 88.3639], type: 'East Coast Port', description: 'Primary gateway for Eastern India and neighboring landlocked countries.', route: ['Kolkata, India', 'International Transshipment'] },
+            { name: 'Haldia', coords: [22.0645, 88.0772], type: 'East Coast Port', description: 'Modern industrial complex handling bulk, liquid, and project cargo.' },
+            { name: 'Nhava Sheva', coords: [18.9497, 72.9482], type: 'West Coast Port', description: 'India\'s largest container gateway, handling over 50% of the country\'s total throughput.' },
+            { name: 'Mundra', coords: [22.8256, 69.7431], type: 'West Coast Port', description: 'Largest private port in India with state-of-the-art terminal facilities.' },
+            { name: 'Visakhapatnam', coords: [17.6868, 83.2185], type: 'East Coast Port', description: 'Diversified port with specialized terminals for iron ore and minerals.' },
+            { name: 'Chennai', coords: [13.0827, 80.2707], type: 'East Coast Port', description: 'Major maritime hub for automotive and engineering exports.' },
+            { name: 'Tuticorin', coords: [8.7642, 78.1348], type: 'South Zone Port', description: 'Strategically located for coastal and SE Asian maritime trade.' },
         ]
     },
     'india-land': {
@@ -65,9 +78,9 @@ const regions: Record<string, RegionData> = {
         center: [25.0, 88.0],
         zoom: 6,
         locations: [
-            { name: 'Petrapole – Benapole', coords: [23.1, 88.8], type: 'Land Port (Bangladesh)', details: 'Largest land border crossing between India and Bangladesh.' },
-            { name: 'Raxaul – Birgunj', coords: [26.98, 84.85], type: 'Land Port (Nepal)', details: 'Critical life-line for Nepal\'s international trade via India.' },
-            { name: 'Jaigaon – Phuntsholing', coords: [26.85, 89.38], type: 'Land Port (Bhutan)', details: 'Primary gateway for trade between India and the Kingdom of Bhutan.' },
+            { name: 'Petrapole – Benapole', coords: [23.1, 88.8], type: 'Land Port (Bangladesh)', description: 'Crucial cross-border trade link between India and Bangladesh.' },
+            { name: 'Raxaul – Birgunj', coords: [26.98, 84.85], type: 'Land Port (Nepal)', description: 'Primary trading gateway serving Nepal\'s international cargo needs.' },
+            { name: 'Jaigaon – Phuntsholing', coords: [26.85, 89.38], type: 'Land Port (Bhutan)', description: 'The main economic artery connecting the Kingdom of Bhutan with India.' },
         ]
     },
     'china': {
@@ -75,22 +88,11 @@ const regions: Record<string, RegionData> = {
         center: [35.0, 115.0],
         zoom: 4,
         locations: [
-            { name: 'Shanghai', coords: [31.2304, 121.4737], type: 'Port', details: 'The world\'s busiest container port and global financial hub.' },
-            { name: 'Shenzhen', coords: [22.5431, 114.0579], type: 'Port', details: 'Southern gateway to China\'s manufacturing heartland.' },
-            { name: 'Ningbo-Zhoushan', coords: [29.8683, 121.5440], type: 'Port', details: 'World-class deep-water port with massive handling capacity.' },
-            { name: 'Qingdao', coords: [36.0671, 120.3826], type: 'Port', details: 'Major logistics hub for Northern China and the Yellow Sea.' },
-            { name: 'Guangzhou', coords: [23.1291, 113.2644], type: 'Port', details: 'Key inland port serving the Pearl River Delta economy.' },
-        ]
-    },
-    'global': {
-        name: 'Global Network',
-        center: [20.0, 0.0],
-        zoom: 2,
-        locations: [
-            { name: 'UK Network', coords: [51.5074, -0.1278], type: 'Network Office', details: 'European coordination hub for sea and air freight operations.' },
-            { name: 'US Logistics', coords: [40.7128, -74.0060], type: 'Network Office', details: 'North American operations center for project and special cargo.' },
-            { name: 'ASEAN Hub', coords: [1.3521, 103.8198], type: 'Network Office', details: 'Strategic coordination point for South East Asian logistics corridors.' },
-            { name: 'South Korea', coords: [37.5665, 126.9780], type: 'Network Office', details: 'Far East operations serving specialized industry sectors.' },
+            { name: 'Shanghai', coords: [31.2304, 121.4737], type: 'Primary Port', description: 'The world\'s busiest container port and a global logistics powerhouse.' },
+            { name: 'Ningbo-Zhoushan', coords: [29.8683, 121.5440], type: 'Deepwater Port', description: 'World-class maritime hub serving the Yangtze River Delta.' },
+            { name: 'Shenzhen', coords: [22.5431, 114.0579], type: 'South China Gateway', description: 'Strategic hub for manufacturing exports from the Pearl River Delta.' },
+            { name: 'Qingdao', coords: [36.0671, 120.3826], type: 'Northern Gateway', description: 'Major port for heavy industry and mineral imports in North China.' },
+            { name: 'Guangzhou', coords: [23.1291, 113.2644], type: 'River-Sea Port', description: 'Historic trade hub connecting inland China to global maritime routes.' },
         ]
     }
 };
@@ -98,25 +100,23 @@ const regions: Record<string, RegionData> = {
 const ChangeView = ({ center, zoom }: { center: [number, number], zoom: number }) => {
     const map = useMap();
     useEffect(() => {
-        map.setView(center, zoom, { animate: true, duration: 1.5 });
+        map.setView(center, zoom, { animate: true, duration: 2 });
     }, [center, zoom, map]);
     return null;
 };
 
 const PortMap = () => {
-    const [activeRegion, setActiveRegion] = useState('india-sea');
+    // Default region is now 'global'
+    const [activeRegion, setActiveRegion] = useState('global');
     const [selectedLocation, setSelectedLocation] = useState<PortLocation | null>(null);
 
-    // Filter locations to match the user's provided list precisely
-    const activeLocations = regions[activeRegion].locations;
-
     return (
-        <div className="relative w-full h-[600px] md:h-[700px] rounded-3xl overflow-hidden border border-gray-100 shadow-2xl group z-0">
-            {/* Map Background */}
+        <div className="relative w-full h-[600px] md:h-[650px] rounded-3xl overflow-hidden border border-gray-100 group z-0">
+            {/* Map Container - Shadow removed */}
             <MapContainer
                 center={regions[activeRegion].center}
                 zoom={regions[activeRegion].zoom}
-                className="h-full w-full grayscale-[0.8] contrast-[1.1] brightness-[1.05]"
+                className="h-full w-full grayscale-[0.85] contrast-[1.15] brightness-[1.02]"
                 zoomControl={false}
                 scrollWheelZoom={false}
             >
@@ -126,11 +126,11 @@ const PortMap = () => {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 />
 
-                {activeLocations.map((loc, idx) => (
+                {regions[activeRegion].locations.map((loc, idx) => (
                     <Marker
                         key={`${activeRegion}-${idx}`}
                         position={loc.coords}
-                        icon={selectedLocation?.name === loc.name ? orangeIcon : greyIcon}
+                        icon={orangeIcon}
                         eventHandlers={{
                             click: () => setSelectedLocation(loc),
                         }}
@@ -140,7 +140,7 @@ const PortMap = () => {
 
             {/* In-Map Region Selector */}
             <div className="absolute top-6 left-6 z-[1000] flex flex-col gap-2">
-                <div className="bg-white/90 backdrop-blur-md p-1.5 rounded-2xl shadow-xl border border-white/50 flex flex-col gap-1">
+                <div className="bg-white/95 backdrop-blur-md p-2 rounded-2xl shadow-xl border border-white/50 flex flex-col gap-1.5">
                     {Object.entries(regions).map(([key, region]) => (
                         <button
                             key={key}
@@ -148,8 +148,8 @@ const PortMap = () => {
                                 setActiveRegion(key);
                                 setSelectedLocation(null);
                             }}
-                            className={`px-4 py-2.5 rounded-xl font-lato font-bold text-xs transition-all duration-300 text-left ${activeRegion === key
-                                    ? 'bg-[#FF6600] text-white shadow-lg scale-[1.02]'
+                            className={`px-5 py-3 rounded-xl font-lato font-bold text-xs transition-all duration-300 text-left min-w-[160px] ${activeRegion === key
+                                    ? 'bg-[#FF6600] text-white shadow-lg translate-x-1'
                                     : 'text-gray-500 hover:bg-gray-50 hover:text-[#000040]'
                                 }`}
                         >
@@ -161,62 +161,66 @@ const PortMap = () => {
 
             {/* Floating Info Panel */}
             {selectedLocation && (
-                <div className="absolute top-6 right-6 bottom-6 w-[320px] md:w-[380px] z-[1000] animate-in fade-in slide-in-from-right-8 duration-500">
-                    <div className="bg-white/95 backdrop-blur-md h-full rounded-3xl shadow-2xl border border-white/50 p-8 flex flex-col pointer-events-auto overflow-y-auto">
+                <div className="absolute top-6 right-6 bottom-6 w-[320px] md:w-[360px] z-[1000] animate-in fade-in slide-in-from-right-8 duration-500">
+                    <div className="bg-white/98 backdrop-blur-md h-full rounded-3xl shadow-2xl border border-white/50 p-8 flex flex-col pointer-events-auto overflow-y-auto">
                         <button
                             onClick={() => setSelectedLocation(null)}
-                            className="absolute top-6 right-6 text-gray-400 hover:text-gray-600 transition-colors"
+                            className="absolute top-6 right-6 text-gray-400 hover:text-[#FF6600] transition-colors p-2"
                         >
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                                 <line x1="18" y1="6" x2="6" y2="18"></line>
                                 <line x1="6" y1="6" x2="18" y2="18"></line>
                             </svg>
                         </button>
 
-                        <div className="mt-4">
-                            <h3 className="text-[#FF6600] font-playfair font-bold text-2xl md:text-3xl leading-tight">
+                        <div className="mt-6">
+                            <h3 className="text-[#FF6600] font-playfair font-bold text-3xl md:text-4xl leading-tight">
                                 {selectedLocation.name}
                             </h3>
-                            <p className="font-lato text-gray-500 text-sm mt-2 font-medium tracking-wide uppercase">
-                                {selectedLocation.type}
-                            </p>
+                            <div className="flex items-center gap-2 mt-3">
+                                <div className="w-2 h-2 rounded-full bg-[#FF6600]"></div>
+                                <p className="font-lato text-gray-500 text-sm font-bold uppercase tracking-wider">
+                                    {selectedLocation.type}
+                                </p>
+                            </div>
                         </div>
 
-                        <div className="mt-10 space-y-8">
+                        <div className="mt-10 space-y-8 flex-grow">
                             <div>
-                                <h4 className="font-lato text-[10px] items-center text-gray-400 font-bold uppercase tracking-[0.2em] mb-3">Description</h4>
-                                <p className="text-gray-600 font-lato text-sm leading-relaxed">
-                                    {selectedLocation.details || 'Advanced logistics operations and strategic multimodal connections serving our global client base.'}
+                                <h4 className="font-lato text-[11px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-3">Service Focus</h4>
+                                <p className="text-[#000040] font-lato text-sm leading-relaxed font-medium">
+                                    {selectedLocation.description || 'Global multimodal connections serving the world\'s most specialized industry sectors with precision logistics.'}
                                 </p>
                             </div>
 
                             {selectedLocation.route && (
                                 <div>
-                                    <h4 className="font-lato text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-3">Major Route</h4>
+                                    <h4 className="font-lato text-[11px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-4">Logistics Corridor</h4>
                                     <div className="flex flex-col gap-4">
-                                        <div className="flex gap-4 items-start">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-[#FF6600] mt-1.5 shrink-0"></div>
-                                            <span className="text-[#000040] font-lato font-bold text-sm tracking-tight">{selectedLocation.route[0]}</span>
+                                        <div className="flex gap-4 items-center">
+                                            <div className="w-2 h-2 rounded-sm border-2 border-[#FF6600] rotate-45 shrink-0"></div>
+                                            <span className="text-[#000040] font-lato font-bold text-sm">{selectedLocation.route[0]}</span>
                                         </div>
-                                        <div className="flex gap-4 items-start">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-gray-300 mt-1.5 shrink-0"></div>
-                                            <span className="text-[#000040] font-lato font-bold text-sm tracking-tight">{selectedLocation.route[1]}</span>
+                                        <div className="flex items-center pl-1">
+                                            <div className="w-px h-6 bg-gray-200 ml-[3px]"></div>
+                                        </div>
+                                        <div className="flex gap-4 items-center">
+                                            <div className="w-2 h-2 rounded-sm border-2 border-gray-300 rotate-45 shrink-0"></div>
+                                            <span className="text-gray-500 font-lato font-bold text-sm italic">{selectedLocation.route[1]}</span>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
+                        </div>
 
-                        <div className="mt-auto pt-10 border-t border-gray-100">
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <h4 className="font-lato text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-1">Status</h4>
-                                    <p className="text-[#000040] font-lato font-bold text-sm">Operational</p>
-                                </div>
-                                <div>
-                                    <h4 className="font-lato text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-1">Type</h4>
-                                    <p className="text-[#000040] font-lato font-bold text-sm">Direct Service</p>
-                                </div>
+                        <div className="mt-10 pt-8 border-t border-gray-100 grid grid-cols-2 gap-6">
+                            <div>
+                                <h4 className="font-lato text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-1">Visibility</h4>
+                                <p className="text-[#000040] font-lato font-bold text-xs uppercase">Full Live Tracking</p>
+                            </div>
+                            <div>
+                                <h4 className="font-lato text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-1">Type</h4>
+                                <p className="text-[#000040] font-lato font-bold text-xs uppercase">Direct Service</p>
                             </div>
                         </div>
                     </div>
@@ -227,12 +231,12 @@ const PortMap = () => {
             <style dangerouslySetInnerHTML={{
                 __html: `
                 @keyframes pulse {
-                    0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.8; }
-                    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.4; }
-                    100% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.8; }
+                    0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; }
+                    50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.4; }
+                    100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; }
                 }
                 .leaflet-container {
-                    background-color: #f8f9fa !important;
+                    background-color: #f7f8f9 !important;
                 }
             `}} />
         </div>

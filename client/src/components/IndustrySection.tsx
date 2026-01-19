@@ -47,11 +47,11 @@ const IndustrySection = () => {
                     {/* Carousel */}
                     <div
                         ref={scrollRef}
-                        className="flex overflow-x-auto gap-8 pb-8 hide-scrollbar scroll-smooth"
+                        className="flex overflow-x-auto gap-8 pb-8 hide-scrollbar scroll-smooth snap-x snap-mandatory"
                         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                     >
                         {industries.map((industry) => (
-                            <div key={industry.id} className="flex-shrink-0 w-[calc(100%-32px)] sm:w-[calc((100%-32px)/2)] md:w-[calc((100%-64px)/3)] lg:w-[calc((100%-96px)/4)] bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                            <div key={industry.id} className="flex-shrink-0 w-full sm:w-[calc((100%-32px)/2)] md:w-[calc((100%-64px)/3)] lg:w-[calc((100%-96px)/4)] bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 snap-center">
                                 <div className="h-[200px] overflow-hidden rounded-t-lg">
                                     <img
                                         src={industry.image}

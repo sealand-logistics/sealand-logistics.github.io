@@ -14,7 +14,7 @@ import Contact from './pages/Contact';
 
 function App() {
   return (
-    <HashRouter basename="/sealand-frontend">
+    <HashRouter>
       <div className="min-h-screen bg-gray-50 font-lato relative flex flex-col">
         <Navigation />
         <main className="flex-1">

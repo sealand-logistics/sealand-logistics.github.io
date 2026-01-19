@@ -2,7 +2,7 @@
   "name": "client",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://sealand-logistics.github.io/sealand-frontend/",
+  "homepage": "https://sealand-logistics.github.io/",
   "type": "module",
   "scripts": {
     "dev": "vite",

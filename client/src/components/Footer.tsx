@@ -75,6 +75,16 @@ const Footer = () => {
                   Careers
                 </Link>
               </li>
+              <li>
+                <Link to="/locations" className="hover:text-gray-100">
+                  Locations
+                </Link>
+              </li>
+              <li>
+                <Link to="/stc" className="hover:text-gray-100">
+                  Terms & Conditions
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -83,12 +93,14 @@ const Footer = () => {
             <h3 className="text-sm font-semibold mb-4 tracking-wide">Services</h3>
             <ul className="space-y-2 text-sm text-gray-200">
               <li>Ocean Freight</li>
-              <li>Air Freight</li>
-              <li>Domestic Trucking (FTL)</li>
+              <li>Domestic Trucking (FTL) – Pan India</li>
+              <li>OOG, Project Cargo, ODC, Break Bulk</li>
+              <li>Reefer Export & Import Logistics</li>
+              <li>India–Bangladesh land exports & imports</li>
               <li>Customs Clearance</li>
               <li>Port Trailer Transportation</li>
-              <li>Warehousing &amp; Distribution</li>
-              <li>Breakbulk / Heavy Cargo Handling</li>
+              <li>Air Freight</li>
+              <li>Warehousing & Distribution</li>
             </ul>
           </div>
 

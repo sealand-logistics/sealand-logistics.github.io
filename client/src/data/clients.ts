@@ -32,9 +32,21 @@ import Img29 from '../assets/Clients/image 18.png';
 import Img30 from '../assets/Clients/image 19.png';
 
 export const clients = [
-    Img1, Img2, Img3, Img4, Img5, Img6,
-    Img7, Img8, Img9, Img10, Img11, Img12,
-    Img13, Img14, Img15, Img16, Img17, Img18,
-    Img19, Img20, Img21, Img22, Img23, Img24,
-    Img25, Img26, Img27, Img28, Img29, Img30
+    Img5, // image 13
+    Img6, // image 13-1
+    Img8, // image 13-3
+    Img11, // image 14-2
+    Img12, // image 14-3
+    Img14, // image 15
+    Img15, // image 15-1
+    Img16, // image 15-2
+    Img21, // image 16-2
+    Img22, // image 16-3
+    Img23, // image 16-4
+    Img24, // image 17
+    Img25, // image 17-1
+    Img26, // image 17-2
+    Img27, // image 17-3
+    // Remaining logos
+    Img1, Img2, Img3, Img4, Img7, Img9, Img10, Img13, Img17, Img18, Img19, Img20, Img28, Img29, Img30
 ];

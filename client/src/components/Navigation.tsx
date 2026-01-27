@@ -4,7 +4,7 @@ import Logo from '../assets/sealand_logo.png';
 
 const Navigation = () => {
     const location = useLocation();
-    const isTransparentPage = location.pathname === '/' || location.pathname === '/about-us' || location.pathname === '/services' || location.pathname === '/certifications' || location.pathname === '/industries' || location.pathname === '/clients' || location.pathname === '/contact' || location.pathname === '/oog-projects' || location.pathname === '/specializations';
+    const isTransparentPage = location.pathname === '/' || location.pathname === '/about-us' || location.pathname === '/services' || location.pathname === '/certifications' || location.pathname === '/industries' || location.pathname === '/clients' || location.pathname === '/contact' || location.pathname === '/oog-projects' || location.pathname === '/specializations' || location.pathname === '/locations';
     const [isScrolled, setIsScrolled] = useState(false);
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,6 +49,7 @@ const Navigation = () => {
         { name: 'Industries', path: '/industries' },
         { name: 'Clients', path: '/clients' },
         { name: 'Certifications', path: '/certifications' },
+        { name: 'Locations', path: '/locations' },
         { name: 'Contact', path: '/contact' },
     ];
 

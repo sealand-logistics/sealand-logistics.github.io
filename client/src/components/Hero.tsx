@@ -37,9 +37,14 @@ const Hero = () => {
                         >
                             Get a Quote
                         </button>
-                        <button className="px-8 py-3 bg-transparent border-2 border-white/30 hover:bg-white/10 text-white font-lato font-medium rounded-full transition-all duration-300 backdrop-blur-sm">
+                        <a
+                            href="https://wa.me/918013330628"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-8 py-3 bg-transparent border-2 border-white/30 hover:bg-white/10 text-white font-lato font-medium rounded-full transition-all duration-300 backdrop-blur-sm flex items-center justify-center"
+                        >
                             Speak to an Expert
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -13,9 +13,10 @@ import Img11 from '../assets/OOG/11.png';
 import Img12 from '../assets/OOG/12.png';
 
 const OOGSection = () => {
-    // 12 images total, split into 2 rows of 6
-    const row1Images = [Img1, Img2, Img3, Img4, Img5, Img6];
-    const row2Images = [Img7, Img8, Img9, Img10, Img11, Img12];
+    // 12 images total, split into 3 rows of 4
+    const row1Images = [Img1, Img2, Img3, Img4];
+    const row2Images = [Img5, Img6, Img7, Img8];
+    const row3Images = [Img9, Img10, Img11, Img12];
 
     return (
         <section className="py-20 bg-white overflow-hidden">
@@ -53,7 +54,19 @@ const OOGSection = () => {
                         {/* Render twice for seamless loop */}
                         {[...row2Images, ...row2Images].map((src, idx) => (
                             <div key={`r2-${idx}`} className="flex-shrink-0 w-[400px] h-[250px] rounded-xl overflow-hidden shadow-md">
-                                <img src={src} alt={`OOG Project ${idx + 7}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                                <img src={src} alt={`OOG Project ${idx + 5}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Row 3 - Moving Left */}
+                <div className="relative w-full overflow-hidden">
+                    <div className="flex gap-6 whitespace-nowrap animate-marquee">
+                        {/* Render twice for seamless loop */}
+                        {[...row3Images, ...row3Images].map((src, idx) => (
+                            <div key={`r3-${idx}`} className="flex-shrink-0 w-[400px] h-[250px] rounded-xl overflow-hidden shadow-md">
+                                <img src={src} alt={`OOG Project ${idx + 9}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
                             </div>
                         ))}
                     </div>

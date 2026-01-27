@@ -6,8 +6,8 @@ interface ClientsSectionProps {
 }
 
 const ClientsSection = ({ limit = false }: ClientsSectionProps) => {
-    // Show 18 items (3 rows * 6 cols) if limited, otherwise show all
-    const displayClients = limit ? clients.slice(0, 18) : clients;
+    // Show 15 items (3 rows * 5 cols) if limited, otherwise show all
+    const displayClients = limit ? clients.slice(0, 15) : clients;
 
     return (
         <section className="bg-white">
@@ -33,16 +33,16 @@ const ClientsSection = ({ limit = false }: ClientsSectionProps) => {
 
             {/* Logos Grid */}
             <div className="container mx-auto px-[15px] lg:px-[60px] py-12">
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 border-l border-t border-gray-100">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 border-l border-t border-gray-100">
                     {displayClients.map((logo, index) => (
                         <div
                             key={index}
-                            className="flex items-center justify-center p-8 h-40 border-r border-b border-gray-100 transition-shadow duration-300 bg-white"
+                            className="flex items-center justify-center p-8 h-48 border-r border-b border-gray-100 transition-shadow duration-300 bg-white"
                         >
                             <img
                                 src={logo}
                                 alt={`Client ${index + 1}`}
-                                className="max-w-[168px] max-h-[84px] object-contain"
+                                className="max-w-[200px] max-h-[100px] object-contain"
                             />
                         </div>
                     ))}

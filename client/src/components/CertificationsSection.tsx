@@ -61,14 +61,14 @@ const CertificationsSection = ({ limit = false, showTitle = true }: Certificatio
                     {certifications.map((cert, index) => (
                         <div
                             key={cert.id}
-                            className={`bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-700 transform border border-gray-100 w-40 h-28 flex items-center justify-center ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                            className={`bg-white p-6 rounded-xl shadow-sm transition-all duration-700 transform border border-gray-100 w-40 h-28 flex items-center justify-center ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                                 }`}
                             style={{ transitionDelay: `${index * 100}ms` }}
                         >
                             <img
                                 src={cert.src}
                                 alt={cert.alt}
-                                className="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                                className="max-w-full max-h-full object-contain transition-all duration-300"
                             />
                         </div>
                     ))}

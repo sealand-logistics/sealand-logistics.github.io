@@ -1,12 +1,11 @@
 import ContactBG from '../assets/ContactBG.png';
-import PortMap from '../components/PortMap';
 
 
 const Contact = () => {
     return (
         <div className="min-h-screen bg-white">
             {/* Hero Section */}
-            <div className="relative h-[500px] w-full overflow-hidden bg-white">
+            <div className="relative h-[300px] md:h-[500px] w-full overflow-hidden bg-white">
                 <div
                     className="absolute top-2 left-[10px] right-[10px] bottom-0 bg-cover bg-center flex items-center justify-center"
                     style={{
@@ -39,7 +38,7 @@ const Contact = () => {
                             {/* Email Card */}
                             <div className="flex items-center justify-between p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                                 <div className="space-y-1">
-                                    <p className="text-gray-500 font-lato text-sm font-medium">You can email here</p>
+                                    <p className="text-gray-500 font-lato text-sm font-medium">Email</p>
                                     <p className="text-[#000040] font-lato font-semibold text-sm">corporate@sealandlogisticsgroup.com</p>
                                 </div>
                                 <div className="w-12 h-12 rounded-full bg-[#00008B] flex items-center justify-center text-white shrink-0">
@@ -53,7 +52,7 @@ const Contact = () => {
                             {/* Call Card */}
                             <div className="flex items-center justify-between p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                                 <div className="space-y-1">
-                                    <p className="text-gray-500 font-lato text-sm font-medium">Call us on</p>
+                                    <p className="text-gray-500 font-lato text-sm font-medium">Call / Whatsapp</p>
                                     <p className="text-[#000040] font-lato font-semibold text-sm">+91 8013330628 / +91 9830789141</p>
                                 </div>
                                 <div className="w-12 h-12 rounded-full bg-[#00008B] flex items-center justify-center text-white shrink-0">
@@ -96,14 +95,11 @@ const Contact = () => {
 
             {/* Other Locations Section */}
             <div className="container mx-auto px-[15px] md:px-[60px] pb-16 md:pb-20">
-                <h2 className="text-lg md:text-xl font-lato font-bold text-[#000040] mb-6">
-                    Other locations are :
-                </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {/* Mumbai */}
                     <div className="flex items-center justify-between p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                         <div className="space-y-1">
-                            <p className="text-gray-500 font-lato text-xs font-medium uppercase tracking-wider">Mumbai Office</p>
+                            <p className="text-gray-500 font-lato text-xs font-medium uppercase tracking-wider">Mumbai</p>
                             <p className="text-[#000040] font-lato font-semibold text-xs leading-relaxed">Vaswani Chambers, Dr Annie Besant Rd, Worli, Mumbai 400025</p>
                         </div>
                         <div className="w-10 h-10 rounded-full bg-[#00008B] flex items-center justify-center text-white shrink-0 ml-2">
@@ -116,7 +112,7 @@ const Contact = () => {
                     {/* Chennai */}
                     <div className="flex items-center justify-between p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                         <div className="space-y-1">
-                            <p className="text-gray-500 font-lato text-xs font-medium uppercase tracking-wider">Chennai Office</p>
+                            <p className="text-gray-500 font-lato text-xs font-medium uppercase tracking-wider">Chennai</p>
                             <p className="text-[#000040] font-lato font-semibold text-xs leading-relaxed">Mount Chambers, No: 758A, Anna Salai, Chennai – 600 002</p>
                         </div>
                         <div className="w-10 h-10 rounded-full bg-[#00008B] flex items-center justify-center text-white shrink-0 ml-2">
@@ -129,7 +125,7 @@ const Contact = () => {
                     {/* Hyderabad */}
                     <div className="flex items-center justify-between p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                         <div className="space-y-1">
-                            <p className="text-gray-500 font-lato text-xs font-medium uppercase tracking-wider">Hyderabad Office</p>
+                            <p className="text-gray-500 font-lato text-xs font-medium uppercase tracking-wider">Hyderabad</p>
                             <p className="text-[#000040] font-lato font-semibold text-xs leading-relaxed">6th Floor, N Heights, Plot No 38, Phase 2 Hitec City, Hyderabad</p>
                         </div>
                         <div className="w-10 h-10 rounded-full bg-[#00008B] flex items-center justify-center text-white shrink-0 ml-2">
@@ -142,7 +138,7 @@ const Contact = () => {
                     {/* Delhi & NCR */}
                     <div className="flex items-center justify-between p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                         <div className="space-y-1">
-                            <p className="text-gray-500 font-lato text-xs font-medium uppercase tracking-wider">Delhi & NCR Office</p>
+                            <p className="text-gray-500 font-lato text-xs font-medium uppercase tracking-wider">Delhi & NCR</p>
                             <p className="text-[#000040] font-lato font-semibold text-xs leading-relaxed">07th Floor, Ambience Island, NH 48, Gurugram, 122002</p>
                         </div>
                         <div className="w-10 h-10 rounded-full bg-[#00008B] flex items-center justify-center text-white shrink-0 ml-2">
@@ -155,13 +151,7 @@ const Contact = () => {
             </div>
 
 
-            {/* Sea Port Services Map Section */}
-            <div className="container mx-auto px-[15px] md:px-[60px] pb-16 md:pb-20">
-                <h2 className="text-[32px] md:text-5xl font-playfair font-bold italic text-[#000040] mb-10 text-center lg:text-left">
-                    Sea Port Services
-                </h2>
-                <PortMap />
-            </div>
+
 
             {/* Contact Form Section */}
 

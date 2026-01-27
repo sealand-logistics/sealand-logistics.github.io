@@ -5,11 +5,11 @@ const Industries = () => {
     return (
         <div className="min-h-screen bg-white">
             {/* Hero Section */}
-            <div className="relative h-[500px] w-full overflow-hidden bg-white">
+            <div className="relative h-[400px] md:h-[500px] w-full overflow-hidden bg-white">
                 <div
                     className="absolute top-2 left-[10px] right-[10px] bottom-0 bg-cover bg-center flex items-center justify-center"
                     style={{
-                        backgroundImage: `url(${IndustriesBG})`,
+                        backgroundImage: `linear-gradient(rgba(0, 0, 64, 0.12), rgba(0, 0, 64, 0.12)), url(${IndustriesBG})`,
                     }}
                 >
                     <h1 className="text-[32px] md:text-7xl font-playfair font-bold text-white italic drop-shadow-md text-center">

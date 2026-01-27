@@ -20,52 +20,52 @@ export const servicesData = [
   },
   {
     id: 2,
-    title: 'Air Freight',
-    description:
-      'Time-critical and flexible air freight solutions designed for fast-moving and high-value supply chains.',
-    icon: AirFreightIcon,
-  },
-  {
-    id: 3,
     title: 'Domestic Trucking (FTL) – Pan India',
     description:
       'Reliable full-truckload transportation across key industrial and commercial corridors throughout India.',
     icon: DomesticTruckingIcon,
   },
   {
-    id: 4,
+    id: 3,
     title: 'OOG, Project Cargo, ODC, Break Bulk',
     description:
       'Advanced engineered logistics solutions for complex OOG, over sized, over-dimensional, project and break bulk cargo.',
     icon: OOGIcon,
   },
   {
-    id: 5,
+    id: 4,
     title: 'Reefer Export & Import Logistics',
     description:
       'Eastern India’s leading reefer trailer operators specializing in temperature-controlled EXIM logistics.',
     icon: ReeferIcon,
   },
   {
-    id: 6,
+    id: 5,
     title: 'India–Bangladesh land exports & imports',
     description:
       'Specialized cross-border logistics solutions for seamless India - Bangladesh land trade via Asia’s busiest land port of Petrapole & Benapole.',
     icon: IndiaBangladeshIcon,
   },
   {
-    id: 7,
+    id: 6,
     title: 'Customs Clearance',
     description:
       'Comprehensive customs clearance solutions ensuring smooth, compliant, and timely cargo movement.',
     icon: CustomsClearanceIcon,
   },
   {
-    id: 8,
+    id: 7,
     title: 'Port Trailer Transportation',
     description:
       'Efficient port-centric transportation connecting ports, ICDs, CFSs, and terminals seamlessly.',
     icon: PortTrailerIcon,
+  },
+  {
+    id: 8,
+    title: 'Air Freight',
+    description:
+      'Time-critical and flexible air freight solutions designed for fast-moving and high-value supply chains.',
+    icon: AirFreightIcon,
   },
   {
     id: 9,
@@ -80,7 +80,7 @@ const Services = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative h-[500px] w-full overflow-hidden bg-white">
+      <div className="relative h-[300px] md:h-[500px] w-full overflow-hidden bg-white">
         <div
           className="absolute top-2 left-[10px] right-[10px] bottom-0 bg-cover bg-center flex items-center justify-center"
           style={{

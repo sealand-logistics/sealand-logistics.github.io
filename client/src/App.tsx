@@ -12,6 +12,8 @@ import Industries from './pages/Industries';
 import Clients from './pages/Clients';
 import Certifications from './pages/Certifications';
 import Contact from './pages/Contact';
+import Locations from './pages/Locations';
+import STC from './pages/STC';
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
             <Route path="/clients" element={<Clients />} />
             <Route path="/certifications" element={<Certifications />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/locations" element={<Locations />} />
+            <Route path="/stc" element={<STC />} />
           </Routes>
         </main>
         <CTASection />

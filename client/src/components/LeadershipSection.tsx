@@ -8,22 +8,22 @@ const teamMembers = [
     },
     {
         name: 'Varghese John',
-        role: 'Director – Finance & compliance',
+        role: 'Director\nFinance & Compliance',
         email: 'john@sealandlogisticsgroup.com',
     },
     {
         name: 'Biswajit B Roy',
-        role: 'Director – Ocean Freight, global OOG projects & Overseas Networks',
+        role: 'Director\nInternational business\nGlobal OOG Projects & Overseas Networks',
         email: 'biswajit@sealandlogisticsgroup.com',
     },
     {
         name: 'K. B. Khan',
-        role: 'Director – India Bangladesh Cross-Border Business & Documentation',
+        role: 'Director\nIndia – Bangladesh business & Documentation',
         email: 'khan@sealandlogisticsgroup.com',
     },
     {
         name: 'Shyam sundar Das',
-        role: 'Director – FTL Domestic Transportation & OOG projects trucking',
+        role: 'Director\nDomestic Transportation\nFTL & OOG / ODC Projects trucking',
         email: 'shyam@sealandlogisticsgroup.com',
     },
 ];
@@ -51,9 +51,16 @@ const LeadershipSection = () => {
                                     </div>
                                 </div>
                                 <h3 className="font-lato font-bold text-xl text-[#000040] mb-1">{member.name}</h3>
-                                <p className="font-lato text-xs text-[#FF6600] font-bold uppercase tracking-widest mb-4 min-h-[2.5rem] flex items-center justify-center">
-                                    {member.role}
-                                </p>
+                                <div className="font-lato text-xs text-[#FF6600] font-bold uppercase tracking-widest mb-4 min-h-[3rem] flex items-center justify-center text-center leading-relaxed">
+                                    <span>
+                                        {member.role.split('\n').map((line, i) => (
+                                            <span key={i}>
+                                                {line}
+                                                {i < member.role.split('\n').length - 1 && <br />}
+                                            </span>
+                                        ))}
+                                    </span>
+                                </div>
                                 <a
                                     href={`mailto:${member.email}`}
                                     className="font-lato text-sm text-gray-400 hover:text-[#FF6600] transition-colors border-t border-gray-100 pt-4 w-full"
@@ -78,9 +85,16 @@ const LeadershipSection = () => {
                                     </div>
                                 </div>
                                 <h3 className="font-lato font-bold text-xl text-[#000040] mb-1">{member.name}</h3>
-                                <p className="font-lato text-xs text-[#FF6600] font-bold uppercase tracking-widest mb-4 min-h-[2.5rem] flex items-center justify-center">
-                                    {member.role}
-                                </p>
+                                <div className="font-lato text-xs text-[#FF6600] font-bold uppercase tracking-widest mb-4 min-h-[3rem] flex items-center justify-center text-center leading-relaxed">
+                                    <span>
+                                        {member.role.split('\n').map((line, i) => (
+                                            <span key={i}>
+                                                {line}
+                                                {i < member.role.split('\n').length - 1 && <br />}
+                                            </span>
+                                        ))}
+                                    </span>
+                                </div>
                                 <a
                                     href={`mailto:${member.email}`}
                                     className="font-lato text-sm text-gray-400 hover:text-[#FF6600] transition-colors border-t border-gray-100 pt-4 w-full"

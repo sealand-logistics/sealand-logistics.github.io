@@ -16,7 +16,7 @@ const STC = () => {
                         backgroundImage: `linear-gradient(rgba(255, 240, 230, 0.8), rgba(255, 240, 230, 0.8)), url(${TnCBG})`,
                     }}
                 >
-                    <h1 className="text-[32px] md:text-7xl font-playfair font-bold text-[#000040] italic drop-shadow-sm text-center">
+                    <h1 className="text-[30px] md:text-5xl font-playfair font-bold text-[#000040] italic drop-shadow-sm text-center">
                         Standard Terms & Conditions
                     </h1>
                     <p className="text-[#000040] font-lato mt-4 text-center uppercase tracking-wider font-bold text-sm md:text-base">
@@ -47,7 +47,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-4">
-                        <h2 className="text-lg font-bold uppercase">1. INTRODUCTION</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">1. INTRODUCTION</h2>
                         <p>
                             Sealand Logistics Group is engaged in providing
                             domestic pan-India transportation and international
@@ -60,7 +60,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">2. DEFINITIONS & INTERPRETATION</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">2. DEFINITIONS & INTERPRETATION</h2>
                         <div className="space-y-4">
                             <h3 className="font-bold">2.1 Definitions</h3>
                             <p>In these Standard Terms & Conditions (“STC”), unless the context otherwise requires, the following words and expressions shall have the meanings set out below:</p>
@@ -116,7 +116,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">3. APPLICABILITY, PRECEDENCE & ACCEPTANCE</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">3. APPLICABILITY, PRECEDENCE & ACCEPTANCE</h2>
                         <div className="space-y-4">
                             <p><strong>3.1 Universal Applicability:</strong><br />These STC shall apply to and govern all Services provided by the Company, whether domestic or international, including (without limitation) trucking, freight forwarding, customs clearance, documentation, warehousing, handling, coordination and any allied services, whether provided directly by the Company or through any subcontractor/agent/carrier engaged by the Company.</p>
                             <p><strong>3.2 Exclusive Terms:</strong><br />These STC shall exclusively apply and shall override, supersede and prevail over any and all terms proposed or imposed by the Customer (whether printed, electronic or otherwise), including in purchase orders, vendor onboarding terms, tenders, rate confirmations, shipping instructions, emails, SOPs, portals, delivery challans, invoices, acknowledgements, or any other communication/document, even if the Company has performed Services after receipt of such Customer terms, unless the Company has expressly agreed to such deviation in writing by its authorised signatory. Any contrary or additional terms of the Customer are hereby expressly rejected and shall be null, void and unenforceable.</p>
@@ -127,7 +127,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">4. COMPANY STATUS</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">4. COMPANY STATUS</h2>
                         <div className="space-y-4">
                             <p><strong>4.1</strong> In international freight forwarding and customs-related services, the Company acts as a freight forwarder / logistics service provider / agent arranging carriage and clearance through third parties unless expressly agreed otherwise in writing.</p>
                             <p><strong>4.2 The Company may act as:</strong><br />(a) carrier (for domestic trucking), and/or<br />(b) forwarding agent, and/or<br />(c) customs service facilitator, and/or<br />(d) multimodal operator (where applicable and expressly agreed).</p>
@@ -136,7 +136,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">5. SERVICES OFFERED</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">5. SERVICES OFFERED</h2>
                         <div className="space-y-4">
                             <p><strong>5.1 Domestic Services include:</strong> FTL, LTL, general cargo, container movement, ODC/OOG/project cargo, temperature-controlled transport (if agreed), and allied services.</p>
                             <p><strong>5.2 International Services include:</strong> ocean freight forwarding (import/export), general cargo, container movement, ODC/OOG/project cargo, temperature-controlled transport (if agreed), booking space, documentation, coordination of loading/unloading, cargo handling and customs clearance support.</p>
@@ -144,7 +144,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">6. CUSTOMER OBLIGATIONS, WARRANTIES & UNDERTAKINGS</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">6. CUSTOMER OBLIGATIONS, WARRANTIES & UNDERTAKINGS</h2>
                         <p>The Customer represents, warrants, undertakes and agrees (for itself and on behalf of the Consignor, Consignee, importer/exporter and Owner of the Goods, jointly and severally) that:</p>
                         <div className="space-y-4 pl-4">
                             <p><strong>6.1 Authority / Capacity to Contract</strong><br />The Customer warrants that it is either the Owner of the Goods or the duly authorised agent of the Owner, Consignor and/or Consignee, and that it has full authority to accept and be bound by these STC not only for itself but also as agent for and on behalf of the Owner and all parties interested in the Goods.</p>
@@ -168,7 +168,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">7. COMPANY RIGHTS</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">7. COMPANY RIGHTS</h2>
                         <div className="space-y-4 pl-4 text-sm md:text-base">
                             <p><strong>7.1 Subcontracting / Delegation</strong><br />The Company shall be entitled, at its sole discretion and without prior notice or consent of the Customer, to subcontract, delegate, assign or arrange performance of any part of the Services through any third-party including carriers, shipping lines, airlines, transporters, customs brokers, CFS/ICD operators, terminals, warehouses, surveyors and agents. The Customer expressly agrees that the Company shall not be liable for any act, omission, delay, default or negligence of such third parties beyond the extent mandated by applicable law, and all third-party terms shall be binding upon the Customer.</p>
                             <p><strong>7.2 Right of Inspection / Opening / Verification</strong><br />The Company shall have the unrestricted right (but not the obligation) to open, unpack, examine, weigh, measure, scan, photograph, sample, inspect and/or verify the Goods, packages or containers at any stage if the Company suspects or reasonably believes misdeclaration, prohibited/restricted cargo, dangerous goods, improper packing, overloading, leakage, contamination, security risk or statutory non-compliance. All costs, charges, delays, damages, penalties, storage, detention and consequences arising from such inspection and/or regulatory action shall be borne solely by the Customer, and the Customer shall indemnify the Company against the same.</p>
@@ -187,7 +187,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">8. QUOTATIONS, PRICING & RATE VALIDITY</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">8. QUOTATIONS, PRICING & RATE VALIDITY</h2>
                         <div className="space-y-4">
                             <p><strong>8.1 Quotations / Indicative Nature:</strong><br />All quotations/rates are indicative, non-binding and subject to availability of equipment, space, carrier confirmation, route feasibility, regulatory requirements and change in third-party charges.</p>
                             <p><strong>8.2 Validity:</strong><br />Unless otherwise stated, quotations are valid for 15 days from date of issue and may be withdrawn/revised by the Company without notice.</p>
@@ -197,7 +197,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">9. LOADING, UNLOADING & HANDLING</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">9. LOADING, UNLOADING & HANDLING</h2>
                         <div className="space-y-4">
                             <p><strong>9.1 Loading / Unloading Responsibility:</strong><br />Unless expressly agreed otherwise, loading at Pickup Point and unloading at Delivery Point shall be Customer’s responsibility including labour, equipment and safety compliance.</p>
                             <p><strong>9.2 Waiting / Detention Charges:</strong><br />Waiting time beyond free time shall be chargeable as per Tariff and payable by Customer.</p>
@@ -206,7 +206,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">10. DELIVERY, NON-DELIVERY, STORAGE & DISPOSAL</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">10. DELIVERY, NON-DELIVERY, STORAGE & DISPOSAL</h2>
                         <div className="space-y-4">
                             <p><strong>10.1 Delivery Completion / POD:</strong><br />Delivery shall be deemed complete upon tender of Goods at Delivery Point and acknowledgement through POD (including electronic proof). POD shall be conclusive evidence of delivery.</p>
                             <p><strong>10.2 Failed Delivery / Consignee Refusal:</strong><br />Where delivery is not taken due to consignee refusal/unavailability/site constraints/document issues, Company may store/return/reroute/reattempt delivery at Customer cost and risk.</p>
@@ -216,7 +216,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">11. FREIGHT, CHARGES & PAYMENT TERMS</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">11. FREIGHT, CHARGES & PAYMENT TERMS</h2>
                         <div className="space-y-4 ml-4 text-sm md:text-base">
                             <p><strong>11.1 Full Liability for Freight & All Charges</strong><br />The Customer shall pay, without demur, all Freight and Charges in full, including (without limitation) all third-party costs and statutory dues such as duties, taxes, cess, port/terminal charges, THC, CFS/ICD charges, customs charges, demurrage, detention, storage, handling, weighment, surveys, examinations, penalties, fines, tolls, fuel surcharge, war/security surcharges and any other expenses incurred by the Company in connection with the Services. Any such costs paid or incurred by the Company on behalf of the Customer shall be reimbursed immediately upon demand.</p>
                             <p><strong>11.2 Payment Due Date</strong><br />Unless otherwise expressly agreed in writing by the Company’s authorised signatory, all invoices raised by the Company shall be payable within 15 (fifteen) days from the invoice date. Time shall be of the essence in respect of all payment obligations and all payments shall be made in full, in cleared funds, and without delay.</p>
@@ -234,7 +234,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">12. LIEN</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">12. LIEN</h2>
                         <div className="space-y-4">
                             <p><strong>12.1 Continuing General Lien</strong><br />In the event the Customer fails to clear any outstanding dues within a reasonable period beyond the due date, despite written notices and reminders (as determined by the Company acting reasonably), without prejudice to any other rights and remedies available to the Company, the Company shall have a continuing general lien and right of retention over the Goods and all related documents (including without limitation LR, BL, DO, invoices, POD and customs/release documents) in its possession, custody or control, for any outstanding amounts payable by the Customer to the Company, whether arising in respect of the same consignment or otherwise. In the event the Customer fails to clear any outstanding dues within a reasonable period beyond the due date, the Company may, as a protective measure, withhold pickup, suspend Services, stop intransit movement, and/or withhold delivery and release documents until all outstanding dues are fully realised in cleared funds. The Customer shall remain responsible for any storage, detention, demurrage and incidental costs arising due to such withholding.</p>
                             <p><strong>12.2 Right to Sell / Dispose</strong><br />In the event the Customer fails to clear any outstanding dues within a reasonable period beyond the due date, despite written notices and reminders (as determined by the Company acting reasonably), without prejudice to any other rights and remedies available to the Company, the Company shall be entitled (without liability) to sell, auction or dispose of the Goods and/or documents at the risk and expense of the Customer and apply proceeds towards dues and expenses. Customer shall remain liable for any shortfall.</p>
@@ -242,7 +242,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">13. INSURANCE</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">13. INSURANCE</h2>
                         <div className="space-y-4">
                             <p><strong>13.1 Company Not an Insurer:</strong><br />The Company is not an insurer and does not assume liability beyond these STC.</p>
                             <p><strong>13.2 No Cargo Insurance Unless Agreed:</strong><br />Unless the Company expressly agrees in writing (through its authorised signatory) to arrange cargo/transit insurance for a specific shipment, the Company does not and shall not be deemed to arrange, procure, recommend or provide any insurance cover for the Goods, whether in transit, storage or otherwise. The Customer acknowledges that the Company is not an insurer or insurance broker/agent and shall have no obligation to obtain insurance or to advise on the adequacy, scope or terms of any insurance. The Customer shall, at its sole risk and cost, procure and maintain adequate cargo/transit insurance for the Goods. In the absence of such written confirmation from the Company, the Customer shall not hold the Company liable for any uninsured loss, damage, shortage, delay, deterioration, theft or consequential loss, and the Customer hereby waives any claim against the Company arising from non-arrangement or nonavailability of insurance.</p>
@@ -250,7 +250,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">14. LIMITATION OF LIABILITY, EXCLUSIONS & CLAIMS</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">14. LIMITATION OF LIABILITY, EXCLUSIONS & CLAIMS</h2>
                         <div className="space-y-4 pl-4 text-sm md:text-base">
                             <p><strong>14.1 Liability Limited:</strong><br />The Company’s liability (if any) shall be strictly limited as per these STC and applicable mandatory law.</p>
                             <p><strong>14.2 Domestic Liability Cap:</strong><br />In respect of domestic road transportation, the Company’s maximum aggregate liability (if any) for any loss, damage, shortage, delay, mis delivery or non-delivery of the Goods, whether arising in contract, tort (including negligence), bailment, statute or otherwise, shall be strictly limited to INR 5,000/- (Rupees Five Thousand only) per consignment/LR. This limitation shall apply notwithstanding the nature, value or declared value of the Goods, and the Customer shall not be entitled to circumvent this limitation by alleging any alternate cause of action or by claiming special, consequential or indirect losses</p>
@@ -265,7 +265,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">15. FORCE MAJEURE</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">15. FORCE MAJEURE</h2>
                         <div className="space-y-4 pl-4 text-sm md:text-base">
                             <p><strong>15.1 Definition:</strong><br />“Force Majeure” shall mean any event, circumstance or cause beyond the reasonable control of the Company, whether foreseeable or not, which prevents, hinders, delays or renders commercially impracticable the performance of the Services, including without limitation: natural calamities (flood, cyclone, earthquake), fire, explosion, accident, breakdown of vehicle/equipment, war, hostilities, terrorism, civil commotion, riots, strikes, lockouts, labour disturbances, curfew, embargo, sanctions, pandemic/epidemic, quarantine, government restrictions, change in law/regulation, port/terminal congestion, vessel delay/rollover/blank sailing, carrier schedule changes, shortage of equipment/containers, road closure, traffic restrictions, regulatory checks, customs/port detention or examination, and any act or omission of any governmental authority, carrier, terminal, port, CFS/ICD or third party.</p>
                             <p><strong>15.2 Suspension of Liability:</strong><br />The Company shall not be liable for any loss, damage, delay, non-performance, mis delivery or failure to perform arising directly or indirectly from a Force Majeure event. The Customer expressly agrees that no claim for compensation, penalty, liquidated damages, demurrage/detention, business loss or any consequential loss shall lie against the Company on account of Force Majeure.</p>
@@ -275,7 +275,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">16. CUSTOMS CLEARANCE</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">16. CUSTOMS CLEARANCE</h2>
                         <div className="space-y-4 text-sm md:text-base">
                             <p><strong>16.1 Customs as Facilitation:</strong><br />Where customs clearance is arranged/facilitated by the Company, the Customer shall execute required authorisations and provide complete documents and correct declarations.</p>
                             <p><strong>16.2 No Liability for Customs Outcome:</strong><br />Company shall not be liable for customs assessments, examinations, queries, delays, detention, confiscation, fines or penalties.</p>
@@ -284,7 +284,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">17. THIRD PARTY SERVICES & PASS-THROUGH COSTS</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">17. THIRD PARTY SERVICES & PASS-THROUGH COSTS</h2>
                         <div className="space-y-4">
                             <p><strong>17.1 Binding Third Party Terms:</strong><br />Customer acknowledges and agrees to be bound by third-party terms (carriers, ports, terminals, CFS/ICD, warehouses).</p>
                             <p><strong>17.2 Demurrage / Detention / Storage:</strong><br />All demurrage/detention/storage are pass-through and payable by Customer irrespective of disputes.</p>
@@ -292,7 +292,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">18. INDEMNITY</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">18. INDEMNITY</h2>
                         <div className="space-y-4">
                             <p>The Customer shall defend, indemnify and hold harmless the Company against all liability, loss, damage, delay, costs and expenses arising from or in connection with:<br />
                                 (a) Customer’s negligence or wilful misconduct;<br />
@@ -306,7 +306,7 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">19. TERMINATION / SUSPENSION</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">19. TERMINATION / SUSPENSION</h2>
                         <div className="space-y-4">
                             <p><strong>19.1 Right to Suspend / Terminate:</strong><br />The Company shall be entitled, at its sole discretion and without any liability whatsoever, to suspend, withdraw, refuse, cancel and/or terminate the Services (in whole or in part), with immediate effect and without prior notice, in the event of:<br />
                                 (a) non-payment or delayed payment of any amount due;<br />
@@ -320,12 +320,12 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">20. GOVERNING LAW & JURISDICTION</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">20. GOVERNING LAW & JURISDICTION</h2>
                         <p>These STC and all transactions, Services, claims and disputes arising out of or in connection herewith shall be governed by and construed in accordance with the laws of India. The parties expressly agree that the courts at Kolkata, West Bengal, India shall have exclusive jurisdiction over all matters arising out of or relating to these STC and/or the Services, to the absolute exclusion of all other courts/fora. The Customer irrevocably submits to such jurisdiction and waives any objection on the grounds of venue, forum non conveniens, territorial jurisdiction, or any similar basis.</p>
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">21. DISPUTE RESOLUTION & ARBITRATION</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">21. DISPUTE RESOLUTION & ARBITRATION</h2>
                         <div className="space-y-4 pl-4 text-sm md:text-base">
                             <p><strong>21.1 Arbitration:</strong><br />Any dispute, controversy or claim arising out of or in connection with these STC and/or the Services, including their interpretation, performance, breach, termination or validity (“Dispute”), shall be referred to and finally resolved by arbitration in accordance with the Arbitration and Conciliation Act, 1996 (as amended).</p>
                             <p><strong>21.2 Arbitrator:</strong><br />The arbitrator will be appointed by mutual consent, or through a neutral body (like a Chamber of Commerce), or that the Company will provide a panel of three names from which the Customer must choose. The seat and venue of arbitration shall be Kolkata, West Bengal, and the language of arbitration shall be English.</p>
@@ -334,17 +334,17 @@ const STC = () => {
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">22. JURISDICTION FOR INTERIM RELIEF / ENFORCEMENT</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">22. JURISDICTION FOR INTERIM RELIEF / ENFORCEMENT</h2>
                         <p>Notwithstanding Clause 22 above, the courts at Kolkata, West Bengal shall have exclusive jurisdiction for granting interim reliefs and for enforcement of any arbitral award, to the exclusion of all other courts/fora.</p>
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">23. SEVERABILITY</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">23. SEVERABILITY</h2>
                         <p>If any provision of these STC is held to be invalid or unenforceable (in whole or in part) by any court, tribunal or competent authority, such provision shall be deemed severed to the extent of such invalidity or unenforceability, and the remaining provisions shall continue in full force and effect as valid, binding and enforceable. The parties further agree that the invalid/unenforceable provision shall be replaced, to the maximum extent permitted by law, with a valid provision that most closely reflects the original commercial intent and provides maximum enforceability in favour of the Company.</p>
                     </section>
 
                     <section className="space-y-6">
-                        <h2 className="text-lg font-bold uppercase">24. MISCELLANEOUS</h2>
+                        <h2 className="!text-[28px] font-bold uppercase">24. MISCELLANEOUS</h2>
                         <div className="space-y-4 pl-4 text-sm md:text-base">
                             <p><strong>24.1 Entire Agreement / Supersession:</strong><br />These STC constitute the entire agreement between the Company and the Customer in relation to the Services and shall supersede and override all prior or contemporaneous discussions, representations, negotiations, understandings, communications and arrangements, whether oral or written, including emails, messages, quotations, SOPs, purchase orders and tender documents, except to the extent expressly agreed otherwise in writing by the Company’s authorised signatory.</p>
                             <p><strong>24.2 Notices / Deemed Service:</strong><br />Any notice, demand or communication required or permitted to be given under these STC may be served by the Company by registered post/speed post/courier and/or email to the Customer’s last known address/email ID available in the Company’s records. Such notice shall be deemed to have been validly served upon dispatch (in case of email) and upon delivery attempt (in case of physical dispatch), and the Customer waives any objection to mode or proof of service.</p>

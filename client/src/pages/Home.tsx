@@ -17,7 +17,7 @@ const Home = () => {
       <OOGSection />
       <CertificationsSection limit={true} />
       <IndustrySection />
-      <ClientsSection limit={true} />
+      <ClientsSection limit={false} />
     </div>
   );
 };

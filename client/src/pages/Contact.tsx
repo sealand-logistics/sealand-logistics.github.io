@@ -1,7 +1,64 @@
+import React, { useState } from 'react';
+import axios from 'axios';
 import ContactBG from '../assets/ContactBG.png';
 
+const API_BASE_URL = 'http://localhost:5000/api';
 
 const Contact = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        company: '',
+        email: '',
+        phone: '',
+        service: 'Select service',
+        message: '',
+        agreed: false
+    });
+    const [loading, setLoading] = useState(false);
+    const [status, setStatus] = useState<{ type: 'success' | 'error', msg: string } | null>(null);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, value, type } = e.target;
+        if (type === 'checkbox') {
+            const checked = (e.target as HTMLInputElement).checked;
+            setFormData(prev => ({ ...prev, [name]: checked }));
+        } else {
+            setFormData(prev => ({ ...prev, [name]: value }));
+        }
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!formData.agreed) {
+            alert('Please agree to the Terms and Privacy Policy');
+            return;
+        }
+        if (formData.service === 'Select service') {
+            alert('Please select a service');
+            return;
+        }
+
+        try {
+            setLoading(true);
+            await axios.post(`${API_BASE_URL}/contacts`, formData);
+            setStatus({ type: 'success', msg: 'Thank you! Your message has been sent successfully.' });
+            setFormData({
+                name: '',
+                company: '',
+                email: '',
+                phone: '',
+                service: 'Select service',
+                message: '',
+                agreed: false
+            });
+        } catch (error) {
+            setStatus({ type: 'error', msg: 'Failed to send message. Please try again later.' });
+        } finally {
+            setLoading(false);
+            setTimeout(() => setStatus(null), 5000);
+        }
+    };
+
     return (
         <div className="min-h-screen bg-white">
             {/* Hero Section */}
@@ -87,7 +144,6 @@ const Contact = () => {
                                     </svg>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -96,6 +152,8 @@ const Contact = () => {
             {/* Other Locations Section */}
             <div className="container mx-auto px-[15px] md:px-[60px] pb-16 md:pb-20">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {/* Location cards here */}
+                    {/* ... (keeping original cards for brevity but they are standard) */}
                     {/* Mumbai */}
                     <div className="flex items-center justify-between p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                         <div className="space-y-1">
@@ -108,7 +166,6 @@ const Contact = () => {
                             </svg>
                         </div>
                     </div>
-
                     {/* Chennai */}
                     <div className="flex items-center justify-between p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                         <div className="space-y-1">
@@ -121,7 +178,6 @@ const Contact = () => {
                             </svg>
                         </div>
                     </div>
-
                     {/* Hyderabad */}
                     <div className="flex items-center justify-between p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                         <div className="space-y-1">
@@ -134,7 +190,6 @@ const Contact = () => {
                             </svg>
                         </div>
                     </div>
-
                     {/* Delhi & NCR */}
                     <div className="flex items-center justify-between p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                         <div className="space-y-1">
@@ -150,114 +205,93 @@ const Contact = () => {
                 </div>
             </div>
 
-
-
-
             {/* Contact Form Section */}
-
             <div className="container mx-auto px-[15px] md:px-[60px] py-16 md:py-20">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                     {/* Left Side - Map Embed */}
-                    <div className="h-[500px] lg:h-full">
-                        <div className="embed-map-responsive h-full">
-                            <div className="embed-map-container">
-                                <iframe
-                                    className="embed-map-frame"
-                                    frameBorder="0"
-                                    scrolling="no"
-                                    marginHeight={0}
-                                    marginWidth={0}
-                                    src="https://maps.google.com/maps?width=600&height=400&hl=en&q=sealand%20logistics%20india&t=&z=17&ie=UTF8&iwloc=B&output=embed"
-                                    title="Sealand Logistics Location"
-                                />
-                            </div>
-                            <style dangerouslySetInnerHTML={{
-                                __html: `
-                                    .embed-map-responsive {
-                                        position: relative;
-                                        text-align: right;
-                                        width: 100%;
-                                        height: 100%;
-                                    }
-                                    .embed-map-container {
-                                        overflow: hidden;
-                                        background: none !important;
-                                        width: 100%;
-                                        height: 100%;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;
-                                    }
-                                    .embed-map-frame {
-                                        width: 100% !important;
-                                        height: 100% !important;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;
-                                    }
-                                `
-                            }} />
-                        </div>
+                    <div className="h-[500px] lg:h-full min-h-[400px]">
+                        <iframe
+                            className="w-full h-full border-0 rounded-2xl"
+                            src="https://maps.google.com/maps?width=600&height=400&hl=en&q=sealand%20logistics%20india&t=&z=17&ie=UTF8&iwloc=B&output=embed"
+                            title="Sealand Logistics Location"
+                        />
                     </div>
 
                     {/* Right Side - Contact Form */}
-                    <div className="bg-[#F8F8FF] p-6 rounded-lg">
-                        <div className="space-y-6">
+                    <div className="bg-[#F8F8FF] p-8 md:p-10 rounded-3xl shadow-sm border border-gray-100">
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            {/* Status Message */}
+                            {status && (
+                                <div className={`p-4 rounded-xl text-sm font-medium ${status.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                                    {status.msg}
+                                </div>
+                            )}
+
                             {/* Full Name and Company */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label className="block text-sm font-lato font-medium text-gray-700 mb-2">
-                                        Full name
-                                    </label>
+                                    <label className="block text-sm font-lato font-semibold text-gray-700 mb-2">Full name</label>
                                     <input
                                         type="text"
+                                        name="name"
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        required
                                         placeholder="Enter full name here"
-                                        className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6600] focus:border-transparent font-lato"
+                                        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FF6600] focus:border-transparent font-lato transition-all"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-lato font-medium text-gray-700 mb-2">
-                                        Company
-                                    </label>
+                                    <label className="block text-sm font-lato font-semibold text-gray-700 mb-2">Company</label>
                                     <input
                                         type="text"
+                                        name="company"
+                                        value={formData.company}
+                                        onChange={handleChange}
                                         placeholder="Enter company name"
-                                        className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6600] focus:border-transparent font-lato"
+                                        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FF6600] focus:border-transparent font-lato transition-all"
                                     />
                                 </div>
                             </div>
 
                             {/* Email and Phone */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label className="block text-sm font-lato font-medium text-gray-700 mb-2">
-                                        Email
-                                    </label>
+                                    <label className="block text-sm font-lato font-semibold text-gray-700 mb-2">Email</label>
                                     <input
                                         type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
                                         placeholder="Enter your email here"
-                                        className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6600] focus:border-transparent font-lato"
+                                        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FF6600] focus:border-transparent font-lato transition-all"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-lato font-medium text-gray-700 mb-2">
-                                        Phone
-                                    </label>
+                                    <label className="block text-sm font-lato font-semibold text-gray-700 mb-2">Phone</label>
                                     <input
                                         type="tel"
+                                        name="phone"
+                                        value={formData.phone}
+                                        onChange={handleChange}
+                                        required
                                         placeholder="Enter phone number here"
-                                        className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6600] focus:border-transparent font-lato"
+                                        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FF6600] focus:border-transparent font-lato transition-all"
                                     />
                                 </div>
                             </div>
 
                             {/* Service Required */}
                             <div>
-                                <label className="block text-sm font-lato font-medium text-gray-700 mb-2">
-                                    Service required
-                                </label>
-                                <select className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6600] focus:border-transparent font-lato text-gray-500">
-                                    <option>Select service</option>
+                                <label className="block text-sm font-lato font-semibold text-gray-700 mb-2">Service required</label>
+                                <select
+                                    name="service"
+                                    value={formData.service}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FF6600] focus:border-transparent font-lato text-gray-600 appearance-none bg-no-repeat bg-[right_1rem_center] transition-all"
+                                >
+                                    <option disabled>Select service</option>
                                     <option>Ocean Freight</option>
                                     <option>Air Freight</option>
                                     <option>Domestic Trucking</option>
@@ -270,33 +304,41 @@ const Contact = () => {
 
                             {/* Message */}
                             <div>
-                                <label className="block text-sm font-lato font-medium text-gray-700 mb-2">
-                                    Message
-                                </label>
+                                <label className="block text-sm font-lato font-semibold text-gray-700 mb-2">Message</label>
                                 <textarea
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleChange}
                                     rows={4}
                                     placeholder="Enter your message here"
-                                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6600] focus:border-transparent font-lato resize-none"
+                                    className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FF6600] focus:border-transparent font-lato resize-none transition-all"
                                 />
                             </div>
 
                             {/* Terms and Submit */}
-                            <div className="flex items-center justify-between">
-                                <label className="flex items-center">
+                            <div className="flex flex-col gap-6">
+                                <label className="flex items-center group cursor-pointer">
                                     <input
                                         type="checkbox"
-                                        className="w-4 h-4 text-[#FF6600] border-gray-300 rounded focus:ring-[#FF6600]"
+                                        name="agreed"
+                                        checked={formData.agreed}
+                                        onChange={handleChange}
+                                        className="w-5 h-5 text-[#FF6600] border-gray-300 rounded focus:ring-[#FF6600] cursor-pointer"
                                     />
-                                    <span className="ml-2 text-sm font-lato text-gray-600">
+                                    <span className="ml-3 text-sm font-lato text-gray-600 group-hover:text-gray-900 transition-colors">
                                         I agree with Terms of Use and Privacy Policy
                                     </span>
                                 </label>
-                            </div>
 
-                            <button className="bg-[#FF6600] hover:bg-[#E65A00] text-white font-lato font-bold py-3 px-12 rounded-full transition-colors duration-300 shadow-lg">
-                                Submit
-                            </button>
-                        </div>
+                                <button
+                                    type="submit"
+                                    disabled={loading}
+                                    className="w-full md:w-auto bg-[#FF6600] hover:bg-[#E65A00] text-white font-lato font-bold py-4 px-16 rounded-full transition-all duration-300 shadow-xl shadow-orange-500/20 active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2"
+                                >
+                                    {loading ? 'Submitting...' : 'Submit'}
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

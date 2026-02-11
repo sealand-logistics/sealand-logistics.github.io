@@ -1,32 +1,36 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import OOGBG from '../assets/OOGBG.png';
-import Img1 from '../assets/OOG/1.png';
-import Img2 from '../assets/OOG/2.png';
-import Img3 from '../assets/OOG/3.png';
-import Img4 from '../assets/OOG/4.png';
-import Img5 from '../assets/OOG/5.png';
-import Img6 from '../assets/OOG/6.png';
-import Img7 from '../assets/OOG/7.png';
-import Img8 from '../assets/OOG/8.png';
-import Img9 from '../assets/OOG/9.png';
-import Img10 from '../assets/OOG/10.png';
-import Img11 from '../assets/OOG/11.png';
-import Img12 from '../assets/OOG/12.png';
+
+const API_BASE_URL = 'http://localhost:5000/api';
 
 const OOGProjects = () => {
-    const projects = [
-        { id: 1, src: Img1, title: 'Turbine Transport', subtitle: 'Heavy Lift / Europe' },
-        { id: 2, src: Img2, title: 'Industrial Boiler', subtitle: 'Road Transport / Germany' },
-        { id: 3, src: Img3, title: 'Power Generator', subtitle: 'Multimodal / Asia' },
-        { id: 4, src: Img4, title: 'Construction Machinery', subtitle: 'Breakbulk / USA' },
-        { id: 5, src: Img5, title: 'Wind Blades', subtitle: 'Special Trailer / Denmark' },
-        { id: 6, src: Img6, title: 'Factory Relocation', subtitle: 'Project Cargo / Global' },
-        { id: 7, src: Img7, title: 'Mining Equipment', subtitle: 'Out of Gauge / Australia' },
-        { id: 8, src: Img8, title: 'Oil & Gas Modules', subtitle: 'Sea Freight / Middle East' },
-        { id: 9, src: Img9, title: 'Railway Locomotives', subtitle: 'Rail Transport / Africa' },
-        { id: 10, src: Img10, title: 'Marine Vessels', subtitle: 'Heavy Lift / South America' },
-        { id: 11, src: Img11, title: 'Aerospace Parts', subtitle: 'Air Freight / North America' },
-        { id: 12, src: Img12, title: 'Infrastructure Beams', subtitle: 'Special Transport / Asia' },
-    ];
+    const [data, setData] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchProjects = async () => {
+            try {
+                const res = await axios.get(`${API_BASE_URL}/projects`);
+                const apiProjects = res.data
+                    .filter((p: any) => p.category === 'OOG')
+                    .map((p: any) => ({
+                        id: p._id,
+                        src: p.image,
+                        title: p.title,
+                        subtitle: p.description || 'Global Logistics'
+                    }));
+
+                setData(apiProjects);
+            } catch (error) {
+                console.error('Error fetching OOG projects:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProjects();
+    }, []);
 
     return (
         <div className="min-h-screen bg-white">
@@ -53,7 +57,7 @@ const OOGProjects = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {projects.map((project) => (
+                    {data.map((project: any) => (
                         <div key={project.id} className="group relative rounded-xl overflow-hidden shadow-lg h-[300px] cursor-pointer">
                             <img
                                 src={project.src}
@@ -69,6 +73,9 @@ const OOGProjects = () => {
                             </div>
                         </div>
                     ))}
+                    {loading && data.length === 0 && (
+                        <div className="col-span-full text-center py-20 text-gray-400">Loading projects...</div>
+                    )}
                 </div>
             </div>
         </div>

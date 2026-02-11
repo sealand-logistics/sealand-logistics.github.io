@@ -1,7 +1,10 @@
 import IndustriesBG from '../assets/IndustriesBG.png';
-import { industries } from '../data/industries';
+import { industries as staticIndustries } from '../data/industries';
 
 const Industries = () => {
+    const data = staticIndustries;
+
+
     return (
         <div className="min-h-screen bg-white">
             {/* Hero Section */}
@@ -27,7 +30,7 @@ const Industries = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                    {industries.map((industry) => (
+                    {data.map((industry) => (
                         <div key={industry.id} className="bg-white rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 overflow-hidden group">
                             <div className="h-[200px] overflow-hidden">
                                 <img

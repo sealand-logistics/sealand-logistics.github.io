@@ -1,7 +1,28 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import ClientsBG from '../assets/ClientsBG.png';
-import { clients } from '../data/clients';
+const API_BASE_URL = 'http://localhost:5000/api';
 
 const Clients = () => {
+    const [clients, setClients] = useState<string[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchClients = async () => {
+            try {
+                const res = await axios.get(`${API_BASE_URL}/clients`);
+                const apiLogos = res.data.map((c: any) => c.logo);
+                setClients(apiLogos);
+            } catch (error) {
+                console.error('Error fetching clients:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchClients();
+    }, []);
+
     return (
         <div className="min-h-screen bg-white">
             {/* Hero Section */}
@@ -38,6 +59,9 @@ const Clients = () => {
                             />
                         </div>
                     ))}
+                    {loading && clients.length === 0 && (
+                        <div className="col-span-full py-10 text-center text-gray-400">Loading clients...</div>
+                    )}
                 </div>
             </div>
         </div>

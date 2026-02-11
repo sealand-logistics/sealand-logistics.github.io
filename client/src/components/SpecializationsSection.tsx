@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { specializationsData } from '../pages/Specializations';
+import { specializationsData } from '../data/specializationsData';
 
 const SpecializationsSection = () => {
   return (

@@ -1,15 +1,29 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const morgan = require('morgan');
 require('dotenv').config();
 
 const app = express();
+app.use(morgan('dev'));
+
+const adminRoutes = require('./routes/adminRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
+const authRoutes = require('./routes/authRoutes');
+const path = require('path');
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // Routes
+app.use('/api/auth', authRoutes);
+app.use('/api', adminRoutes);
+app.use('/api/upload', uploadRoutes);
+
+// Static Folders
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
 app.get('/api/status', (req, res) => {
     res.json({ status: 'Server is running', timestamp: new Date() });
 });

@@ -1,0 +1,17 @@
+node_modules/
+.env
+dist/
+build/
+.DS_Store
+*.log
+testOutput.txt
+seedLog.txt
+fastTest.js
+cleanDB.js
+testConn.js
+uploads/
+server/uploads/
+client/dist/
+admin/dist/
+.vscode/
+.idea/

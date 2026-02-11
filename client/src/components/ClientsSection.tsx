@@ -1,11 +1,33 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import OrangeBg from '../assets/OragngeBg.png';
-import { clients } from '../data/clients';
 
 interface ClientsSectionProps {
     limit?: boolean;
 }
 
+const API_BASE_URL = 'http://localhost:5000/api';
+
 const ClientsSection = ({ limit = false }: ClientsSectionProps) => {
+    const [clients, setClients] = useState<string[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchClients = async () => {
+            try {
+                const res = await axios.get(`${API_BASE_URL}/clients`);
+                const apiLogos = res.data.map((c: any) => c.logo);
+                setClients(apiLogos);
+            } catch (error) {
+                console.error('Error fetching clients:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchClients();
+    }, []);
+
     // Show 15 items (3 rows * 5 cols) if limited, otherwise show all
     const displayClients = limit ? clients.slice(0, 15) : clients;
 
@@ -46,6 +68,9 @@ const ClientsSection = ({ limit = false }: ClientsSectionProps) => {
                             />
                         </div>
                     ))}
+                    {loading && clients.length === 0 && (
+                        <div className="col-span-full py-10 text-center text-gray-400">Loading clients...</div>
+                    )}
                 </div>
             </div>
         </section>

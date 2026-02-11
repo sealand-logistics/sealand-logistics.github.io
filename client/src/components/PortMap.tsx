@@ -341,8 +341,8 @@ const PortMap = () => {
 
             {/* Floating Info Panel */}
             {selectedLocation && (
-                <div className="absolute top-6 right-6 bottom-6 w-[320px] md:w-[360px] z-[1000] animate-in fade-in slide-in-from-right-8 duration-500">
-                    <div className="bg-white/98 backdrop-blur-md h-full rounded-3xl shadow-2xl border border-white/50 p-8 flex flex-col pointer-events-auto overflow-y-auto">
+                <div className="absolute top-6 right-6 w-[320px] md:w-[360px] z-[1000] animate-in fade-in slide-in-from-right-8 duration-500">
+                    <div className="bg-white/98 backdrop-blur-md rounded-3xl shadow-2xl border border-white/50 p-8 flex flex-col pointer-events-auto overflow-y-auto max-h-[calc(600px-48px)] md:max-h-[calc(650px-48px)]">
                         <button
                             onClick={() => setSelectedLocation(null)}
                             className="absolute top-6 right-6 text-gray-400 hover:text-[#FF6600] transition-colors p-2"
@@ -365,8 +365,8 @@ const PortMap = () => {
                             </div>
                         </div>
 
-                        <div className="mt-10 space-y-8 flex-grow">
-                            {selectedLocation.route && (
+                        {selectedLocation.route && (
+                            <div className="mt-10 space-y-8 text-[#000040]">
                                 <div>
                                     <h4 className="font-lato text-[11px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-4">Logistics Corridor</h4>
                                     <div className="flex flex-col gap-4">
@@ -383,8 +383,8 @@ const PortMap = () => {
                                         </div>
                                     </div>
                                 </div>
-                            )}
-                        </div>
+                            </div>
+                        )}
 
                     </div>
                 </div>

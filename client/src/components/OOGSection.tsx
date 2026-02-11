@@ -3,6 +3,12 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 const API_BASE_URL = 'http://localhost:5000/api';
 
+interface APIProject {
+    _id: string;
+    image: string;
+    category: string;
+}
+
 const OOGSection = () => {
     const [images, setImages] = useState<string[]>([]);
     const [loading, setLoading] = useState(true);
@@ -12,8 +18,8 @@ const OOGSection = () => {
             try {
                 const res = await axios.get(`${API_BASE_URL}/projects`);
                 const apiImages = res.data
-                    .filter((p: any) => p.category === 'OOG')
-                    .map((p: any) => p.image);
+                    .filter((p: APIProject) => p.category === 'OOG')
+                    .map((p: APIProject) => p.image);
 
                 setImages(apiImages);
             } catch (error) {

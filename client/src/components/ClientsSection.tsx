@@ -8,6 +8,11 @@ interface ClientsSectionProps {
 
 const API_BASE_URL = 'http://localhost:5000/api';
 
+interface Client {
+    _id: string;
+    logo: string;
+}
+
 const ClientsSection = ({ limit = false }: ClientsSectionProps) => {
     const [clients, setClients] = useState<string[]>([]);
     const [loading, setLoading] = useState(true);
@@ -16,7 +21,7 @@ const ClientsSection = ({ limit = false }: ClientsSectionProps) => {
         const fetchClients = async () => {
             try {
                 const res = await axios.get(`${API_BASE_URL}/clients`);
-                const apiLogos = res.data.map((c: any) => c.logo);
+                const apiLogos = res.data.map((c: Client) => c.logo);
                 setClients(apiLogos);
             } catch (error) {
                 console.error('Error fetching clients:', error);

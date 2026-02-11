@@ -4,8 +4,23 @@ import OOGBG from '../assets/OOGBG.png';
 
 const API_BASE_URL = 'http://localhost:5000/api';
 
+interface APIProject {
+    _id: string;
+    image: string;
+    title: string;
+    description?: string;
+    category: string;
+}
+
+interface ProjectData {
+    id: string;
+    src: string;
+    title: string;
+    subtitle: string;
+}
+
 const OOGProjects = () => {
-    const [data, setData] = useState<any[]>([]);
+    const [data, setData] = useState<ProjectData[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -13,8 +28,8 @@ const OOGProjects = () => {
             try {
                 const res = await axios.get(`${API_BASE_URL}/projects`);
                 const apiProjects = res.data
-                    .filter((p: any) => p.category === 'OOG')
-                    .map((p: any) => ({
+                    .filter((p: APIProject) => p.category === 'OOG')
+                    .map((p: APIProject) => ({
                         id: p._id,
                         src: p.image,
                         title: p.title,
@@ -57,7 +72,7 @@ const OOGProjects = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {data.map((project: any) => (
+                    {data.map((project: ProjectData) => (
                         <div key={project.id} className="group relative rounded-xl overflow-hidden shadow-lg h-[300px] cursor-pointer">
                             <img
                                 src={project.src}

@@ -24,7 +24,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
-import SealandLogo from './Assests/sealand_logo.png';
+import SealandLogo from './Assets/sealand_logo.png';
 
 const API_BASE_URL = 'http://localhost:5000/api';
 

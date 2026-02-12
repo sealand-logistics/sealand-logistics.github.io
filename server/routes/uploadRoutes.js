@@ -25,12 +25,19 @@ const upload = multer({ storage });
 
 router.post('/', protect, upload.single('image'), (req, res) => {
     if (!req.file) {
+        console.log('Upload failed: No file provided');
         return res.status(400).send({ message: 'No file uploaded' });
     }
-    // Return the secure URL from Cloudinary
-    res.send({
-        url: req.file.path // This will be the full Cloudinary URL
-    });
+
+    try {
+        console.log('Upload successful:', req.file.path);
+        res.send({
+            url: req.file.path
+        });
+    } catch (error) {
+        console.error('Upload handler error:', error);
+        res.status(500).send({ message: 'Internal server error during upload' });
+    }
 });
 
 module.exports = router;

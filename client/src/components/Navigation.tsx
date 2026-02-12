@@ -82,7 +82,7 @@ const Navigation = () => {
                         onClick={() => setIsModalOpen(true)}
                         className={`${buttonClass} hidden sm:block font-lato font-bold py-2 px-6 rounded-full transition-colors duration-200 shadow-sm text-sm cursor-pointer`}
                     >
-                        Get a quote
+                        Get Quote
                     </button>
 
                     {/* Hamburger Button */}
@@ -129,7 +129,7 @@ const Navigation = () => {
                         }}
                         className="mt-4 bg-[#FF6600] text-white font-lato font-bold py-4 px-6 rounded-xl text-center shadow-lg hover:bg-[#E65A00] transition-colors duration-200 cursor-pointer"
                     >
-                        Get a quote
+                        Get Quote
                     </button>
                 </div>
             </div>

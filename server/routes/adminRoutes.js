@@ -11,7 +11,11 @@ const {
     deleteClient,
     getContacts,
     createContact,
-    deleteContact
+    deleteContact,
+    getCertifications,
+    createCertification,
+    updateCertification,
+    deleteCertification
 } = require('../controllers/adminController');
 const { protect } = require('../utils/authMiddleware');
 
@@ -23,5 +27,8 @@ router.route('/clients/:id').put(protect, updateClient).delete(protect, deleteCl
 
 router.route('/contacts').get(getContacts).post(createContact);
 router.route('/contacts/:id').delete(protect, deleteContact);
+
+router.route('/certifications').get(getCertifications).post(protect, createCertification);
+router.route('/certifications/:id').put(protect, updateCertification).delete(protect, deleteCertification);
 
 module.exports = router;

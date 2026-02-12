@@ -260,7 +260,7 @@ const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose }) => {
                                             Processing...
                                         </>
                                     ) : (
-                                        'Get Free Quote'
+                                        'Get Quote'
                                     )}
                                 </button>
                             </form>

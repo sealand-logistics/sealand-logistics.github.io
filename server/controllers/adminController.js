@@ -1,8 +1,10 @@
 const Project = require('../models/Project');
 const Client = require('../models/Client');
 const Contact = require('../models/Contact');
+const Certification = require('../models/Certification');
 const asyncHandler = require('express-async-handler');
 const sendEmail = require('../utils/mailService');
+const axios = require('axios');
 
 // @desc    Get all projects
 // @route   GET /api/projects
@@ -13,13 +15,27 @@ const getProjects = asyncHandler(async (req, res) => {
 
 // @desc    Create new project
 // @route   POST /api/projects
+// @desc    Create new project
+// @route   POST /api/projects
 const createProject = asyncHandler(async (req, res) => {
-    const { title, description, category, image } = req.body;
-    if (!title || !image) {
+    const { title, description, category, image, images } = req.body;
+
+    // Fallback: If 'images' array is provided, use the first one as main 'image' if not provided
+    const mainImage = image || (images && images.length > 0 ? images[0] : null);
+
+    if (!title) {
         res.status(400);
-        throw new Error('Title and image are required');
+        throw new Error('Title is required');
     }
-    const project = await Project.create({ title, description, category, image });
+
+    const project = await Project.create({
+        title,
+        description,
+        category,
+        image: mainImage,
+        images: images || (mainImage ? [mainImage] : [])
+    });
+
     if (req.io) req.io.emit('new_data', { type: 'project', action: 'create' });
     res.status(201).json(project);
 });
@@ -30,7 +46,19 @@ const updateProject = asyncHandler(async (req, res) => {
         project.title = req.body.title || project.title;
         project.description = req.body.description || project.description;
         project.category = req.body.category || project.category;
-        project.image = req.body.image || project.image;
+
+        // Update images if provided
+        if (req.body.images) {
+            project.images = req.body.images;
+        }
+
+        // Update main image if provided, or sync with first image if images changed
+        if (req.body.image) {
+            project.image = req.body.image;
+        } else if (req.body.images && req.body.images.length > 0) {
+            project.image = req.body.images[0];
+        }
+
         const updatedProject = await project.save();
         if (req.io) req.io.emit('new_data', { type: 'project', action: 'update' });
         res.json(updatedProject);
@@ -107,34 +135,27 @@ const createContact = asyncHandler(async (req, res) => {
     }
     const contact = await Contact.create({ name, company, email, phone, service, message });
 
-    sendEmail({
-        to: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
-        subject: 'New Contact Form Submission - Sealand',
-        html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                <div style="background-color: #000040; padding: 20px; text-align: center; border-radius: 10px 10px 0 0;">
-                    <h2 style="color: #FF6600; margin: 0; font-style: italic;">Sealand Logistics</h2>
-                </div>
-                <div style="padding: 20px; color: #333;">
-                    <h3 style="border-bottom: 2px solid #FF6600; padding-bottom: 10px;">New Inquiry Received</h3>
-                    <p style="margin: 10px 0;"><strong>Name:</strong> ${name}</p>
-                    <p style="margin: 10px 0;"><strong>Company:</strong> ${company || 'N/A'}</p>
-                    <p style="margin: 10px 0;"><strong>Email:</strong> ${email}</p>
-                    <p style="margin: 10px 0;"><strong>Phone:</strong> ${phone}</p>
-                    <p style="margin: 10px 0;"><strong>Service:</strong> ${service}</p>
-                    <div style="margin-top: 20px;">
-                        <strong>Message:</strong>
-                        <div style="background: #f4f4f4; padding: 15px; border-left: 4px solid #FF6600; margin-top: 10px; font-style: italic;">
-                            ${message || 'No message provided'}
-                        </div>
-                    </div>
-                </div>
-                <div style="text-align: center; padding: 15px; background-color: #f8f8f8; font-size: 11px; color: #777; border-radius: 0 0 10px 10px;">
-                    This is an automated notification from Sealand Logistics Portal. Please do not reply to this email directly.
-                </div>
-            </div>
-        `,
-    }).catch(e => console.error('Email error:', e));
+    // 1. Send data to Google Form (Automated Notification Engine)
+    // Mappings from the pre-filled link provided by user
+    const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdDrHyG2_URhLnKQPBsAQHC5FhhYDCH1HaxDmP7p0zB9P3bkw/formResponse';
+
+    // Use URLSearchParams for x-www-form-urlencoded format
+    const params = new URLSearchParams();
+    params.append('entry.282018960', name);
+    params.append('entry.1842346492', company || 'N/A');
+    params.append('entry.1557182690', email);
+    params.append('entry.1318938986', phone);
+    params.append('entry.904656255', service);
+    params.append('entry.1706289452', message || 'No message provided');
+
+    axios.post(GOOGLE_FORM_URL, params.toString())
+        .then(() => console.log('Inquiry successfully synced to Google Form'))
+        .catch(e => console.error('Google Form Sync Error:', e.message));
+
+    /* 
+    Optional: Direct Email Service (Disabled due to Microsoft Auth restrictions)
+    sendEmail({ ... }).catch(e => console.error(e)); 
+    */
 
     if (req.io) req.io.emit('new_data', { type: 'contact', action: 'create' });
     res.status(201).json(contact);
@@ -153,6 +174,49 @@ const deleteContact = asyncHandler(async (req, res) => {
     }
 });
 
+// Certification Controllers
+const getCertifications = asyncHandler(async (req, res) => {
+    const certs = await Certification.find().sort({ createdAt: -1 });
+    res.json(certs);
+});
+
+const createCertification = asyncHandler(async (req, res) => {
+    const { name, image } = req.body;
+    if (!name || !image) {
+        res.status(400);
+        throw new Error('Name and image are required');
+    }
+    const cert = await Certification.create({ name, image });
+    if (req.io) req.io.emit('new_data', { type: 'certification', action: 'create' });
+    res.status(201).json(cert);
+});
+
+const updateCertification = asyncHandler(async (req, res) => {
+    const cert = await Certification.findById(req.params.id);
+    if (cert) {
+        cert.name = req.body.name || cert.name;
+        cert.image = req.body.image || cert.image;
+        const updatedCert = await cert.save();
+        if (req.io) req.io.emit('new_data', { type: 'certification', action: 'update' });
+        res.json(updatedCert);
+    } else {
+        res.status(404);
+        throw new Error('Certification not found');
+    }
+});
+
+const deleteCertification = asyncHandler(async (req, res) => {
+    const cert = await Certification.findById(req.params.id);
+    if (cert) {
+        await cert.deleteOne();
+        if (req.io) req.io.emit('new_data', { type: 'certification', action: 'delete' });
+        res.json({ message: 'Certification removed' });
+    } else {
+        res.status(404);
+        throw new Error('Certification not found');
+    }
+});
+
 module.exports = {
     getProjects,
     createProject,
@@ -164,5 +228,9 @@ module.exports = {
     deleteClient,
     getContacts,
     createContact,
-    deleteContact
+    deleteContact,
+    getCertifications,
+    createCertification,
+    updateCertification,
+    deleteCertification
 };

@@ -62,6 +62,13 @@ interface ContactSubmission {
     createdAt: string;
 }
 
+interface Certification {
+    _id: string;
+    name: string;
+    image: string;
+    createdAt: string;
+}
+
 const LANGUAGES = [
     { code: 'Eng', name: 'English', id: 'en' },
     { code: 'हिन्दी', name: 'Hindi', id: 'hi' },
@@ -88,6 +95,8 @@ const translations: any = {
         specialization: 'Specialization',
         oog: 'OOG Project',
         industry: 'Industry',
+        certifications: 'Certifications',
+        certification: 'Certification',
         findContent: 'Find Your Content',
         manageSubs: 'Manage Submissions',
         sortBy: 'Short by:',
@@ -265,10 +274,11 @@ const translations: any = {
 };
 
 function App() {
-    const [activeTab, setActiveTab] = useState<'projects' | 'clients' | 'contacts'>('projects');
+    const [activeTab, setActiveTab] = useState<'projects' | 'clients' | 'contacts' | 'certifications'>('projects');
     const [projects, setProjects] = useState<Project[]>([]);
     const [clients, setClients] = useState<Client[]>([]);
     const [contacts, setContacts] = useState<ContactSubmission[]>([]);
+    const [certifications, setCertifications] = useState<Certification[]>([]);
     const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
     const [showUploadModal, setShowUploadModal] = useState(false);
@@ -289,6 +299,7 @@ function App() {
     const [desc, setDesc] = useState('');
     const [category, setCategory] = useState('OOG');
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [selectedFiles, setSelectedFiles] = useState<File[]>([]); // New state for multiple files
     const [sortType, setSortType] = useState<'recent' | 'older' | 'alpha'>('recent');
     const [showSortDropdown, setShowSortDropdown] = useState(false);
 
@@ -333,14 +344,16 @@ function App() {
             if (projects.length === 0 && contacts.length === 0) {
                 setLoading(true);
             }
-            const [projRes, clientRes, contactRes] = await Promise.all([
+            const [projRes, clientRes, contactRes, certRes] = await Promise.all([
                 axios.get(`${API_BASE_URL}/projects`),
                 axios.get(`${API_BASE_URL}/clients`),
                 axios.get(`${API_BASE_URL}/contacts`),
+                axios.get(`${API_BASE_URL}/certifications`),
             ]);
             setProjects(projRes.data);
             setClients(clientRes.data);
             setContacts(contactRes.data);
+            setCertifications(certRes.data);
         } catch (error) {
             console.error('Error fetching data:', error);
         } finally {
@@ -358,9 +371,10 @@ function App() {
             setEditingItem(null);
             setTitle('');
             setDesc('');
-            setCategory('OOG');
+            setCategory(activeTab === 'projects' ? 'OOG' : 'Specialization');
         }
         setSelectedFile(null);
+        setSelectedFiles([]);
         setShowUploadModal(true);
     };
 
@@ -378,6 +392,20 @@ function App() {
         }
     };
 
+    const handleMultipleFileUpload = async (files: File[]) => {
+        const formData = new FormData();
+        files.forEach(file => formData.append('images', file));
+        try {
+            const res = await axios.post(`${API_BASE_URL}/upload/multiple`, formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            return res.data.urls;
+        } catch (error) {
+            console.error('Error uploading files:', error);
+            throw error;
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!title) return;
@@ -385,8 +413,21 @@ function App() {
         try {
             setUploading(true);
             let imageUrl = editingItem?.image || editingItem?.logo;
+            let imageUrls: string[] = editingItem?.images || [];
 
-            if (selectedFile) {
+            if (activeTab === 'projects' && selectedFiles.length > 0) {
+                // Upload multiple files
+                const uploadedUrls = await handleMultipleFileUpload(selectedFiles);
+                // If editing, decide whether to append or replace. For now, let's append.
+                // Actually, usually users expect to replace or add. Let's just use the new ones + old ones?
+                // Simple approach: New uploads become the list if provided.
+                // Or better: Append new uploads to existing list.
+                imageUrls = [...(imageUrls || []), ...uploadedUrls];
+                // Update main image if it was empty, or just use the first of the new batch if strictly replacing?
+                // Let's stick to: Main image is first of the combined list
+                if (imageUrls.length > 0) imageUrl = imageUrls[0];
+            } else if (selectedFile) {
+                // Fallback or Client logo upload (single)
                 const uploadedUrl = await handleFileUpload(selectedFile);
                 imageUrl = uploadedUrl;
             }
@@ -398,33 +439,51 @@ function App() {
                         description: desc,
                         category,
                         image: imageUrl,
+                        images: imageUrls
                     });
-                } else {
+                } else if (activeTab === 'clients') {
                     await axios.put(`${API_BASE_URL}/clients/${editingItem._id}`, {
                         name: title,
                         logo: imageUrl,
                     });
+                } else if (activeTab === 'certifications') {
+                    await axios.put(`${API_BASE_URL}/certifications/${editingItem._id}`, {
+                        name: title,
+                        image: imageUrl,
+                    });
                 }
             } else {
-                if (!imageUrl) {
+                if (!imageUrl && activeTab !== 'projects') {
                     alert('Please select an image');
                     return;
                 }
+                if (activeTab === 'projects' && selectedFiles.length === 0 && !selectedFile) {
+                    alert('Please select at least one image');
+                    return;
+                }
+
                 if (activeTab === 'projects') {
                     await axios.post(`${API_BASE_URL}/projects`, {
                         title,
                         description: desc,
                         category,
                         image: imageUrl,
+                        images: imageUrls
                     });
-                } else {
+                } else if (activeTab === 'clients') {
                     await axios.post(`${API_BASE_URL}/clients`, {
                         name: title,
                         logo: imageUrl,
                     });
+                } else if (activeTab === 'certifications') {
+                    await axios.post(`${API_BASE_URL}/certifications`, {
+                        name: title,
+                        image: imageUrl,
+                    });
                 }
             }
 
+            alert('Upload successful! Saved successfully.');
             setShowUploadModal(false);
             fetchData();
         } catch (error: any) {
@@ -460,6 +519,7 @@ function App() {
         setProjects([]);
         setClients([]);
         setContacts([]);
+        setCertifications([]);
     };
 
     const handleDelete = async (id: string, type: string) => {
@@ -680,6 +740,7 @@ function App() {
                                     {[
                                         { id: 'projects', label: t.projects },
                                         { id: 'clients', label: t.clients },
+                                        { id: 'certifications', label: t.certifications },
                                         { id: 'contacts', label: t.contacts }
                                     ].map((tab) => (
                                         <label key={tab.id} className="flex items-center gap-3 cursor-pointer group">
@@ -707,6 +768,7 @@ function App() {
                                     {[
                                         { id: 'projects', label: t.projects },
                                         { id: 'clients', label: t.clients },
+                                        { id: 'certifications', label: t.certifications },
                                         { id: 'contacts', label: t.contacts }
                                     ].map((tab) => (
                                         <label key={tab.id} className="flex items-center gap-3 cursor-pointer group">
@@ -720,40 +782,40 @@ function App() {
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Settings in Mobile Menu */}
-                    <div className="border-t pt-8 space-y-4" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.1)' }}>
-                        <div className="text-sm font-bold uppercase tracking-widest mb-4" style={{ color: isDarkMode ? '#666' : '#999' }}>Settings</div>
+                        {/* Settings in Mobile Menu */}
+                        <div className="border-t pt-8 space-y-4" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.1)' }}>
+                            <div className="text-sm font-bold uppercase tracking-widest mb-4" style={{ color: isDarkMode ? '#666' : '#999' }}>Settings</div>
 
-                        {/* Language Selector */}
-                        <div>
-                            <button onClick={() => setShowLangDropdown(!showLangDropdown)} className={`flex items-center justify-between w-full gap-2 text-sm transition-colors px-4 py-3 rounded-xl border ${isDarkMode ? 'text-gray-400 hover:text-white border-white/10 hover:bg-white/5' : 'text-gray-500 hover:text-black border-gray-200 hover:bg-gray-50'}`}>
-                                <div className="flex items-center gap-2">
-                                    <Globe className="w-4 h-4" /> {currentLang.name}
-                                </div>
-                                <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${showLangDropdown ? 'rotate-180' : ''}`} />
-                            </button>
-                            <AnimatePresence>
-                                {showLangDropdown && (
-                                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className={`mt-2 w-full rounded-2xl p-2 border shadow-2xl overflow-hidden transition-colors duration-500 ${isDarkMode ? 'bg-[#111] border-white/10 shadow-black' : 'bg-white border-gray-100 shadow-gray-200'}`}>
-                                        {LANGUAGES.map((lang) => (
-                                            <button key={lang.code} onClick={() => { setCurrentLang(lang); setShowLangDropdown(false); }} className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all ${currentLang.code === lang.code ? 'bg-orange-600 text-white' : (isDarkMode ? 'text-gray-400 hover:bg-white/5 hover:text-white' : 'text-gray-600 hover:bg-gray-50 hover:text-black')}`}>
-                                                {lang.name} <span className="text-[10px] opacity-60 float-right mt-1">{lang.code}</span>
-                                            </button>
-                                        ))}
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-
-                        {/* Theme Toggle */}
-                        <button onClick={toggleTheme} className={`flex items-center justify-between w-full gap-2 px-4 py-3 rounded-xl border transition-all duration-300 ${isDarkMode ? 'border-white/10 bg-white/5 text-gray-300 hover:bg-white/10' : 'border-gray-200 bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
-                            <div className="flex items-center gap-2">
-                                {isDarkMode ? <Sun className="w-4 h-4 text-orange-400" /> : <Moon className="w-4 h-4 text-orange-600" />}
-                                <span className="text-sm font-medium">{isDarkMode ? t.light : t.dark}</span>
+                            {/* Language Selector */}
+                            <div>
+                                <button onClick={() => setShowLangDropdown(!showLangDropdown)} className={`flex items-center justify-between w-full gap-2 text-sm transition-colors px-4 py-3 rounded-xl border ${isDarkMode ? 'text-gray-400 hover:text-white border-white/10 hover:bg-white/5' : 'text-gray-500 hover:text-black border-gray-200 hover:bg-gray-50'}`}>
+                                    <div className="flex items-center gap-2">
+                                        <Globe className="w-4 h-4" /> {currentLang.name}
+                                    </div>
+                                    <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${showLangDropdown ? 'rotate-180' : ''}`} />
+                                </button>
+                                <AnimatePresence>
+                                    {showLangDropdown && (
+                                        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className={`mt-2 w-full rounded-2xl p-2 border shadow-2xl overflow-hidden transition-colors duration-500 ${isDarkMode ? 'bg-[#111] border-white/10 shadow-black' : 'bg-white border-gray-100 shadow-gray-200'}`}>
+                                            {LANGUAGES.map((lang) => (
+                                                <button key={lang.code} onClick={() => { setCurrentLang(lang); setShowLangDropdown(false); }} className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all ${currentLang.code === lang.code ? 'bg-orange-600 text-white' : (isDarkMode ? 'text-gray-400 hover:bg-white/5 hover:text-white' : 'text-gray-600 hover:bg-gray-50 hover:text-black')}`}>
+                                                    {lang.name} <span className="text-[10px] opacity-60 float-right mt-1">{lang.code}</span>
+                                                </button>
+                                            ))}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </div>
-                        </button>
+
+                            {/* Theme Toggle */}
+                            <button onClick={toggleTheme} className={`flex items-center justify-between w-full gap-2 px-4 py-3 rounded-xl border transition-all duration-300 ${isDarkMode ? 'border-white/10 bg-white/5 text-gray-300 hover:bg-white/10' : 'border-gray-200 bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
+                                <div className="flex items-center gap-2">
+                                    {isDarkMode ? <Sun className="w-4 h-4 text-orange-400" /> : <Moon className="w-4 h-4 text-orange-600" />}
+                                    <span className="text-sm font-medium">{isDarkMode ? t.light : t.dark}</span>
+                                </div>
+                            </button>
+                        </div>
                     </div>
                 </aside>
 
@@ -880,10 +942,10 @@ function App() {
                                 </motion.div>
                             ) : (
                                 <motion.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 items-start">
-                                    {getSortedData(activeTab === 'projects' ? projects : clients).map((item: any) => (
+                                    {getSortedData(activeTab === 'projects' ? projects : (activeTab === 'clients' ? clients : certifications)).map((item: any) => (
                                         <div key={item._id} className={`rounded-2xl overflow-hidden group hover:shadow-2xl transition-all duration-500 relative ${isDarkMode ? 'bg-[#151515] hover:shadow-white/5' : 'bg-white border border-gray-100 shadow-sm'}`}>
                                             <div className="aspect-[4/3] bg-white relative overflow-hidden">
-                                                <img src={activeTab === 'projects' ? item.image : item.logo} alt={item.title || item.name} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                                                <img src={activeTab === 'projects' ? item.image : (activeTab === 'clients' ? item.logo : item.image)} alt={item.title || item.name} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
                                                 <div className="absolute top-6 right-6 flex gap-3">
                                                     <button onClick={() => openUploadModal(item)} className="w-10 h-10 bg-black/80 backdrop-blur-md text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-orange-600 shadow-lg"><Pencil className="w-4 h-4" /></button>
                                                     <button onClick={() => handleDelete(item._id, activeTab as any)} className="w-10 h-10 bg-black/80 backdrop-blur-md text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-red-600 shadow-lg"><Trash2 className="w-4 h-4" /></button>
@@ -922,7 +984,7 @@ function App() {
                             className={`w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-3xl p-6 md:p-10 relative z-10 border shadow-2xl transition-all duration-300 ${isDarkMode ? 'bg-[#111] border-white/5' : 'bg-white border-gray-100'}`}
                         >
                             <h3 className={`text-2xl md:text-3xl font-bold mb-6 md:mb-8 ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                                {editingItem ? t.update : t.addNew} {activeTab === 'projects' ? t.project : t.client}
+                                {editingItem ? t.update : t.addNew} {activeTab === 'projects' ? t.project : (activeTab === 'clients' ? t.client : t.certification)}
                             </h3>
                             <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
                                 <div>
@@ -973,15 +1035,80 @@ function App() {
                                     <label className={`block text-[10px] font-bold uppercase tracking-[0.2em] mb-2 px-1 ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>
                                         {t.media}
                                     </label>
+
+                                    {/* Selected/Existing Images List */}
+                                    {(activeTab === 'projects' || activeTab === 'certifications') && (
+                                        <div className="space-y-3 mb-4">
+                                            {/* Existing Images (when editing) */}
+                                            {editingItem?.images?.map((url: string, index: number) => (
+                                                <div key={`existing-${index}`} className={`flex items-center gap-3 p-3 rounded-xl border ${isDarkMode ? 'bg-white/5 border-white/10' : 'bg-gray-50 border-gray-100'}`}>
+                                                    <img src={url} alt="" className="w-12 h-12 object-cover rounded-lg" />
+                                                    <span className={`text-xs flex-1 truncate ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Existing Image {index + 1}</span>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => {
+                                                            const newImages = editingItem.images.filter((_: any, i: number) => i !== index);
+                                                            setEditingItem({ ...editingItem, images: newImages });
+                                                        }}
+                                                        className="p-2 hover:text-red-500 transition-colors"
+                                                    >
+                                                        <Trash2 className="w-4 h-4" />
+                                                    </button>
+                                                </div>
+                                            ))}
+
+                                            {/* Newly Selected Files */}
+                                            {selectedFiles.map((file, index) => (
+                                                <div key={`new-${index}`} className={`flex items-center gap-3 p-3 rounded-xl border ${isDarkMode ? 'bg-orange-500/5 border-orange-500/20' : 'bg-orange-50 border-orange-100'}`}>
+                                                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${isDarkMode ? 'bg-white/5' : 'bg-white'}`}>
+                                                        <ImageIcon className="w-6 h-6 text-orange-500" />
+                                                    </div>
+                                                    <div className="flex-1 min-w-0">
+                                                        <div className={`text-xs font-bold truncate ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{file.name}</div>
+                                                        <div className="text-[10px] text-gray-500">Ready to upload</div>
+                                                    </div>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => setSelectedFiles(prev => prev.filter((_, i) => i !== index))}
+                                                        className="p-2 hover:text-red-500 transition-colors"
+                                                    >
+                                                        <Trash2 className="w-4 h-4" />
+                                                    </button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+
                                     <label className={`flex items-center gap-4 border p-4 md:p-5 rounded-2xl border-dashed cursor-pointer transition-all ${isDarkMode ? 'border-white/10 hover:border-orange-500/50 hover:bg-orange-500/5' : 'border-gray-200 hover:border-orange-500/30 hover:bg-orange-500/5'}`}>
                                         <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center ${isDarkMode ? 'bg-white/5' : 'bg-gray-50'}`}>
                                             <Upload className="w-5 h-5 text-gray-400" />
                                         </div>
                                         <div className="flex-1 overflow-hidden">
-                                            <span className={`text-sm font-bold block truncate ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{selectedFile ? selectedFile.name : t.selectImg}</span>
+                                            <span className={`text-sm font-bold block truncate ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{
+                                                activeTab === 'projects'
+                                                    ? (selectedFiles.length > 0 ? `Add more images...` : 'Select Images')
+                                                    : (selectedFile ? selectedFile.name : t.selectImg)
+                                            }</span>
                                             <span className="text-[10px] text-gray-500 uppercase font-bold tracking-widest mt-0.5 block">PNG, JPG, WEBP</span>
                                         </div>
-                                        <input type="file" className="hidden" onChange={(e) => setSelectedFile(e.target.files?.[0] || null)} accept="image/*" />
+                                        <input
+                                            type="file"
+                                            className="hidden"
+                                            multiple={activeTab === 'projects'}
+                                            onChange={(e) => {
+                                                if (activeTab === 'projects') {
+                                                    if (e.target.files) {
+                                                        const newFiles = Array.from(e.target.files);
+                                                        setSelectedFiles(prev => [...prev, ...newFiles]);
+                                                        setSelectedFile(null);
+                                                    }
+                                                } else {
+                                                    setSelectedFile(e.target.files?.[0] || null);
+                                                    setSelectedFiles([]);
+                                                }
+                                            }}
+                                            accept="image/*"
+                                        />
                                     </label>
                                 </div>
                                 <div className="pt-4 flex flex-col sm:flex-row gap-3 md:gap-4">

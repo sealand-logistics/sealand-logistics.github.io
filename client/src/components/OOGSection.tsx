@@ -70,7 +70,7 @@ const OOGSection = () => {
                     onClick={() => setIsModalOpen(true)}
                     className="hidden md:inline-block bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold font-lato py-3 px-8 rounded-full shadow-lg transition-colors duration-300 cursor-pointer"
                 >
-                    Get a Quote
+                    Get Quote
                 </button>
             </div>
 

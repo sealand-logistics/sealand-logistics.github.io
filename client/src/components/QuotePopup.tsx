@@ -138,7 +138,7 @@ const QuotePopup = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                                 </div>
 
                                 <button type="submit" className="w-full bg-[#FF6600] hover:bg-[#E65A00] text-white font-lato font-bold py-3.5 rounded-xl transition-all duration-300 shadow-lg shadow-[#FF6600]/20 transform hover:-translate-y-0.5 mt-2">
-                                    Submit Request
+                                    Get Quote
                                 </button>
                             </form>
                         </>

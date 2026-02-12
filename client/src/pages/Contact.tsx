@@ -214,7 +214,7 @@ const Contact = () => {
                     <div className="h-[500px] lg:h-full min-h-[400px]">
                         <iframe
                             className="w-full h-full border-0 rounded-2xl"
-                            src="https://maps.google.com/maps?width=600&height=400&hl=en&q=sealand%20logistics%20india&t=&z=17&ie=UTF8&iwloc=B&output=embed"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.588828698539!2d88.35326447604475!3d22.55200457950529!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a0277ebdf519943%3A0x3c3c75d46852115f!2sPark%20NX!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
                             title="Sealand Logistics Location"
                         />
                     </div>
@@ -337,7 +337,7 @@ const Contact = () => {
                                     disabled={loading}
                                     className="w-full md:w-auto bg-[#FF6600] hover:bg-[#E65A00] text-white font-lato font-bold py-4 px-16 rounded-full transition-all duration-300 shadow-xl shadow-orange-500/20 active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2"
                                 >
-                                    {loading ? 'Submitting...' : 'Submit'}
+                                    {loading ? 'Submitting...' : 'Get Quote'}
                                 </button>
                             </div>
                         </form>

@@ -35,7 +35,7 @@ const Hero = () => {
                             onClick={() => setIsPopupOpen(true)}
                             className="px-8 py-3 bg-[#fd7e14] hover:bg-[#e36d0d] text-white font-lato font-bold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg inline-block"
                         >
-                            Get a Quote
+                            Get Quote
                         </button>
                         <a
                             href="https://wa.me/918013330628"

@@ -21,7 +21,7 @@ const CTASection = () => {
                             onClick={() => setIsModalOpen(true)}
                             className="inline-block bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold font-lato py-3 px-8 rounded-full shadow-lg transition-colors duration-300 cursor-pointer"
                         >
-                            Get a Quote
+                            Get Quote
                         </button>
                     </div>
                 </div>

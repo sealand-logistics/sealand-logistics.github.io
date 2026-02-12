@@ -1,4 +1,3 @@
-import React from 'react';
 
 const WhatsAppButton = () => {
     const phoneNumber = '918013330628';

@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Logo from '../assets/sealand_logo.png';
+import QuoteModal from './QuoteModal';
 
 const Navigation = () => {
     const location = useLocation();
@@ -8,6 +9,7 @@ const Navigation = () => {
     const [isScrolled, setIsScrolled] = useState(false);
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -76,12 +78,12 @@ const Navigation = () => {
 
                 <div className="flex items-center gap-4">
                     {/* Get a Quote Button - Hidden on small mobile, visible from sm up */}
-                    <Link
-                        to="/contact"
-                        className={`${buttonClass} hidden sm:block font-lato font-bold py-2 px-6 rounded-full transition-colors duration-200 shadow-sm text-sm`}
+                    <button
+                        onClick={() => setIsModalOpen(true)}
+                        className={`${buttonClass} hidden sm:block font-lato font-bold py-2 px-6 rounded-full transition-colors duration-200 shadow-sm text-sm cursor-pointer`}
                     >
                         Get a quote
-                    </Link>
+                    </button>
 
                     {/* Hamburger Button */}
                     <button
@@ -120,15 +122,22 @@ const Navigation = () => {
                             {link.name}
                         </Link>
                     ))}
-                    <Link
-                        to="/contact"
-                        onClick={() => setIsMenuOpen(false)}
-                        className="mt-4 bg-[#FF6600] text-white font-lato font-bold py-4 px-6 rounded-xl text-center shadow-lg hover:bg-[#E65A00] transition-colors duration-200"
+                    <button
+                        onClick={() => {
+                            setIsMenuOpen(false);
+                            setIsModalOpen(true);
+                        }}
+                        className="mt-4 bg-[#FF6600] text-white font-lato font-bold py-4 px-6 rounded-xl text-center shadow-lg hover:bg-[#E65A00] transition-colors duration-200 cursor-pointer"
                     >
                         Get a quote
-                    </Link>
+                    </button>
                 </div>
             </div>
+
+            <QuoteModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
         </nav>
     );
 };

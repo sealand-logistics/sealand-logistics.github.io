@@ -3,6 +3,7 @@ import Navigation from './components/Navigation';
 import CTASection from './components/CTASection';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import WhatsAppButton from './components/WhatsAppButton';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import Specializations from './pages/Specializations';
@@ -38,6 +39,7 @@ function App() {
         </main>
         <CTASection />
         <Footer />
+        <WhatsAppButton />
       </div>
     </HashRouter>
   );

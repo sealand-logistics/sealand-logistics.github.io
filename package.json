@@ -10,7 +10,8 @@
         "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\" \"npm run dev:admin\"",
         "build:admin": "cd admin && npx vite build",
         "build:client": "cd client && npx vite build",
-        "deploy": "npm run build:client && npm run build:admin && if exist client\\dist\\admin (rmdir /s /q client\\dist\\admin) && mkdir client\\dist\\admin && xcopy /E /Y admin\\dist client\\dist\\admin && cd client && npm run deploy"
+        "build:hostinger": "node scripts/build-hostinger.js",
+        "deploy": "npm run build:hostinger && cd client && npm run deploy"
     },
     "devDependencies": {
         "concurrently": "^9.1.2"

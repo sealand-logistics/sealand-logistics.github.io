@@ -1,15 +1,39 @@
+# CRITICAL: Force correct MIME types
+<IfModule mod_mime.c>
+  AddType text/css .css
+  AddType text/javascript .js
+  AddType application/javascript .js
+  AddType application/x-javascript .js
+  AddType image/svg+xml .svg
+  AddType image/png .png
+  AddType image/jpeg .jpg .jpeg
+</IfModule>
+
+# Disable directory browsing and MultiViews
+Options -Indexes -MultiViews
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
   
-  # Handle Admin Subfolder
-  RewriteCond %{REQUEST_URI} ^/admin/.*$
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /admin/index.html [L]
-
-  # Handle Main Site
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /index.html [L]
+  # RULE 1: NEVER rewrite requests to /assets/ - serve them directly
+  RewriteRule ^assets/ - [L]
+  
+  # RULE 2: NEVER rewrite requests to /admin/assets/ - serve them directly
+  RewriteRule ^admin/assets/ - [L]
+  
+  # RULE 3: If the actual file exists, serve it
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^ - [L]
+  
+  # RULE 4: If the actual directory exists, serve it
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  
+  # RULE 5: Admin panel routing
+  RewriteCond %{REQUEST_URI} ^/admin
+  RewriteRule ^ /admin/index.html [L]
+  
+  # RULE 6: Main site routing (catch-all)
+  RewriteRule ^ /index.html [L]
 </IfModule>

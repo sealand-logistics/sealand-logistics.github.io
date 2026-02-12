@@ -28,7 +28,7 @@ import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import SealandLogo from './Assets/sealand_logo.png';
 
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'https://sealand-logistics-github-io.onrender.com/api';
 
 interface Project {
     _id: string;
@@ -359,7 +359,7 @@ function App() {
 
             if (selectedFile) {
                 const uploadedUrl = await handleFileUpload(selectedFile);
-                imageUrl = `http://localhost:5000${uploadedUrl}`;
+                imageUrl = `https://sealand-logistics-github-io.onrender.com${uploadedUrl}`;
             }
 
             if (editingItem) {

@@ -5,39 +5,50 @@ const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const router = express.Router();
 const { protect } = require('../utils/authMiddleware');
 
-// Configure Cloudinary
+// Debugging: Verify Env Variables (won't log the full secret for safety)
+console.log('Cloudinary Config Check:', {
+    name: process.env.CLOUDINARY_CLOUD_NAME ? 'Loaded' : 'MISSING',
+    key: process.env.CLOUDINARY_API_KEY ? 'Loaded' : 'MISSING',
+    secret: process.env.CLOUDINARY_API_SECRET ? 'Loaded' : 'MISSING'
+});
+
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Configure Storage
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
         folder: 'sealand_uploads',
         allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
+        transformation: [{ width: 1000, height: 1000, crop: 'limit' }]
     },
 });
 
-const upload = multer({ storage });
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
+});
 
-router.post('/', protect, upload.single('image'), (req, res) => {
-    if (!req.file) {
-        console.log('Upload failed: No file provided');
-        return res.status(400).send({ message: 'No file uploaded' });
-    }
+router.post('/', protect, (req, res) => {
+    upload.single('image')(req, res, function (err) {
+        if (err instanceof multer.MulterError) {
+            console.error('Multer Error:', err);
+            return res.status(400).json({ message: `Multer error: ${err.message}` });
+        } else if (err) {
+            console.error('Cloudinary/Upload Error:', err);
+            return res.status(500).json({ message: `Upload error: ${err.message || 'Unknown error'}` });
+        }
 
-    try {
-        console.log('Upload successful:', req.file.path);
-        res.send({
-            url: req.file.path
-        });
-    } catch (error) {
-        console.error('Upload handler error:', error);
-        res.status(500).send({ message: 'Internal server error during upload' });
-    }
+        if (!req.file) {
+            return res.status(400).json({ message: 'No file provided' });
+        }
+
+        console.log('Successfully uploaded to Cloudinary:', req.file.path);
+        res.json({ url: req.file.path });
+    });
 });
 
 module.exports = router;

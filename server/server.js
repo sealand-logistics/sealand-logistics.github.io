@@ -1,11 +1,32 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
-require('dotenv').config();
+const http = require('http');
+const { Server } = require('socket.io');
 
 const app = express();
-app.use(morgan('dev'));
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+});
+
+io.on('connection', (socket) => {
+    console.log('Client connected to socket');
+    socket.on('disconnect', () => {
+        console.log('Client disconnected from socket');
+    });
+});
+
+// Pass io to request object for use in controllers
+app.use((req, res, next) => {
+    req.io = io;
+    next();
+});
 
 const adminRoutes = require('./routes/adminRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
@@ -13,7 +34,8 @@ const authRoutes = require('./routes/authRoutes');
 const path = require('path');
 
 // Middleware
-app.use(cors()); // Allow all for local dev, or specify origins
+app.use(morgan('dev'));
+app.use(cors());
 app.use(express.json());
 
 // Routes
@@ -35,6 +57,7 @@ app.get('/api/status', (req, res) => {
 
 // Error handling middleware
 app.use((err, req, res, next) => {
+    console.error('SERVER ERROR:', err);
     const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
     res.status(statusCode);
     res.json({
@@ -50,7 +73,7 @@ const MONGODB_URI = process.env.MONGODB_URI;
 mongoose.connect(MONGODB_URI)
     .then(() => {
         console.log('Connected to MongoDB');
-        app.listen(PORT, () => {
+        server.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`);
         });
     })

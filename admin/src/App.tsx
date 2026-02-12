@@ -26,9 +26,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
+import { io } from 'socket.io-client';
 import SealandLogo from './Assets/sealand_logo.png';
 
-const API_BASE_URL = 'https://sealand-logistics-github-io.onrender.com/api';
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:5000/api'
+    : 'https://sealand-logistics-github-io.onrender.com/api';
 
 interface Project {
     _id: string;
@@ -299,11 +302,34 @@ function App() {
 
     useEffect(() => {
         fetchData();
-    }, []);
+
+        // Initialize Socket connection
+        const socketUrl = API_BASE_URL.replace('/api', '');
+        const socket = io(socketUrl);
+
+        socket.on('connect', () => {
+            console.log('Connected to real-time update server');
+        });
+
+        // Listen for all real-time updates
+        socket.on('new_data', (data: any) => {
+            console.log('Real-time update received:', data.type);
+            fetchData();
+        });
+
+        // Keep compatibility with old event
+        socket.on('new_contact', () => fetchData());
+
+        return () => {
+            socket.disconnect();
+        };
+    }, [API_BASE_URL]);
 
     const fetchData = async () => {
         try {
-            setLoading(true);
+            if (projects.length === 0 && contacts.length === 0) {
+                setLoading(true);
+            }
             const [projRes, clientRes, contactRes] = await Promise.all([
                 axios.get(`${API_BASE_URL}/projects`),
                 axios.get(`${API_BASE_URL}/clients`),
@@ -398,8 +424,10 @@ function App() {
 
             setShowUploadModal(false);
             fetchData();
-        } catch (error) {
-            alert('Operation failed');
+        } catch (error: any) {
+            console.error('Operation Error:', error);
+            const msg = error.response?.data?.message || error.message || 'Operation failed';
+            alert(`Error: ${msg}`);
         } finally {
             setUploading(false);
         }
@@ -468,7 +496,7 @@ function App() {
                 contact.email,
                 contact.phone,
                 contact.service,
-                new Date(contact.createdAt).toLocaleDateString()
+                new Date(contact.createdAt).toLocaleString()
             ]);
         });
         doc.autoTable(tableColumn, tableRows, { startY: 20 });
@@ -722,7 +750,10 @@ function App() {
                                                         <td className="px-8 py-6">
                                                             <p className="text-sm leading-relaxed max-w-md line-clamp-2 group-hover:line-clamp-none transition-all">{contact.message}</p>
                                                         </td>
-                                                        <td className="px-8 py-6 text-[11px] text-gray-500 font-medium">{new Date(contact.createdAt).toLocaleDateString()}</td>
+                                                        <td className="px-8 py-6 text-[10px] text-gray-500 font-medium whitespace-nowrap">
+                                                            <div>{new Date(contact.createdAt).toLocaleDateString()}</div>
+                                                            <div className="opacity-60">{new Date(contact.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                                                        </td>
                                                         <td className="px-8 py-6 text-right">
                                                             <button onClick={() => handleDelete(contact._id, 'contacts')} className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${isDarkMode ? 'text-gray-500 hover:bg-red-600 hover:text-white' : 'text-gray-400 hover:bg-red-50 hover:text-red-600'}`}><Trash2 className="w-4 h-4" /></button>
                                                         </td>

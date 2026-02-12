@@ -31,12 +31,20 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage });
 
-router.post('/', protect, upload.single('image'), (req, res) => {
-    if (!req.file) {
-        return res.status(400).json({ message: 'No file provided' });
-    }
-    console.log('Upload success! URL:', req.file.path);
-    res.json({ url: req.file.path });
+router.post('/', protect, (req, res, next) => {
+    console.log('UPLOAD: Start processed');
+    upload.single('image')(req, res, (err) => {
+        if (err) {
+            console.error('MULTER ERROR:', err);
+            return res.status(500).json({ message: 'Upload failed', error: err.message });
+        }
+        if (!req.file) {
+            console.log('UPLOAD: No file provided');
+            return res.status(400).json({ message: 'No file provided' });
+        }
+        console.log('UPLOAD: Success!', req.file.path);
+        res.json({ url: req.file.path });
+    });
 });
 
 module.exports = router;

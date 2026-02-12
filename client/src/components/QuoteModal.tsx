@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const API_BASE_URL = 'https://sealand-logistics-github-io.onrender.com/api';
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:5000/api'
+    : 'https://sealand-logistics-github-io.onrender.com/api';
 
 interface QuoteModalProps {
     isOpen: boolean;
@@ -64,8 +66,14 @@ const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose }) => {
 
         try {
             setLoading(true);
-            await axios.post(`${API_BASE_URL}/contacts`, formData);
+            console.log('Submitting to:', `${API_BASE_URL}/contacts`);
+            const res = await axios.post(`${API_BASE_URL}/contacts`, formData);
+            console.log('Success!', res.data);
+
+            // Explicitly set success status
             setStatus({ type: 'success', msg: 'Thank you! Your request has been sent successfully.' });
+
+            // Reset form data
             setFormData({
                 name: '',
                 company: '',
@@ -75,10 +83,13 @@ const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose }) => {
                 message: '',
                 agreed: false
             });
-            // Auto close on success after delay
-            setTimeout(() => onClose(), 4000);
-        } catch (error) {
-            setStatus({ type: 'error', msg: 'Failed to send request. Please try again.' });
+            // Temporarily disabled auto-close for debugging
+            // setTimeout(() => onClose(), 4000);
+        } catch (error: any) {
+            console.error('Submit Error:', error);
+            const errorMsg = error.response?.data?.message || error.message || 'Failed to send request';
+            alert('Error: ' + errorMsg);
+            setStatus({ type: 'error', msg: errorMsg });
         } finally {
             setLoading(false);
         }
@@ -105,17 +116,17 @@ const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose }) => {
 
                 <div className="p-8 md:p-10">
                     {status?.type === 'success' ? (
-                        <div className="py-12 flex flex-col items-center text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <div className="py-12 flex flex-col items-center text-center">
                             <div className="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-green-500/20">
                                 <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                 </svg>
                             </div>
-                            <h3 className="text-3xl font-playfair font-bold text-[#000040] mb-3">Thank You!</h3>
-                            <p className="text-lg font-lato text-gray-600 max-w-sm mx-auto">{status.msg}</p>
+                            <h3 className="text-3xl font-playfair font-bold text-[#000040] mb-3 text-center">Thank You!</h3>
+                            <p className="text-lg font-lato text-gray-600 max-w-sm mx-auto text-center">{status.msg}</p>
                             <button
                                 onClick={onClose}
-                                className="mt-8 px-8 py-3 bg-[#000040] text-white rounded-full font-bold hover:bg-black transition-all"
+                                className="mt-8 px-8 py-3 bg-[#000040] text-white rounded-full font-bold hover:bg-black transition-all cursor-pointer"
                             >
                                 Back to Site
                             </button>

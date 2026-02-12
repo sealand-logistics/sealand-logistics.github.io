@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import OOGBG from '../assets/OOGBG.png';
 
-const API_BASE_URL = 'https://sealand-logistics-github-io.onrender.com/api';
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:5000/api'
+    : 'https://sealand-logistics-github-io.onrender.com/api';
 
 interface APIProject {
     _id: string;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'https://sealand-logistics-github-io.onrender.com/api';
 
 interface APIProject {
     _id: string;

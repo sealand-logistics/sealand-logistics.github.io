@@ -359,7 +359,7 @@ function App() {
 
             if (selectedFile) {
                 const uploadedUrl = await handleFileUpload(selectedFile);
-                imageUrl = `https://sealand-logistics-github-io.onrender.com${uploadedUrl}`;
+                imageUrl = uploadedUrl;
             }
 
             if (editingItem) {

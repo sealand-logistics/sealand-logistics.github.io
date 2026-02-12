@@ -652,7 +652,10 @@ function App() {
             <div className="flex flex-1 overflow-hidden">
                 {/* Mobile Menu Button */}
                 <button
-                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    onClick={() => {
+                        setIsMobileMenuOpen(!isMobileMenuOpen);
+                        setShowLangDropdown(false);
+                    }}
                     className={`lg:hidden fixed top-4 right-4 z-50 p-3 rounded-xl transition-all ${isDarkMode ? 'bg-black/90 text-white' : 'bg-white text-black'} shadow-xl`}
                 >
                     {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -724,7 +727,7 @@ function App() {
                         <div className="text-sm font-bold uppercase tracking-widest mb-4" style={{ color: isDarkMode ? '#666' : '#999' }}>Settings</div>
 
                         {/* Language Selector */}
-                        <div className="relative">
+                        <div>
                             <button onClick={() => setShowLangDropdown(!showLangDropdown)} className={`flex items-center justify-between w-full gap-2 text-sm transition-colors px-4 py-3 rounded-xl border ${isDarkMode ? 'text-gray-400 hover:text-white border-white/10 hover:bg-white/5' : 'text-gray-500 hover:text-black border-gray-200 hover:bg-gray-50'}`}>
                                 <div className="flex items-center gap-2">
                                     <Globe className="w-4 h-4" /> {currentLang.name}
@@ -733,7 +736,7 @@ function App() {
                             </button>
                             <AnimatePresence>
                                 {showLangDropdown && (
-                                    <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className={`mt-2 w-full rounded-2xl p-2 border shadow-2xl transition-colors duration-500 ${isDarkMode ? 'bg-[#111] border-white/10 shadow-black' : 'bg-white border-gray-100 shadow-gray-200'}`}>
+                                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className={`mt-2 w-full rounded-2xl p-2 border shadow-2xl overflow-hidden transition-colors duration-500 ${isDarkMode ? 'bg-[#111] border-white/10 shadow-black' : 'bg-white border-gray-100 shadow-gray-200'}`}>
                                         {LANGUAGES.map((lang) => (
                                             <button key={lang.code} onClick={() => { setCurrentLang(lang); setShowLangDropdown(false); }} className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all ${currentLang.code === lang.code ? 'bg-orange-600 text-white' : (isDarkMode ? 'text-gray-400 hover:bg-white/5 hover:text-white' : 'text-gray-600 hover:bg-gray-50 hover:text-black')}`}>
                                                 {lang.name} <span className="text-[10px] opacity-60 float-right mt-1">{lang.code}</span>

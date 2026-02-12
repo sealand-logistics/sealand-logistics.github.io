@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import CTAImage from '../assets/CTA_Image.png';
+import QuoteModal from './QuoteModal';
 
 const CTASection = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     return (
         <section className="bg-[#FFF5EB] pt-16 md:pt-0">
             <div className="container mx-auto px-[15px] lg:px-[60px] flex flex-col md:flex-row justify-between gap-10 relative">
@@ -15,12 +17,12 @@ const CTASection = () => {
                         Partner with a trusted logistics team delivering fast, secure, and reliable end-to-end solutions across the globe.
                     </p>
                     <div className="pt-2">
-                        <Link
-                            to="/contact"
-                            className="inline-block bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold font-lato py-3 px-8 rounded-full shadow-lg transition-colors duration-300"
+                        <button
+                            onClick={() => setIsModalOpen(true)}
+                            className="inline-block bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold font-lato py-3 px-8 rounded-full shadow-lg transition-colors duration-300 cursor-pointer"
                         >
                             Get a Quote
-                        </Link>
+                        </button>
                     </div>
                 </div>
 
@@ -33,6 +35,10 @@ const CTASection = () => {
                     />
                 </div>
             </div>
+            <QuoteModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
         </section>
     );
 };

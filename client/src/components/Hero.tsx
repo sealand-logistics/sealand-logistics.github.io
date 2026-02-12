@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import HeroImage from '../assets/Hero_Image.png';
-import QuotePopup from './QuotePopup';
+import QuoteModal from './QuoteModal';
 
 const Hero = () => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -49,7 +49,7 @@ const Hero = () => {
                 </div>
             </div>
 
-            <QuotePopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
+            <QuoteModal isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
         </div>
     );
 };

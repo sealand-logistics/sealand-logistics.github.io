@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import QuoteModal from './QuoteModal';
 const API_BASE_URL = 'https://sealand-logistics-github-io.onrender.com/api';
 
 interface APIProject {
@@ -12,6 +13,7 @@ interface APIProject {
 const OOGSection = () => {
     const [images, setImages] = useState<string[]>([]);
     const [loading, setLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         const fetchOOG = async () => {
@@ -55,12 +57,12 @@ const OOGSection = () => {
                         OOG Projects <span className="font-playfair font-bold italic text-blue-900">in Action</span>
                     </h2>
                 </div>
-                <Link
-                    to="/contact"
-                    className="hidden md:inline-block bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold font-lato py-3 px-8 rounded-full shadow-lg transition-colors duration-300"
+                <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="hidden md:inline-block bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold font-lato py-3 px-8 rounded-full shadow-lg transition-colors duration-300 cursor-pointer"
                 >
                     Get a Quote
-                </Link>
+                </button>
             </div>
 
             {/* Carousel Container */}
@@ -87,6 +89,11 @@ const OOGSection = () => {
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                 </Link>
             </div>
+
+            <QuoteModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
 
             <style>{`
                 @keyframes marquee {

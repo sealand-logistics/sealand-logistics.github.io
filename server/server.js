@@ -13,7 +13,7 @@ const authRoutes = require('./routes/authRoutes');
 const path = require('path');
 
 // Middleware
-app.use(cors());
+app.use(cors()); // Allow all for local dev, or specify origins
 app.use(express.json());
 
 // Routes
@@ -22,10 +22,25 @@ app.use('/api', adminRoutes);
 app.use('/api/upload', uploadRoutes);
 
 // Static Folders
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+const uploadsPath = path.join(__dirname, 'uploads');
+if (!require('fs').existsSync(uploadsPath)) {
+    require('fs').mkdirSync(uploadsPath);
+}
+app.use('/uploads', express.static(uploadsPath));
 
+// Status route
 app.get('/api/status', (req, res) => {
     res.json({ status: 'Server is running', timestamp: new Date() });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+    res.status(statusCode);
+    res.json({
+        message: err.message,
+        stack: process.env.NODE_ENV === 'production' ? null : err.stack,
+    });
 });
 
 // Database Connection

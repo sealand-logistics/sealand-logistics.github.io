@@ -18,7 +18,9 @@ import {
     Sun,
     Mail,
     Table as TableIcon,
-    FileText
+    FileText,
+    Eye,
+    EyeOff
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as XLSX from 'xlsx';
@@ -266,13 +268,14 @@ function App() {
     const [uploading, setUploading] = useState(false);
     const [showUploadModal, setShowUploadModal] = useState(false);
     const [editingItem, setEditingItem] = useState<any | null>(null);
-    const [isDarkMode, setIsDarkMode] = useState(true);
+    const [isDarkMode, setIsDarkMode] = useState(false);
     const [currentLang, setCurrentLang] = useState(LANGUAGES[0]);
     const [showLangDropdown, setShowLangDropdown] = useState(false);
 
     const [user, setUser] = useState<any>(JSON.parse(localStorage.getItem('user') || 'null'));
     const [loginUsername, setLoginUsername] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [loginError, setLoginError] = useState('');
 
     // Form states
@@ -513,14 +516,23 @@ function App() {
                         </div>
                         <div>
                             <label className={`block text-[10px] font-bold uppercase tracking-[0.2em] mb-2 px-1 ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>Password</label>
-                            <input
-                                type="password"
-                                value={loginPassword}
-                                onChange={(e) => setLoginPassword(e.target.value)}
-                                className={`w-full border rounded-2xl px-6 py-4 outline-none transition-all ${isDarkMode ? 'bg-white/5 border-white/10 text-white focus:border-orange-500' : 'bg-gray-50 border-gray-200 text-black focus:border-orange-500'}`}
-                                placeholder="Enter password"
-                                required
-                            />
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    value={loginPassword}
+                                    onChange={(e) => setLoginPassword(e.target.value)}
+                                    className={`w-full border rounded-2xl px-6 py-4 outline-none transition-all ${isDarkMode ? 'bg-white/5 border-white/10 text-white focus:border-orange-500' : 'bg-gray-50 border-gray-200 text-black focus:border-orange-500'}`}
+                                    placeholder="Enter password"
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className={`absolute right-5 top-1/2 -translate-y-1/2 p-2 rounded-full transition-colors ${isDarkMode ? 'text-gray-500 hover:text-white hover:bg-white/5' : 'text-gray-400 hover:text-gray-900 hover:bg-gray-100'}`}
+                                >
+                                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                                </button>
+                            </div>
                         </div>
 
                         {loginError && (

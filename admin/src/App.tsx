@@ -733,7 +733,7 @@ function App() {
                                     </div>
                                 </motion.div>
                             ) : (
-                                <motion.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 flex-1">
+                                <motion.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 items-start">
                                     {getSortedData(activeTab === 'projects' ? projects : clients).map((item: any) => (
                                         <div key={item._id} className={`rounded-2xl overflow-hidden group hover:shadow-2xl transition-all duration-500 relative ${isDarkMode ? 'bg-[#151515] hover:shadow-white/5' : 'bg-white border border-gray-100 shadow-sm'}`}>
                                             <div className="aspect-[4/3] bg-white relative overflow-hidden">

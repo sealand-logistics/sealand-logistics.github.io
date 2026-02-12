@@ -653,7 +653,7 @@ function App() {
                 {/* Mobile Menu Button */}
                 <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    className={`lg:hidden fixed top-4 left-4 z-50 p-3 rounded-xl transition-all ${isDarkMode ? 'bg-black/90 text-white' : 'bg-white text-black'} shadow-xl`}
+                    className={`lg:hidden fixed top-4 right-4 z-50 p-3 rounded-xl transition-all ${isDarkMode ? 'bg-black/90 text-white' : 'bg-white text-black'} shadow-xl`}
                 >
                     {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                 </button>
@@ -666,8 +666,8 @@ function App() {
                     />
                 )}
 
-                {/* Sidebar */}
-                <aside className={`w-64 border-r p-8 flex flex-col gap-10 transition-all duration-500 shrink-0 overflow-y-auto ${isDarkMode ? 'border-white/5 bg-[#050505]' : 'border-gray-200 bg-white'} lg:translate-x-0 fixed lg:relative inset-y-0 left-0 z-40 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                {/* Sidebar - Desktop Only */}
+                <aside className={`hidden lg:flex w-64 border-r p-8 flex-col gap-10 transition-colors duration-500 shrink-0 overflow-y-auto ${isDarkMode ? 'border-white/5 bg-[#050505]' : 'border-gray-200 bg-white'}`}>
                     <div>
                         <div className="flex items-center justify-between mb-6 text-xl font-bold">{t.filter}</div>
                         <div className="space-y-8">
@@ -690,6 +690,67 @@ function App() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </aside>
+
+                {/* Mobile Menu - Right Side */}
+                <aside className={`lg:hidden w-80 p-8 flex flex-col gap-8 transition-all duration-500 overflow-y-auto fixed inset-y-0 right-0 z-40 ${isDarkMode ? 'bg-[#050505]' : 'bg-white'} ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+                    <div>
+                        <div className="flex items-center justify-between mb-6 text-xl font-bold">{t.filter}</div>
+                        <div className="space-y-8">
+                            <div>
+                                <button className={`flex items-center justify-between w-full text-sm font-bold uppercase tracking-widest mb-4 hover:text-orange-500 transition-colors ${isDarkMode ? 'text-white' : 'text-gray-700'}`}>{t.sections} <ChevronDown className="w-4 h-4" /></button>
+                                <div className="space-y-3">
+                                    {[
+                                        { id: 'projects', label: t.projects },
+                                        { id: 'clients', label: t.clients },
+                                        { id: 'contacts', label: t.contacts }
+                                    ].map((tab) => (
+                                        <label key={tab.id} className="flex items-center gap-3 cursor-pointer group">
+                                            <input type="radio" checked={activeTab === tab.id} onChange={() => { setActiveTab(tab.id as any); setIsMobileMenuOpen(false); }} className="hidden" />
+                                            <div className={`w-5 h-5 rounded border flex items-center justify-center transition-all ${activeTab === tab.id ? 'bg-orange-600 border-orange-600' : 'border-white/20 group-hover:border-white/40'}`}>
+                                                {activeTab === tab.id && <CheckCircle2 className="w-3 h-3 text-white" />}
+                                            </div>
+                                            <span className={`text-sm tracking-wide transition-colors ${activeTab === tab.id ? (isDarkMode ? 'text-white font-medium' : 'text-black font-medium') : (isDarkMode ? 'text-gray-500 group-hover:text-gray-300' : 'text-gray-400 group-hover:text-gray-600')}`}>{tab.label}</span>
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Settings in Mobile Menu */}
+                    <div className="border-t pt-8 space-y-4" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.1)' }}>
+                        <div className="text-sm font-bold uppercase tracking-widest mb-4" style={{ color: isDarkMode ? '#666' : '#999' }}>Settings</div>
+
+                        {/* Language Selector */}
+                        <div className="relative">
+                            <button onClick={() => setShowLangDropdown(!showLangDropdown)} className={`flex items-center justify-between w-full gap-2 text-sm transition-colors px-4 py-3 rounded-xl border ${isDarkMode ? 'text-gray-400 hover:text-white border-white/10 hover:bg-white/5' : 'text-gray-500 hover:text-black border-gray-200 hover:bg-gray-50'}`}>
+                                <div className="flex items-center gap-2">
+                                    <Globe className="w-4 h-4" /> {currentLang.name}
+                                </div>
+                                <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${showLangDropdown ? 'rotate-180' : ''}`} />
+                            </button>
+                            <AnimatePresence>
+                                {showLangDropdown && (
+                                    <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className={`mt-2 w-full rounded-2xl p-2 border shadow-2xl transition-colors duration-500 ${isDarkMode ? 'bg-[#111] border-white/10 shadow-black' : 'bg-white border-gray-100 shadow-gray-200'}`}>
+                                        {LANGUAGES.map((lang) => (
+                                            <button key={lang.code} onClick={() => { setCurrentLang(lang); setShowLangDropdown(false); }} className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all ${currentLang.code === lang.code ? 'bg-orange-600 text-white' : (isDarkMode ? 'text-gray-400 hover:bg-white/5 hover:text-white' : 'text-gray-600 hover:bg-gray-50 hover:text-black')}`}>
+                                                {lang.name} <span className="text-[10px] opacity-60 float-right mt-1">{lang.code}</span>
+                                            </button>
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+
+                        {/* Theme Toggle */}
+                        <button onClick={toggleTheme} className={`flex items-center justify-between w-full gap-2 px-4 py-3 rounded-xl border transition-all duration-300 ${isDarkMode ? 'border-white/10 bg-white/5 text-gray-300 hover:bg-white/10' : 'border-gray-200 bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
+                            <div className="flex items-center gap-2">
+                                {isDarkMode ? <Sun className="w-4 h-4 text-orange-400" /> : <Moon className="w-4 h-4 text-orange-600" />}
+                                <span className="text-sm font-medium">{isDarkMode ? t.light : t.dark}</span>
+                            </div>
+                        </button>
                     </div>
                 </aside>
 
@@ -739,8 +800,9 @@ function App() {
                             {loading ? (
                                 <div className="flex-1 flex items-center justify-center min-h-[400px]"><Loader2 className={`w-12 h-12 animate-spin ${isDarkMode ? 'text-gray-700' : 'text-gray-300'}`} /></div>
                             ) : activeTab === 'contacts' ? (
-                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex-1 w-full overflow-x-auto">
-                                    <div className={`w-full rounded-xl border shadow-2xl transition-colors duration-500 ${isDarkMode ? 'bg-[#111] border-white/5' : 'bg-white border-gray-100'}`}>
+                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex-1 w-full">
+                                    {/* Desktop Table View */}
+                                    <div className={`hidden md:block w-full overflow-x-auto rounded-xl border shadow-2xl transition-colors duration-500 ${isDarkMode ? 'bg-[#111] border-white/5' : 'bg-white border-gray-100'}`}>
                                         <table className="w-full text-left border-collapse min-w-[800px]">
                                             <thead className={`text-[10px] uppercase tracking-widest font-bold border-b ${isDarkMode ? 'border-white/5 text-gray-500' : 'border-gray-100 text-gray-400'}`}>
                                                 <tr>
@@ -780,6 +842,37 @@ function App() {
                                                 ))}
                                             </tbody>
                                         </table>
+                                    </div>
+
+                                    {/* Mobile Card View */}
+                                    <div className="md:hidden space-y-4">
+                                        {getSortedData(contacts).map((contact: any) => (
+                                            <div key={contact._id} className={`rounded-2xl p-6 transition-all ${isDarkMode ? 'bg-[#111] border border-white/5' : 'bg-white border border-gray-100 shadow-sm'}`}>
+                                                <div className="flex items-start justify-between mb-4">
+                                                    <div className="flex-1">
+                                                        <div className={`font-bold text-lg mb-1 ${isDarkMode ? 'text-white' : 'text-black'}`}>{contact.name}</div>
+                                                        <div className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>{contact.company}</div>
+                                                    </div>
+                                                    <button onClick={() => handleDelete(contact._id, 'contacts')} className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${isDarkMode ? 'text-gray-500 hover:bg-red-600 hover:text-white' : 'text-gray-400 hover:bg-red-50 hover:text-red-600'}`}>
+                                                        <Trash2 className="w-4 h-4" />
+                                                    </button>
+                                                </div>
+
+                                                <div className="space-y-3 mb-4">
+                                                    <div className={`flex items-center gap-2 text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                                                        <Mail className="w-4 h-4" /> {contact.email}
+                                                    </div>
+                                                    <div className="text-sm text-gray-500">{contact.phone}</div>
+                                                    <span className="inline-flex px-3 py-1 rounded-full text-xs font-bold bg-orange-600/10 text-orange-500">{contact.service}</span>
+                                                </div>
+
+                                                <p className={`text-sm leading-relaxed mb-3 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>{contact.message}</p>
+
+                                                <div className="text-xs text-gray-500 font-medium">
+                                                    {new Date(contact.createdAt).toLocaleDateString()} • {new Date(contact.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
                                 </motion.div>
                             ) : (

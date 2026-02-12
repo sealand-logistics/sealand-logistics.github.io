@@ -20,7 +20,9 @@ import {
     Table as TableIcon,
     FileText,
     Eye,
-    EyeOff
+    EyeOff,
+    Menu,
+    X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as XLSX from 'xlsx';
@@ -279,6 +281,7 @@ function App() {
     const [loginUsername, setLoginUsername] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [loginError, setLoginError] = useState('');
 
     // Form states
@@ -599,7 +602,7 @@ function App() {
                         onClick={() => window.location.reload()}
                     />
 
-                    <nav className="flex items-center gap-6">
+                    <nav className="hidden md:flex items-center gap-6">
                         <div className="flex flex-col">
                             <span className={`text-[10px] uppercase tracking-widest font-bold mb-1 flex items-center gap-1 ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>{t.manager} <CheckCircle2 className="w-3 h-3 text-gray-400" /></span>
                             <span className="text-sm font-medium">{t.ops}</span>
@@ -612,9 +615,9 @@ function App() {
                     </nav>
                 </div>
 
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-2 sm:gap-4 md:gap-6">
                     <div className="relative">
-                        <button onClick={() => setShowLangDropdown(!showLangDropdown)} className={`flex items-center gap-2 text-sm transition-colors px-4 py-2 rounded-full border ${isDarkMode ? 'text-gray-400 hover:text-white border-white/10 hover:bg-white/5' : 'text-gray-500 hover:text-black border-gray-200 hover:bg-gray-50'}`}>
+                        <button onClick={() => setShowLangDropdown(!showLangDropdown)} className={`flex items-center gap-2 text-xs sm:text-sm transition-colors px-2 sm:px-4 py-2 rounded-full border ${isDarkMode ? 'text-gray-400 hover:text-white border-white/10 hover:bg-white/5' : 'text-gray-500 hover:text-black border-gray-200 hover:bg-gray-50'}`}>
                             <Globe className="w-4 h-4" /> {currentLang.code} <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${showLangDropdown ? 'rotate-180' : ''}`} />
                         </button>
                         <AnimatePresence>
@@ -633,7 +636,7 @@ function App() {
                         </AnimatePresence>
                     </div>
 
-                    <button onClick={toggleTheme} className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 ${isDarkMode ? 'border-white/10 bg-white/5 text-gray-300 hover:bg-white/10' : 'border-gray-200 bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
+                    <button onClick={toggleTheme} className={`flex items-center gap-2 px-2 sm:px-4 py-2 rounded-full border transition-all duration-300 ${isDarkMode ? 'border-white/10 bg-white/5 text-gray-300 hover:bg-white/10' : 'border-gray-200 bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
                         {isDarkMode ? <Sun className="w-4 h-4 text-orange-400" /> : <Moon className="w-4 h-4 text-orange-600" />}
                         <span className="text-sm font-medium">{isDarkMode ? t.light : t.dark}</span>
                     </button>
@@ -647,8 +650,24 @@ function App() {
             </header>
 
             <div className="flex flex-1 overflow-hidden">
+                {/* Mobile Menu Button */}
+                <button
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    className={`lg:hidden fixed top-4 left-4 z-50 p-3 rounded-xl transition-all ${isDarkMode ? 'bg-black/90 text-white' : 'bg-white text-black'} shadow-xl`}
+                >
+                    {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                </button>
+
+                {/* Mobile Overlay */}
+                {isMobileMenuOpen && (
+                    <div
+                        className="lg:hidden fixed inset-0 bg-black/50 z-40"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                    />
+                )}
+
                 {/* Sidebar */}
-                <aside className={`w-64 border-r p-8 flex flex-col gap-10 transition-colors duration-500 shrink-0 overflow-y-auto ${isDarkMode ? 'border-white/5 bg-[#050505]' : 'border-gray-200 bg-white'}`}>
+                <aside className={`w-64 border-r p-8 flex flex-col gap-10 transition-all duration-500 shrink-0 overflow-y-auto ${isDarkMode ? 'border-white/5 bg-[#050505]' : 'border-gray-200 bg-white'} lg:translate-x-0 fixed lg:relative inset-y-0 left-0 z-40 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                     <div>
                         <div className="flex items-center justify-between mb-6 text-xl font-bold">{t.filter}</div>
                         <div className="space-y-8">
@@ -675,11 +694,11 @@ function App() {
                 </aside>
 
                 {/* Main Content */}
-                <main className="flex-1 overflow-y-auto w-full">
-                    <div className="px-6 md:px-12 py-10 w-full min-h-full flex flex-col">
-                        <div className="flex items-center justify-between mb-10 shrink-0">
-                            <h2 className="text-4xl font-bold tracking-tight">{activeTab === 'contacts' ? t.manageSubs : t.findContent}</h2>
-                            <div className="flex items-center gap-6">
+                <main className="flex-1 overflow-y-auto w-full lg:ml-0">
+                    <div className="px-4 sm:px-6 md:px-12 py-10 pt-20 lg:pt-10 w-full min-h-full flex flex-col">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-10 shrink-0 gap-4">
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">{activeTab === 'contacts' ? t.manageSubs : t.findContent}</h2>
+                            <div className="flex items-center gap-3 sm:gap-6 w-full sm:w-auto justify-between">
                                 <div className="relative">
                                     <span className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>
                                         {t.sortBy} <span onClick={() => setShowSortDropdown(!showSortDropdown)} className={`font-bold cursor-pointer hover:text-orange-500 transition-colors ${isDarkMode ? 'text-white' : 'text-black'}`}>{t[sortType]} <ChevronDown className={`inline w-3 h-3 transition-transform ${showSortDropdown ? 'rotate-180' : ''}`} /></span>
@@ -705,13 +724,13 @@ function App() {
                                 </div>
 
                                 {activeTab === 'contacts' ? (
-                                    <div className="flex items-center gap-3">
-                                        <span className="text-sm text-gray-500 mr-2">{t.exportLabel}:</span>
-                                        <button onClick={exportToExcel} className={`flex items-center gap-2 px-4 py-2 rounded-xl border text-sm font-bold transition-all ${isDarkMode ? 'bg-white/5 border-white/10 hover:bg-green-600/20 hover:border-green-600 text-green-500' : 'bg-white border-gray-200 hover:bg-green-50 hover:border-green-600 text-green-700'}`}><TableIcon className="w-4 h-4" /> {t.excel}</button>
-                                        <button onClick={exportToPDF} className={`flex items-center gap-2 px-4 py-2 rounded-xl border text-sm font-bold transition-all ${isDarkMode ? 'bg-white/5 border-white/10 hover:bg-red-600/20 hover:border-red-600 text-red-500' : 'bg-white border-gray-200 hover:bg-red-50 hover:border-red-600 text-red-700'}`}><FileText className="w-4 h-4" /> {t.pdf}</button>
+                                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                                        <span className="text-sm text-gray-500 hidden sm:block">{t.exportLabel}:</span>
+                                        <button onClick={exportToExcel} className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl border text-sm font-bold transition-all ${isDarkMode ? 'bg-white/5 border-white/10 hover:bg-green-600/20 hover:border-green-600 text-green-500' : 'bg-white border-gray-200 hover:bg-green-50 hover:border-green-600 text-green-700'}`}><TableIcon className="w-4 h-4" /> {t.excel}</button>
+                                        <button onClick={exportToPDF} className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl border text-sm font-bold transition-all ${isDarkMode ? 'bg-white/5 border-white/10 hover:bg-red-600/20 hover:border-red-600 text-red-500' : 'bg-white border-gray-200 hover:bg-red-50 hover:border-red-600 text-red-700'}`}><FileText className="w-4 h-4" /> {t.pdf}</button>
                                     </div>
                                 ) : (
-                                    <button onClick={() => openUploadModal()} className={`px-6 py-3 rounded-2xl font-bold flex items-center gap-2 shadow-xl active:scale-95 transition-all ${isDarkMode ? 'bg-white text-black hover:bg-orange-600 hover:text-white' : 'bg-black text-white hover:bg-orange-600'}`}><Plus className="w-5 h-5" /> {t.newUpload}</button>
+                                    <button onClick={() => openUploadModal()} className={`px-4 sm:px-6 py-3 rounded-2xl font-bold flex items-center gap-2 shadow-xl active:scale-95 transition-all text-sm sm:text-base ${isDarkMode ? 'bg-white text-black hover:bg-orange-600 hover:text-white' : 'bg-black text-white hover:bg-orange-600'}`}><Plus className="w-5 h-5" /> <span className="hidden sm:inline">{t.newUpload}</span><span className="sm:hidden">New</span></button>
                                 )}
                             </div>
                         </div>
@@ -720,9 +739,9 @@ function App() {
                             {loading ? (
                                 <div className="flex-1 flex items-center justify-center min-h-[400px]"><Loader2 className={`w-12 h-12 animate-spin ${isDarkMode ? 'text-gray-700' : 'text-gray-300'}`} /></div>
                             ) : activeTab === 'contacts' ? (
-                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex-1 w-full">
-                                    <div className={`w-full overflow-x-auto rounded-xl border shadow-2xl transition-colors duration-500 ${isDarkMode ? 'bg-[#111] border-white/5' : 'bg-white border-gray-100'}`}>
-                                        <table className="w-full text-left border-collapse min-w-full">
+                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex-1 w-full overflow-x-auto">
+                                    <div className={`w-full rounded-xl border shadow-2xl transition-colors duration-500 ${isDarkMode ? 'bg-[#111] border-white/5' : 'bg-white border-gray-100'}`}>
+                                        <table className="w-full text-left border-collapse min-w-[800px]">
                                             <thead className={`text-[10px] uppercase tracking-widest font-bold border-b ${isDarkMode ? 'border-white/5 text-gray-500' : 'border-gray-100 text-gray-400'}`}>
                                                 <tr>
                                                     <th className="px-8 py-6">Name</th>

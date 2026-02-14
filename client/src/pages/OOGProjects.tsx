@@ -91,7 +91,7 @@ const OOGProjects = () => {
                     }}
                 >
                     <h1 className="text-[32px] md:text-7xl font-playfair font-bold text-white italic drop-shadow-md text-center">
-                        OOG Projects
+                        OOG Project Case Studies
                     </h1>
                 </div>
             </div>
@@ -158,7 +158,7 @@ const OOGProjects = () => {
                     {loading && data.length === 0 && (
                         <div className="col-span-full text-center py-20 text-gray-400 italic">
                             <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                            Loading our projects...
+                            Loading our case studies...
                         </div>
                     )}
                 </div>
@@ -218,7 +218,7 @@ const OOGProjects = () => {
                                 onClick={() => setGalleryProject(null)}
                                 className="mt-4 px-10 py-4 bg-[#000040] hover:bg-black text-white rounded-full transition-all font-lato font-bold text-sm shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                             >
-                                Back to Projects
+                                Back to Case Studies
                             </button>
                         </div>
                     </div>

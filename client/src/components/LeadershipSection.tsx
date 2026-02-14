@@ -20,7 +20,7 @@ const teamMembers = [
     },
     {
         name: 'Biswajit B Roy',
-        role: 'Director\nInternational business\nGlobal OOG Projects & Overseas Networks',
+        role: 'Director\nInternational business\nGlobal OOG Project Case Studies & Overseas Networks',
         email: 'biswajit@sealandlogisticsgroup.com',
         image: BiswajitImg
     },

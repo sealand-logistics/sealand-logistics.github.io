@@ -62,7 +62,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link to="/oog-projects" className="hover:text-gray-100">
-                  Projects
+                  Case Studies
                 </Link>
               </li>
               <li>

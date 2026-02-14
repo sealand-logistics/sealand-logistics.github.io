@@ -47,7 +47,7 @@ const Navigation = () => {
         { name: 'About Us', path: '/about-us' },
         { name: 'Specializations', path: '/specializations' },
         { name: 'Services', path: '/services' },
-        { name: 'OOG Projects', path: '/oog-projects' },
+        { name: 'Case Studies', path: '/oog-projects' },
         { name: 'Industries', path: '/industries' },
         { name: 'Clients', path: '/clients' },
         { name: 'Certifications', path: '/certifications' },

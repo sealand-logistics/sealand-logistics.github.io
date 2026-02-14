@@ -6,7 +6,7 @@ const SpecializationsSection = () => {
     <section className="w-full bg-white py-16">
       <div className="w-full">
         <div className="mx-[15px] md:mx-[60px]">
-          <h2 className="text-left text-[32px] md:text-5xl font-playfair font-bold text-[#000040] mb-10">
+          <h2 className="text-center text-[32px] md:text-5xl font-playfair font-bold text-[#000040] mb-10">
             Our <span className="font-playfair font-bold italic">Specializations</span>
           </h2>
 
@@ -46,7 +46,7 @@ const SpecializationsSection = () => {
                 </div>
 
                 <div className="py-5 pr-6 pl-0">
-                  <p className="font-lato text-base font-semibold text-gray-900 transition-colors">
+                  <p className="font-lato text-lg md:text-xl font-bold text-gray-900 transition-colors">
                     {item.title}
                   </p>
                 </div>

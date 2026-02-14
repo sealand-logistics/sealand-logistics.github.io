@@ -29,7 +29,26 @@ import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import { io } from 'socket.io-client';
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
 import SealandLogo from './Assets/sealand_logo.png';
+
+const quillModules = {
+    toolbar: [
+        [{ 'header': [1, 2, 3, false] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        ['link', 'clean'],
+        [{ 'color': [] }, { 'background': [] }],
+    ],
+};
+
+const quillFormats = [
+    'header',
+    'bold', 'italic', 'underline', 'strike',
+    'list', 'bullet',
+    'link', 'color', 'background'
+];
 
 const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:5000/api'
@@ -952,7 +971,14 @@ function App() {
                                             <div className="p-8 relative">
                                                 <div className="flex items-center gap-2 text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em] mb-3"><CheckCircle2 className={`w-3 h-3 ${isDarkMode ? 'text-gray-400' : 'text-gray-300'}`} /> {activeTab === 'projects' ? item.category : t.verified}</div>
                                                 <h3 className={`text-xl font-bold truncate mb-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>{activeTab === 'projects' ? item.title : item.name}</h3>
-                                                <p className="text-gray-500 text-sm leading-relaxed line-clamp-2">{activeTab === 'projects' ? (item.description || t.entry) : t.partner}</p>
+                                                <div
+                                                    className="text-gray-500 text-sm leading-relaxed line-clamp-2"
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: activeTab === 'projects'
+                                                            ? (item.description?.replace(/<[^>]*>/g, '') || t.entry)
+                                                            : t.partner
+                                                    }}
+                                                />
                                                 <div className="absolute bottom-8 right-8 w-14 h-14 bg-black rounded-2xl flex items-center justify-center transform translate-y-3 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500 shadow-xl border border-white/10"><ArrowUpRight className="w-7 h-7 text-white" /></div>
                                             </div>
                                         </div>
@@ -1004,12 +1030,17 @@ function App() {
                                             <label className={`block text-[10px] font-bold uppercase tracking-[0.2em] mb-2 px-1 ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>
                                                 {t.desc}
                                             </label>
-                                            <textarea
-                                                value={desc}
-                                                onChange={(e) => setDesc(e.target.value)}
-                                                className={`w-full border rounded-2xl px-5 py-3.5 outline-none transition-all h-24 md:h-32 resize-none ${isDarkMode ? 'bg-white/5 border-white/10 text-white focus:border-orange-500 focus:bg-white/10' : 'bg-gray-50 border-gray-200 text-black focus:border-orange-500 focus:bg-white'}`}
-                                                placeholder={t.placeholderDesc}
-                                            />
+                                            <div className="quill-wrapper">
+                                                <ReactQuill
+                                                    theme="snow"
+                                                    value={desc}
+                                                    onChange={setDesc}
+                                                    modules={quillModules}
+                                                    formats={quillFormats}
+                                                    placeholder={t.placeholderDesc}
+                                                    className={`w-full rounded-2xl overflow-hidden ${isDarkMode ? 'dark-quill' : ''}`}
+                                                />
+                                            </div>
                                         </div>
                                         <div className="relative">
                                             <label className={`block text-[10px] font-bold uppercase tracking-[0.2em] mb-2 px-1 ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>

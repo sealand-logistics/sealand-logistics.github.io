@@ -50,6 +50,11 @@ const AboutUs = () => {
                                 specialized industry movements</span>.
                         </p>
 
+                        {/* P3.5 - Reefer Operations */}
+                        <p>
+                            Sealand Logistics is <span className="font-bold">eastern India's leading reefer</span> trailer operators specializing in temperature-controlled EXIM logistics.
+                        </p>
+
                         {/* P4 */}
                         <p>
                             Our <span className="font-bold">leadership and operations teams</span> bring together decades of hands-on experience in global logistics

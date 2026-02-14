@@ -69,17 +69,17 @@ const CertificationsSection = ({ limit = false, showTitle = true }: Certificatio
                     </div>
                 )}
 
-                <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+                <div className="flex flex-wrap justify-center items-center gap-0">
                     {loading ? (
                         /* Loading Skeletons */
                         [1, 2, 3, 4, 5].map((n) => (
-                            <div key={n} className="bg-white/50 p-6 rounded-xl border border-gray-100 w-40 h-28 animate-pulse" />
+                            <div key={n} className="bg-white/50 p-3 rounded-xl border border-gray-100 w-72 h-48 animate-pulse" />
                         ))
                     ) : (
                         certifications.map((cert, index) => (
                             <div
                                 key={cert._id}
-                                className={`bg-white p-6 rounded-xl shadow-sm transition-all duration-700 transform border border-gray-100 w-40 h-28 flex items-center justify-center ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                                className={`bg-white p-3 rounded-xl transition-all duration-700 transform border border-gray-100 w-72 h-48 flex items-center justify-center ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                                     }`}
                                 style={{ transitionDelay: `${index * 100}ms` }}
                             >

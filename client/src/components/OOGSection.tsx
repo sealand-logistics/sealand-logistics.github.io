@@ -62,15 +62,9 @@ const OOGSection = () => {
             <div className="w-full px-[15px] lg:px-[60px] mb-12 flex flex-col justify-center items-center gap-6 text-center">
                 <div>
                     <h2 className="text-[32px] md:text-5xl font-playfair font-bold text-[#000040]">
-                        OOG Project <span className="font-playfair font-bold italic text-blue-900">Case Studies</span>
+                        OOG <span className="font-playfair font-bold italic text-blue-900">Projects</span>
                     </h2>
                 </div>
-                <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="hidden md:inline-block bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold font-lato py-3 px-8 rounded-full shadow-lg transition-colors duration-300 cursor-pointer"
-                >
-                    Get Quote
-                </button>
             </div>
 
             {/* Carousel Container */}
@@ -116,7 +110,7 @@ const OOGSection = () => {
 
             <div className="text-center mt-12">
                 <Link to="/oog-projects" className="text-blue-600 font-lato text-lg hover:text-blue-800 transition-colors flex items-center justify-center gap-2">
-                    View all case studies
+                    View all OOG Projects
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                 </Link>
             </div>

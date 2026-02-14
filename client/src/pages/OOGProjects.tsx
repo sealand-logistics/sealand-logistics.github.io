@@ -91,7 +91,7 @@ const OOGProjects = () => {
                     }}
                 >
                     <h1 className="text-[32px] md:text-7xl font-playfair font-bold text-white italic drop-shadow-md text-center">
-                        OOG Project Case Studies
+                        OOG Projects
                     </h1>
                 </div>
             </div>
@@ -127,10 +127,7 @@ const OOGProjects = () => {
                                 {/* Overlay */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-90 transition-opacity duration-300">
                                     <div className="absolute bottom-0 left-0 p-6 text-white transition-opacity duration-300 w-full">
-                                        <h3 className="text-2xl font-lato font-bold mb-1 truncate pr-4">{project.title}</h3>
-                                        <p className="text-gray-200 font-lato text-sm leading-relaxed line-clamp-2 pr-4">
-                                            {project.subtitle}
-                                        </p>
+                                        <h3 className="text-2xl font-lato font-bold mb-1 pr-4">{project.title}</h3>
 
                                         {/* Pagination dots if multiple images */}
                                         {project.images && project.images.length > 1 && (
@@ -158,7 +155,7 @@ const OOGProjects = () => {
                     {loading && data.length === 0 && (
                         <div className="col-span-full text-center py-20 text-gray-400 italic">
                             <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                            Loading our case studies...
+                            Loading our projects...
                         </div>
                     )}
                 </div>
@@ -182,9 +179,10 @@ const OOGProjects = () => {
                             </h3>
                             <div className="w-24 h-1.5 bg-orange-500 mb-10"></div>
                             <div className="w-full">
-                                <p className="text-gray-700 font-lato text-base md:text-lg leading-relaxed">
-                                    {galleryProject.subtitle}
-                                </p>
+                                <div
+                                    className="text-gray-700 font-lato text-base md:text-lg leading-relaxed prose prose-lg max-w-none"
+                                    dangerouslySetInnerHTML={{ __html: galleryProject.subtitle }}
+                                />
                             </div>
                         </div>
 
@@ -218,7 +216,7 @@ const OOGProjects = () => {
                                 onClick={() => setGalleryProject(null)}
                                 className="mt-4 px-10 py-4 bg-[#000040] hover:bg-black text-white rounded-full transition-all font-lato font-bold text-sm shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                             >
-                                Back to Case Studies
+                                Back to OOG Projects
                             </button>
                         </div>
                     </div>

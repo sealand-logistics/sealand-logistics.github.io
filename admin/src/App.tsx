@@ -415,19 +415,17 @@ function App() {
             let imageUrl = editingItem?.image || editingItem?.logo;
             let imageUrls: string[] = editingItem?.images || [];
 
-            if (activeTab === 'projects' && selectedFiles.length > 0) {
-                // Upload multiple files
-                const uploadedUrls = await handleMultipleFileUpload(selectedFiles);
-                // If editing, decide whether to append or replace. For now, let's append.
-                // Actually, usually users expect to replace or add. Let's just use the new ones + old ones?
-                // Simple approach: New uploads become the list if provided.
-                // Or better: Append new uploads to existing list.
-                imageUrls = [...(imageUrls || []), ...uploadedUrls];
-                // Update main image if it was empty, or just use the first of the new batch if strictly replacing?
-                // Let's stick to: Main image is first of the combined list
-                if (imageUrls.length > 0) imageUrl = imageUrls[0];
+            if (activeTab === 'projects') {
+                if (selectedFiles.length > 0) {
+                    const uploadedUrls = await handleMultipleFileUpload(selectedFiles);
+                    imageUrls = [...(imageUrls || []), ...uploadedUrls];
+                }
+                // Always sync main image with first element of images array for Projects
+                if (imageUrls.length > 0) {
+                    imageUrl = imageUrls[0];
+                }
             } else if (selectedFile) {
-                // Fallback or Client logo upload (single)
+                // Client logo or Certification image upload (single)
                 const uploadedUrl = await handleFileUpload(selectedFile);
                 imageUrl = uploadedUrl;
             }
@@ -650,7 +648,7 @@ function App() {
     }
 
     return (
-        <div className={`w-full h-screen transition-colors duration-500 font-sans flex flex-col overflow-hidden ${isDarkMode ? 'bg-[#050505] text-white' : 'bg-[#f8f9fa] text-gray-900'}`}>
+        <div className={`w-full h-screen transition-colors duration-500 font-sans flex flex-col overflow-hidden ${isDarkMode ? 'bg-[#050505] text-white dark-theme' : 'bg-[#f8f9fa] text-gray-900'}`}>
             {/* Top Header */}
             <header className={`h-24 px-8 flex items-center justify-between border-b transition-colors duration-500 relative z-50 shrink-0 ${isDarkMode ? 'border-white/5 bg-[#050505]' : 'border-gray-200 bg-white'}`}>
                 <div className="flex items-center gap-10">
@@ -820,7 +818,7 @@ function App() {
                 </aside>
 
                 {/* Main Content */}
-                <main className="flex-1 overflow-y-auto w-full lg:ml-0">
+                <main className="flex-1 overflow-y-auto w-full lg:ml-0 smooth-scroll">
                     <div className="px-4 sm:px-6 md:px-12 py-10 pt-20 lg:pt-10 w-full min-h-full flex flex-col">
                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-10 shrink-0 gap-4">
                             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">{activeTab === 'contacts' ? t.manageSubs : t.findContent}</h2>
@@ -1023,6 +1021,7 @@ function App() {
                                                     onChange={(e) => setCategory(e.target.value)}
                                                     className={`w-full border rounded-2xl px-5 py-3.5 outline-none transition-all appearance-none pr-12 ${isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white' : 'bg-gray-50 border-gray-200 text-black'}`}
                                                 >
+                                                    <option value="Specialization" className={isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}>{t.specialization}</option>
                                                     <option value="OOG" className={isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}>{t.oog}</option>
                                                     <option value="Industry" className={isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}>{t.industry}</option>
                                                 </select>

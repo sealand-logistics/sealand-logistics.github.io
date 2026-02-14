@@ -32,8 +32,10 @@ const adminRoutes = require('./routes/adminRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const authRoutes = require('./routes/authRoutes');
 const path = require('path');
+const compression = require('compression');
 
 // Middleware
+app.use(compression());
 app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());

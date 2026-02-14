@@ -20,9 +20,8 @@ const OOGSection = () => {
     useEffect(() => {
         const fetchOOG = async () => {
             try {
-                const res = await axios.get(`${API_BASE_URL}/projects`);
+                const res = await axios.get(`${API_BASE_URL}/projects?category=OOG`);
                 const apiImages = res.data
-                    .filter((p: APIProject) => p.category === 'OOG')
                     .map((p: APIProject) => p.image);
 
                 setImages(apiImages);

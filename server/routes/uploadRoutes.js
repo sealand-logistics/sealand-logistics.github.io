@@ -26,6 +26,7 @@ const storage = new CloudinaryStorage({
     params: {
         folder: 'sealand_uploads',
         allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
+        transformation: [{ quality: 'auto', fetch_format: 'auto' }]
     },
 });
 

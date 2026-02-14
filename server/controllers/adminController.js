@@ -5,11 +5,36 @@ const Certification = require('../models/Certification');
 const asyncHandler = require('express-async-handler');
 const sendEmail = require('../utils/mailService');
 const axios = require('axios');
+const NodeCache = require('node-cache');
+const myCache = new NodeCache({ stdTTL: 300, checkperiod: 60 }); // 5 minutes cache
+
+// Helper to clear cache on updates
+const clearCache = () => {
+    myCache.flushAll();
+};
 
 // @desc    Get all projects
 // @route   GET /api/projects
 const getProjects = asyncHandler(async (req, res) => {
-    const projects = await Project.find().sort({ createdAt: -1 });
+    const { category } = req.query;
+    const cacheKey = `projects_${category || 'all'}`;
+
+    const cachedRecords = myCache.get(cacheKey);
+    if (cachedRecords) {
+        return res.json(cachedRecords);
+    }
+
+    let query = {};
+    if (category) {
+        query.category = category;
+    }
+
+    // Optimization: When listing, only fetch what's needed for cards
+    // If it's a specific request from admin it might need full detail, 
+    // but for the website list we typically only need title, image, images, category
+    const projects = await Project.find(query).sort({ createdAt: -1 });
+
+    myCache.set(cacheKey, projects);
     res.json(projects);
 });
 
@@ -37,32 +62,37 @@ const createProject = asyncHandler(async (req, res) => {
     });
 
     if (req.io) req.io.emit('new_data', { type: 'project', action: 'create' });
+    clearCache();
     res.status(201).json(project);
 });
 
 const updateProject = asyncHandler(async (req, res) => {
+    console.log(`[Update Project] Request for ID: ${req.params.id}`, req.body);
     const project = await Project.findById(req.params.id);
     if (project) {
-        project.title = req.body.title || project.title;
-        project.description = req.body.description || project.description;
-        project.category = req.body.category || project.category;
+        if (req.body.title !== undefined) project.title = req.body.title;
+        if (req.body.description !== undefined) project.description = req.body.description;
+        if (req.body.category !== undefined) project.category = req.body.category;
 
         // Update images if provided
-        if (req.body.images) {
+        if (req.body.images !== undefined) {
             project.images = req.body.images;
         }
 
         // Update main image if provided, or sync with first image if images changed
-        if (req.body.image) {
+        if (req.body.image !== undefined) {
             project.image = req.body.image;
         } else if (req.body.images && req.body.images.length > 0) {
             project.image = req.body.images[0];
         }
 
         const updatedProject = await project.save();
+        console.log('[Update Project] Success:', updatedProject._id);
         if (req.io) req.io.emit('new_data', { type: 'project', action: 'update' });
+        clearCache();
         res.json(updatedProject);
     } else {
+        console.warn(`[Update Project] Project not found: ${req.params.id}`);
         res.status(404);
         throw new Error('Project not found');
     }
@@ -73,6 +103,7 @@ const deleteProject = asyncHandler(async (req, res) => {
     if (project) {
         await project.deleteOne();
         if (req.io) req.io.emit('new_data', { type: 'project', action: 'delete' });
+        clearCache();
         res.json({ message: 'Project removed' });
     } else {
         res.status(404);
@@ -92,14 +123,17 @@ const createClient = asyncHandler(async (req, res) => {
 });
 
 const updateClient = asyncHandler(async (req, res) => {
+    console.log(`[Update Client] Request for ID: ${req.params.id}`, req.body);
     const client = await Client.findById(req.params.id);
     if (client) {
-        client.name = req.body.name || client.name;
-        client.logo = req.body.logo || client.logo;
+        if (req.body.name !== undefined) client.name = req.body.name;
+        if (req.body.logo !== undefined) client.logo = req.body.logo;
         const updatedClient = await client.save();
+        console.log('[Update Client] Success:', updatedClient._id);
         if (req.io) req.io.emit('new_data', { type: 'client', action: 'update' });
         res.json(updatedClient);
     } else {
+        console.warn(`[Update Client] Client not found: ${req.params.id}`);
         res.status(404);
         throw new Error('Client not found');
     }
@@ -118,7 +152,12 @@ const deleteClient = asyncHandler(async (req, res) => {
 });
 
 const getClients = asyncHandler(async (req, res) => {
+    const cacheKey = 'clients_all';
+    const cached = myCache.get(cacheKey);
+    if (cached) return res.json(cached);
+
     const clients = await Client.find().sort({ createdAt: -1 });
+    myCache.set(cacheKey, clients);
     res.json(clients);
 });
 
@@ -176,7 +215,12 @@ const deleteContact = asyncHandler(async (req, res) => {
 
 // Certification Controllers
 const getCertifications = asyncHandler(async (req, res) => {
+    const cacheKey = 'certs_all';
+    const cached = myCache.get(cacheKey);
+    if (cached) return res.json(cached);
+
     const certs = await Certification.find().sort({ createdAt: -1 });
+    myCache.set(cacheKey, certs);
     res.json(certs);
 });
 
@@ -192,14 +236,17 @@ const createCertification = asyncHandler(async (req, res) => {
 });
 
 const updateCertification = asyncHandler(async (req, res) => {
+    console.log(`[Update Certification] Request for ID: ${req.params.id}`, req.body);
     const cert = await Certification.findById(req.params.id);
     if (cert) {
-        cert.name = req.body.name || cert.name;
-        cert.image = req.body.image || cert.image;
+        if (req.body.name !== undefined) cert.name = req.body.name;
+        if (req.body.image !== undefined) cert.image = req.body.image;
         const updatedCert = await cert.save();
+        console.log('[Update Certification] Success:', updatedCert._id);
         if (req.io) req.io.emit('new_data', { type: 'certification', action: 'update' });
         res.json(updatedCert);
     } else {
+        console.warn(`[Update Certification] Certification not found: ${req.params.id}`);
         res.status(404);
         throw new Error('Certification not found');
     }

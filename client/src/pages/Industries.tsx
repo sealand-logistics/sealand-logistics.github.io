@@ -1,9 +1,30 @@
 import IndustriesBG from '../assets/IndustriesBG.png';
 import { industries as staticIndustries } from '../data/industries';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:5000/api'
+    : 'https://sealand-logistics-github-io.onrender.com/api';
 
 const Industries = () => {
-    const data = staticIndustries;
+    const [dynamicIndustries, setDynamicIndustries] = useState<any[]>([]);
 
+    useEffect(() => {
+        const fetchIndustries = async () => {
+            try {
+                const res = await axios.get(`${API_BASE_URL}/projects?category=Industry`);
+                if (res.data && res.data.length > 0) {
+                    setDynamicIndustries(res.data);
+                }
+            } catch (error) {
+                console.error('Error fetching industries:', error);
+            }
+        };
+        fetchIndustries();
+    }, []);
+
+    const data = dynamicIndustries.length > 0 ? dynamicIndustries : staticIndustries;
 
     return (
         <div className="min-h-screen bg-white">
@@ -31,7 +52,7 @@ const Industries = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                     {data.map((industry) => (
-                        <div key={industry.id} className="bg-white rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 overflow-hidden group">
+                        <div key={industry._id || industry.id} className="bg-white rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 overflow-hidden group">
                             <div className="h-[200px] overflow-hidden">
                                 <img
                                     src={industry.image}

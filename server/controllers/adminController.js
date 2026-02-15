@@ -9,8 +9,11 @@ const NodeCache = require('node-cache');
 const myCache = new NodeCache({ stdTTL: 300, checkperiod: 60 }); // 5 minutes cache
 
 // Helper to clear cache on updates
-const clearCache = () => {
+const clearCache = (req) => {
     myCache.flushAll();
+    if (req && req.io) {
+        req.io.emit('new_data', { type: 'cache_cleared', timestamp: new Date() });
+    }
 };
 
 // @desc    Get all projects
@@ -62,7 +65,7 @@ const createProject = asyncHandler(async (req, res) => {
     });
 
     if (req.io) req.io.emit('new_data', { type: 'project', action: 'create' });
-    clearCache();
+    clearCache(req);
     res.status(201).json(project);
 });
 
@@ -89,7 +92,7 @@ const updateProject = asyncHandler(async (req, res) => {
         const updatedProject = await project.save();
         console.log('[Update Project] Success:', updatedProject._id);
         if (req.io) req.io.emit('new_data', { type: 'project', action: 'update' });
-        clearCache();
+        clearCache(req);
         res.json(updatedProject);
     } else {
         console.warn(`[Update Project] Project not found: ${req.params.id}`);
@@ -103,7 +106,7 @@ const deleteProject = asyncHandler(async (req, res) => {
     if (project) {
         await project.deleteOne();
         if (req.io) req.io.emit('new_data', { type: 'project', action: 'delete' });
-        clearCache();
+        clearCache(req);
         res.json({ message: 'Project removed' });
     } else {
         res.status(404);
@@ -119,6 +122,7 @@ const createClient = asyncHandler(async (req, res) => {
     }
     const client = await Client.create({ name, logo });
     if (req.io) req.io.emit('new_data', { type: 'client', action: 'create' });
+    clearCache(req);
     res.status(201).json(client);
 });
 
@@ -131,6 +135,7 @@ const updateClient = asyncHandler(async (req, res) => {
         const updatedClient = await client.save();
         console.log('[Update Client] Success:', updatedClient._id);
         if (req.io) req.io.emit('new_data', { type: 'client', action: 'update' });
+        clearCache(req);
         res.json(updatedClient);
     } else {
         console.warn(`[Update Client] Client not found: ${req.params.id}`);
@@ -144,6 +149,7 @@ const deleteClient = asyncHandler(async (req, res) => {
     if (client) {
         await client.deleteOne();
         if (req.io) req.io.emit('new_data', { type: 'client', action: 'delete' });
+        clearCache(req);
         res.json({ message: 'Client removed' });
     } else {
         res.status(404);
@@ -205,6 +211,7 @@ const createContact = asyncHandler(async (req, res) => {
 const deleteContact = asyncHandler(async (req, res) => {
     const contact = await Contact.findById(req.params.id);
     if (contact) {
+        if (req.io) req.io.emit('new_data', { type: 'contact', action: 'delete' });
         await contact.deleteOne();
         res.json({ message: 'Contact removed' });
     } else {
@@ -232,6 +239,7 @@ const createCertification = asyncHandler(async (req, res) => {
     }
     const cert = await Certification.create({ name, image });
     if (req.io) req.io.emit('new_data', { type: 'certification', action: 'create' });
+    clearCache(req);
     res.status(201).json(cert);
 });
 
@@ -244,6 +252,7 @@ const updateCertification = asyncHandler(async (req, res) => {
         const updatedCert = await cert.save();
         console.log('[Update Certification] Success:', updatedCert._id);
         if (req.io) req.io.emit('new_data', { type: 'certification', action: 'update' });
+        clearCache(req);
         res.json(updatedCert);
     } else {
         console.warn(`[Update Certification] Certification not found: ${req.params.id}`);
@@ -257,6 +266,7 @@ const deleteCertification = asyncHandler(async (req, res) => {
     if (cert) {
         await cert.deleteOne();
         if (req.io) req.io.emit('new_data', { type: 'certification', action: 'delete' });
+        clearCache(req);
         res.json({ message: 'Certification removed' });
     } else {
         res.status(404);

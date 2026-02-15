@@ -1,7 +1,31 @@
 import { Link } from 'react-router-dom';
-import { specializationsData } from '../data/specializationsData';
+import { specializationsData as staticSpecializations } from '../data/specializationsData';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:5000/api'
+  : 'https://sealand-logistics-github-io.onrender.com/api';
 
 const SpecializationsSection = () => {
+  const [dynamicSpecializations, setDynamicSpecializations] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchSpecializations = async () => {
+      try {
+        const res = await axios.get(`${API_BASE_URL}/projects?category=Specialization`);
+        if (res.data && res.data.length > 0) {
+          setDynamicSpecializations(res.data);
+        }
+      } catch (error) {
+        console.error('Error fetching specializations:', error);
+      }
+    };
+    fetchSpecializations();
+  }, []);
+
+  const data = dynamicSpecializations.length > 0 ? dynamicSpecializations : staticSpecializations;
+
   return (
     <section className="w-full bg-white py-16">
       <div className="w-full">
@@ -11,9 +35,9 @@ const SpecializationsSection = () => {
           </h2>
 
           <div className="grid gap-8 grid-cols-1 md:grid-cols-3">
-            {specializationsData.map((item) => (
+            {data.map((item) => (
               <Link
-                key={item.id}
+                key={item._id || item.id}
                 to="/specializations"
                 className="group bg-white rounded-3xl overflow-hidden transition-all duration-300"
               >

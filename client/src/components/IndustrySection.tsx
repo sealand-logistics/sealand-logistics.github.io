@@ -1,10 +1,42 @@
 import { Link } from 'react-router-dom';
-import { industries } from '../data/industries';
+import { industries as staticIndustries } from '../data/industries';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:5000/api'
+    : 'https://sealand-logistics-github-io.onrender.com/api';
+
+interface APIIndustry {
+    _id: string;
+    title: string;
+    image: string;
+}
 
 const IndustrySection = () => {
-    // 16 industries total, split into 2 rows of 8
-    const row1Industries = industries.slice(0, 8);
-    const row2Industries = industries.slice(8, 16);
+    const [dynamicIndustries, setDynamicIndustries] = useState<any[]>([]);
+
+    useEffect(() => {
+        const fetchIndustries = async () => {
+            try {
+                const res = await axios.get(`${API_BASE_URL}/projects?category=Industry`);
+                if (res.data && res.data.length > 0) {
+                    setDynamicIndustries(res.data);
+                }
+            } catch (error) {
+                console.error('Error fetching dynamic industries:', error);
+            }
+        };
+        fetchIndustries();
+    }, []);
+
+    const data = dynamicIndustries.length > 0 ? dynamicIndustries : staticIndustries;
+
+    // Split industries into 2 rows. 
+    // We adjust splitting for dynamic data which might not be 16 items.
+    const midPoint = Math.ceil(data.length / 2);
+    const row1Industries = data.slice(0, midPoint);
+    const row2Industries = data.slice(midPoint);
 
     return (
         <section className="py-20 bg-gray-50 overflow-hidden">
@@ -82,10 +114,18 @@ const IndustrySection = () => {
                     100% { transform: translateX(0); }
                 }
                 .animate-industry-marquee {
-                    animation: industry-marquee 50s linear infinite;
+                    animation: industry-marquee 15s linear infinite;
                 }
                 .animate-industry-marquee-reverse {
-                    animation: industry-marquee-reverse 50s linear infinite;
+                    animation: industry-marquee-reverse 15s linear infinite;
+                }
+                @media (min-width: 768px) {
+                    .animate-industry-marquee {
+                        animation: industry-marquee 50s linear infinite;
+                    }
+                    .animate-industry-marquee-reverse {
+                        animation: industry-marquee-reverse 50s linear infinite;
+                    }
                 }
                 .animate-industry-marquee:hover, .animate-industry-marquee-reverse:hover {
                     animation-play-state: paused;

@@ -59,13 +59,11 @@ const OOGSection = () => {
 
     return (
         <section className="py-20 bg-white overflow-hidden">
-            <div className="w-full px-[15px] lg:px-[60px] mb-12 flex flex-col md:flex-row justify-between items-end gap-6">
-                <div className="text-center md:text-left">
-                    <h2 className="text-[32px] md:text-5xl font-playfair font-bold text-[#000040]">
-                        OOG <span className="font-playfair font-bold italic text-blue-900">Projects</span>
-                    </h2>
-                </div>
-                <Link to="/oog-projects" className="text-blue-600 font-lato text-lg hover:text-blue-800 transition-colors flex items-center gap-2 group/link">
+            <div className="w-full px-[15px] lg:px-[60px] mb-12 text-center md:text-left">
+                <h2 className="text-[32px] md:text-5xl font-playfair font-bold text-[#000040] mb-4">
+                    OOG <span className="font-playfair font-bold italic text-blue-900">Projects</span>
+                </h2>
+                <Link to="/oog-projects" className="text-blue-600 font-lato text-lg hover:text-blue-800 transition-colors inline-flex items-center gap-2 group/link">
                     View all OOG Projects
                     <svg className="w-5 h-5 transform group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                 </Link>

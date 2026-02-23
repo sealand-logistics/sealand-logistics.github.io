@@ -3,9 +3,7 @@ import { specializationsData as staticSpecializations } from '../data/specializa
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  ? 'http://localhost:5000/api'
-  : 'https://sealand-logistics-github-io.onrender.com/api';
+import { API_BASE_URL } from '../config';
 
 const SpecializationsSection = () => {
   const [dynamicSpecializations, setDynamicSpecializations] = useState<any[]>([]);

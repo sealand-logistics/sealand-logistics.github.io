@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
-const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname.startsWith('192.168.')
     ? 'http://localhost:5000/api'
     : 'https://sealand-logistics-github-io.onrender.com/api';
 
@@ -38,6 +38,7 @@ const CertificationsSection = ({ limit = false, showTitle = true }: Certificatio
         const observer = new IntersectionObserver(
             (entries) => {
                 if (entries[0].isIntersecting) {
+                    console.log('CertificationsSection: visible via observer');
                     setIsVisible(true);
                     observer.disconnect();
                 }
@@ -45,11 +46,19 @@ const CertificationsSection = ({ limit = false, showTitle = true }: Certificatio
             { threshold: 0.1 }
         );
 
+        // Fallback: If for any reason observer doesn't trigger in 2 seconds, show anyway
+        const timer = setTimeout(() => {
+            setIsVisible(true);
+        }, 2000);
+
         if (sectionRef.current) {
             observer.observe(sectionRef.current);
         }
 
-        return () => observer.disconnect();
+        return () => {
+            observer.disconnect();
+            clearTimeout(timer);
+        };
     }, []);
 
     // Show only first 5 if limited, otherwise show all
@@ -69,17 +78,17 @@ const CertificationsSection = ({ limit = false, showTitle = true }: Certificatio
                     </div>
                 )}
 
-                <div className="flex flex-wrap justify-center items-center gap-0">
+                <div className="flex flex-wrap justify-center items-center gap-6">
                     {loading ? (
                         /* Loading Skeletons */
                         [1, 2, 3, 4, 5].map((n) => (
                             <div key={n} className="bg-white/50 p-3 rounded-xl border border-gray-100 w-72 h-48 animate-pulse" />
                         ))
-                    ) : (
+                    ) : certifications.length > 0 ? (
                         certifications.map((cert, index) => (
                             <div
                                 key={cert._id}
-                                className={`bg-white p-3 rounded-xl transition-all duration-700 transform border border-gray-100 w-72 h-48 flex items-center justify-center ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                                className={`bg-white p-3 rounded-xl transition-all duration-700 transform border border-gray-100 w-72 h-48 flex items-center justify-center ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 focus-within:opacity-100'
                                     }`}
                                 style={{ transitionDelay: `${index * 100}ms` }}
                             >
@@ -90,6 +99,10 @@ const CertificationsSection = ({ limit = false, showTitle = true }: Certificatio
                                 />
                             </div>
                         ))
+                    ) : (
+                        <div className="text-center py-10 text-gray-400 italic font-lato w-full">
+                            No certifications found.
+                        </div>
                     )}
                 </div>
             </div>

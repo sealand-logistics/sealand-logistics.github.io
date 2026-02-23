@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import CTASection from './components/CTASection';
 import Footer from './components/Footer';
@@ -18,7 +18,7 @@ import STC from './pages/STC';
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <ScrollToTop />
       <div className="min-h-screen bg-gray-50 font-lato relative flex flex-col">
         <Navigation />
@@ -41,7 +41,7 @@ function App() {
         <Footer />
         <WhatsAppButton />
       </div>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 

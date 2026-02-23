@@ -21,9 +21,10 @@ const Locations = () => {
             {/* Sea Port Services Map Section */}
             <div className="w-full px-[15px] md:px-[60px] py-16 md:py-24">
                 <div className="w-full">
-                    <h2 className="text-[32px] md:text-5xl font-bold text-[#000040] mb-10 text-center lg:text-left">
-                        <span className="font-lato">Global Network & </span>
-                        <span className="font-playfair italic">Trade Lanes</span>
+                    <h2 className="text-[28px] md:text-[40px] font-bold text-[#000040] mb-12 text-center lg:text-left leading-tight">
+                        A <span className="font-lato">Global network enabled by strategic </span>
+                        <span className="font-playfair italic">International & Indian Port Operations</span>
+                        <span className="font-lato"> with robust Pan-India trucking services</span>
                     </h2>
                     <PortMap />
                 </div>

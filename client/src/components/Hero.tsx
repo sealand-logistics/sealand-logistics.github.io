@@ -27,7 +27,7 @@ const Hero = () => {
                     </h1>
 
                     <p className="font-lato text-gray-200 text-lg md:text-xl mb-10 max-w-3xl mx-auto leading-relaxed">
-                        End-to-end OOG, Project cargo, Reefer, Cross-Border, multi modal logistics experts, with networks across 180+ countries.
+                        End-to-end OOG, Project cargo, Reefer, FTL Trucking, Cross-Border, multi modal logistics experts, with networks across 180+ countries.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">

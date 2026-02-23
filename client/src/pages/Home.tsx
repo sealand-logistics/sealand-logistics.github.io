@@ -15,7 +15,7 @@ const Home = () => {
       <ServicesSection />
       <WhyChooseUsSection />
       <OOGSection />
-      <CertificationsSection limit={true} />
+      <CertificationsSection limit={false} />
       <IndustrySection />
       <ClientsSection limit={false} />
     </div>

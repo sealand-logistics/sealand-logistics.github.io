@@ -62,16 +62,16 @@ const ClientsSection = ({ limit = false }: ClientsSectionProps) => {
 
             {/* Logos Grid */}
             <div className="container mx-auto px-[15px] lg:px-[60px] py-12">
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 border-l border-t border-gray-100">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border-l border-t border-gray-100">
                     {displayClients.map((logo, index) => (
                         <div
                             key={index}
-                            className="flex items-center justify-center p-8 h-48 border-r border-b border-gray-100 transition-shadow duration-300 bg-white"
+                            className="flex items-center justify-center p-8 h-64 border-r border-b border-gray-100 transition-shadow duration-300 bg-white"
                         >
                             <img
                                 src={logo}
                                 alt={`Client ${index + 1}`}
-                                className="max-w-[200px] max-h-[100px] object-contain"
+                                className="max-w-[320px] max-h-[160px] object-contain w-full h-full"
                             />
                         </div>
                     ))}

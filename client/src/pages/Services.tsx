@@ -55,7 +55,7 @@ export const servicesData = [
   },
   {
     id: 7,
-    title: 'Port Trailer Transportation',
+    title: 'Port & Long-haul drayage',
     description:
       'Efficient port-centric transportation connecting ports, ICDs, CFSs, and terminals seamlessly.',
     icon: PortTrailerIcon,

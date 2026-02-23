@@ -98,7 +98,7 @@ const Footer = () => {
               <li>Reefer Export & Import Logistics</li>
               <li>India–Bangladesh land exports & imports</li>
               <li>Customs Clearance</li>
-              <li>Port Trailer Transportation</li>
+              <li>Port & Long-haul drayage</li>
               <li>Air Freight</li>
               <li>Warehousing & Distribution</li>
             </ul>
@@ -116,7 +116,10 @@ const Footer = () => {
                     <path fillRule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 3.58-3.14c.6-.67 1.157-1.318 1.636-1.928C19.225 15.228 21 12.11 21 9.45c0-5.135-4.067-9.3-9.102-9.45a.75.75 0 0 0-.102 0C6.767-.15 2.7 4.015 2.7 9.15c0 2.66 1.775 5.778 3.337 7.783.48.61 1.035 1.258 1.636 1.928a16.975 16.975 0 0 0 3.58 3.14ZM12 11.25a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <span>9th Floor,Park NX, 43 Rafi Ahmed Kidwai Road, Kolkata -700016</span>
+                <div className="flex flex-col gap-1">
+                  <span>9th Floor,Park NX, 43 Rafi Ahmed Kidwai Road, Kolkata -700016</span>
+                  <span className="font-bold text-[#FF6600]">Vizag | Mumbai | Chennai |</span>
+                </div>
               </li>
               <li className="flex items-center gap-4">
                 <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shrink-0">

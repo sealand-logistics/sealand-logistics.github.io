@@ -163,7 +163,7 @@ const OOGProjects = () => {
 
             {/* Gallery Modal - Enhanced Full Screen View */}
             {galleryProject && (
-                <div className="fixed inset-0 z-50 bg-white flex justify-center overflow-y-auto">
+                <div className="fixed inset-0 z-50 bg-white overflow-y-auto">
                     {/* Close Button - Fixed to viewport */}
                     <button
                         onClick={() => setGalleryProject(null)}
@@ -172,52 +172,55 @@ const OOGProjects = () => {
                         <svg className="w-6 h-6 transition-transform group-hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                     </button>
 
-                    <div className="container mx-auto min-h-screen py-20 px-[15px] md:px-[60px] flex flex-col items-start">
-                        <div className="text-left text-black mb-16 mt-10 w-full">
-                            <h3 className="text-2xl md:text-4xl font-lato font-black mb-6 leading-tight uppercase tracking-tight">
-                                {galleryProject.title}
-                            </h3>
-                            <div className="w-24 h-1.5 bg-orange-500 mb-10"></div>
-                            <div className="w-full">
-                                <div
-                                    className="text-gray-700 font-lato text-base md:text-lg leading-relaxed prose prose-lg max-w-none"
-                                    dangerouslySetInnerHTML={{ __html: galleryProject.subtitle }}
-                                />
-                            </div>
-                        </div>
-
-                        {/* Image Gallery Section */}
-                        <div className="w-full">
-                            <h4 className="text-orange-600 font-lato font-bold uppercase tracking-widest text-sm mb-8 text-left">Project Gallery</h4>
-                            <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-                                {(galleryProject.images && galleryProject.images.length > 0 ? galleryProject.images : [galleryProject.src]).map((img, idx) => (
+                    <div className="container mx-auto min-h-screen py-20 px-[15px] md:px-[60px]">
+                        <div className="max-w-7xl mx-auto w-full flex flex-col items-start">
+                            <div className="text-left text-black mb-16 mt-10 w-full max-w-full">
+                                <h3 className="text-2xl md:text-5xl font-lato font-black mb-6 leading-tight uppercase tracking-tight w-full" style={{ wordBreak: 'normal', overflowWrap: 'break-word' }}>
+                                    {galleryProject.title}
+                                </h3>
+                                <div className="w-24 h-1.5 bg-orange-500 mb-10"></div>
+                                <div className="w-full max-w-full">
                                     <div
-                                        key={idx}
-                                        className="break-inside-avoid rounded-2xl overflow-hidden shadow-xl group relative bg-gray-50 border border-gray-100 transition-all duration-500 hover:shadow-2xl"
-                                    >
-                                        <img
-                                            src={img}
-                                            alt={`${galleryProject.title} - ${idx + 1}`}
-                                            className="w-full h-auto object-cover transition-transform duration-1000 group-hover:scale-105"
-                                            loading="lazy"
-                                        />
-                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-end p-6">
-                                            <span className="text-white/80 text-xs font-lato opacity-0 group-hover:opacity-100 transition-opacity">Image {idx + 1}</span>
-                                        </div>
-                                    </div>
-                                ))}
+                                        className="text-gray-700 font-lato text-base md:text-lg leading-relaxed prose prose-lg max-w-none w-full"
+                                        style={{ wordBreak: 'normal', overflowWrap: 'break-word' }}
+                                        dangerouslySetInnerHTML={{ __html: galleryProject.subtitle }}
+                                    />
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="mt-20 mb-12 flex flex-col items-start gap-4">
-                            <div className="w-12 h-px bg-gray-200"></div>
-                            <span className="text-gray-400 text-sm tracking-widest uppercase font-lato">End of Project Details</span>
-                            <button
-                                onClick={() => setGalleryProject(null)}
-                                className="mt-4 px-10 py-4 bg-[#000040] hover:bg-black text-white rounded-full transition-all font-lato font-bold text-sm shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-                            >
-                                Back to OOG Projects
-                            </button>
+                            {/* Image Gallery Section */}
+                            <div className="w-full">
+                                <h4 className="text-orange-600 font-lato font-bold uppercase tracking-widest text-sm mb-8 text-left">Project Gallery</h4>
+                                <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+                                    {(galleryProject.images && galleryProject.images.length > 0 ? galleryProject.images : [galleryProject.src]).map((img, idx) => (
+                                        <div
+                                            key={idx}
+                                            className="break-inside-avoid rounded-2xl overflow-hidden shadow-xl group relative bg-gray-50 border border-gray-100 transition-all duration-500 hover:shadow-2xl"
+                                        >
+                                            <img
+                                                src={img}
+                                                alt={`${galleryProject.title} - ${idx + 1}`}
+                                                className="w-full h-auto object-cover transition-transform duration-1000 group-hover:scale-105"
+                                                loading="lazy"
+                                            />
+                                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-end p-6">
+                                                <span className="text-white/80 text-xs font-lato opacity-0 group-hover:opacity-100 transition-opacity">Image {idx + 1}</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="mt-20 mb-12 flex flex-col items-start gap-4">
+                                <div className="w-12 h-px bg-gray-200"></div>
+                                <span className="text-gray-400 text-sm tracking-widest uppercase font-lato">End of Project Details</span>
+                                <button
+                                    onClick={() => setGalleryProject(null)}
+                                    className="mt-4 px-10 py-4 bg-[#000040] hover:bg-black text-white rounded-full transition-all font-lato font-bold text-sm shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                                >
+                                    Back to OOG Projects
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

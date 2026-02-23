@@ -118,7 +118,7 @@ const Footer = () => {
                 </div>
                 <div className="flex flex-col gap-1">
                   <span>9th Floor,Park NX, 43 Rafi Ahmed Kidwai Road, Kolkata -700016</span>
-                  <span className="font-bold text-[#FF6600]">Vizag | Mumbai | Chennai |</span>
+                  <span className="font-bold text-[#FF6600]">Vizag | Mumbai | Chennai | Hyderabad | Delhi</span>
                 </div>
               </li>
               <li className="flex items-center gap-4">

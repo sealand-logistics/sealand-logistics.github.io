@@ -41,7 +41,7 @@ const IndustrySection = () => {
     return (
         <section className="py-20 bg-gray-50 overflow-hidden">
             <div className="w-full px-[15px] md:px-[60px]">
-                <div className="mb-12 text-center md:text-left">
+                <div className="mb-12 text-center">
                     <h2 className="text-[32px] md:text-5xl font-playfair font-bold text-[#000040] mb-4">
                         Industry <span className="font-playfair font-bold italic text-[#0B1221]">expertise</span>
                     </h2>

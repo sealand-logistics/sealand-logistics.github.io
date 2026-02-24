@@ -1,4 +1,10 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
+console.log('--- ENV DEBUG ---');
+console.log('LOOKING FOR .env AT:', path.join(__dirname, '.env'));
+console.log('VARS LOADED:', Object.keys(process.env).filter(k => !k.startsWith('npm_') && !k.startsWith('VSCODE_')).length);
+console.log('-----------------');
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -31,7 +37,7 @@ app.use((req, res, next) => {
 const adminRoutes = require('./routes/adminRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const authRoutes = require('./routes/authRoutes');
-const path = require('path');
+// path requirement moved to top
 const compression = require('compression');
 
 // Middleware

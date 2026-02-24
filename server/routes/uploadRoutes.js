@@ -5,9 +5,13 @@ const fs = require('fs');
 const router = express.Router();
 const { protect } = require('../utils/authMiddleware');
 
-// Ensure uploads directory exists
-const uploadsDir = path.join(__dirname, '../uploads');
+// Use Absolute Path for VPS stability
+const uploadsDir = path.resolve(process.cwd(), 'uploads');
+console.log('--- UPLOAD CONFIG ---');
+console.log('TARGET DIRECTORY:', uploadsDir);
+
 if (!fs.existsSync(uploadsDir)) {
+    console.log('Creating uploads directory...');
     fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
@@ -24,49 +28,62 @@ const storage = multer.diskStorage({
 
 const upload = multer({
     storage,
-    limits: { fileSize: 500 * 1024 * 1024 } // 500MB limit
+    limits: {
+        fileSize: 500 * 1024 * 1024, // 500MB
+        fieldSize: 500 * 1024 * 1024
+    }
 });
 
 // Helper to get full URL/path
 const getFileUrl = (req, filename) => {
-    // Return relative path which Nginx will handle
     return `/uploads/${filename}`;
 };
 
 // Single Upload
 router.post('/', protect, (req, res) => {
-    console.log('LOCAL UPLOAD: Start processed');
+    console.log('SINGLE UPLOAD: Request received');
     upload.single('image')(req, res, (err) => {
         if (err) {
-            console.error('MULTER ERROR:', err);
-            return res.status(500).json({ message: 'Upload failed', error: err.message });
+            console.error('CRITICAL UPLOAD ERROR:', err);
+            return res.status(500).json({
+                message: 'Upload failed',
+                error: err.message,
+                code: err.code
+            });
         }
         if (!req.file) {
-            console.log('UPLOAD: No file provided');
             return res.status(400).json({ message: 'No file provided' });
         }
 
         const url = getFileUrl(req, req.file.filename);
-        console.log('UPLOAD: Success!', url);
+        console.log('UPLOAD SUCCESS:', url);
         res.json({ url });
     });
 });
 
 // Multiple Uploads
 router.post('/multiple', protect, (req, res) => {
-    console.log('LOCAL UPLOAD MULTIPLE: Start processed');
-    upload.array('images', 100)(req, res, (err) => { // Limit to 100 images
+    console.log('MULTIPLE UPLOAD: Request received');
+    upload.array('images', 100)(req, res, (err) => {
         if (err) {
-            console.error('MULTER ERROR:', err);
-            return res.status(500).json({ message: 'Upload failed', error: err.message });
+            console.error('CRITICAL MULTIPLE UPLOAD ERROR:', err);
+            // Log more details for large file failures
+            if (err.code === 'LIMIT_FILE_SIZE') {
+                return res.status(413).json({ message: 'File too large (Max 500MB)' });
+            }
+            return res.status(500).json({
+                message: 'Multiple upload failed',
+                error: err.message,
+                code: err.code
+            });
         }
+
         if (!req.files || req.files.length === 0) {
-            console.log('UPLOAD: No files provided');
-            return res.status(400).json({ message: 'No files provided' });
+            return res.status(400).json({ message: 'No files selected' });
         }
 
         const urls = req.files.map(file => getFileUrl(req, file.filename));
-        console.log('UPLOAD MULTIPLE: Success!', urls.length, 'files');
+        console.log('MULTIPLE UPLOAD SUCCESS:', urls.length, 'files');
         res.json({ urls });
     });
 });

@@ -1143,13 +1143,13 @@ function App() {
                                     {(selectedFiles.length > 0 || selectedFile) && (
                                         <div className={`mt-4 p-4 rounded-2xl border ${isDarkMode ? 'bg-orange-500/10 border-orange-500/20' : 'bg-orange-50 border-orange-200'}`}>
                                             <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-orange-600">
-                                                <span>Total Files: {activeTab === 'projects' ? selectedFiles.length : (selectedFile ? 1 : 0)}</span>
+                                                <span>Total Files: {activeTab === 'projects' ? selectedFiles.length : (selectedFile ? 1 : 0)} / 50</span>
                                                 <span>
                                                     Size: {
                                                         ((activeTab === 'projects'
                                                             ? selectedFiles.reduce((acc, f) => acc + f.size, 0)
                                                             : (selectedFile?.size || 0)) / (1024 * 1024)).toFixed(2)
-                                                    } MB / 500 MB
+                                                    } MB / 200 MB
                                                 </span>
                                             </div>
                                             <div className="w-full h-1.5 bg-black/10 rounded-full mt-2 overflow-hidden">
@@ -1158,7 +1158,7 @@ function App() {
                                                     animate={{
                                                         width: `${Math.min(100, ((activeTab === 'projects'
                                                             ? selectedFiles.reduce((acc, f) => acc + f.size, 0)
-                                                            : (selectedFile?.size || 0)) / (500 * 1024 * 1024)) * 100)}%`
+                                                            : (selectedFile?.size || 0)) / (200 * 1024 * 1024)) * 100)}%`
                                                     }}
                                                     className="h-full bg-orange-500"
                                                 />

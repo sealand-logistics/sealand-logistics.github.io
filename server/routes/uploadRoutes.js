@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
     storage,
-    limits: { fileSize: 100 * 1024 * 1024 } // 100MB limit
+    limits: { fileSize: 500 * 1024 * 1024 } // 500MB limit
 });
 
 // Helper to get full URL/path
@@ -55,7 +55,7 @@ router.post('/', protect, (req, res) => {
 // Multiple Uploads
 router.post('/multiple', protect, (req, res) => {
     console.log('LOCAL UPLOAD MULTIPLE: Start processed');
-    upload.array('images', 50)(req, res, (err) => {
+    upload.array('images', 100)(req, res, (err) => { // Limit to 100 images
         if (err) {
             console.error('MULTER ERROR:', err);
             return res.status(500).json({ message: 'Upload failed', error: err.message });

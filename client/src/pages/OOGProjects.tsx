@@ -128,13 +128,18 @@ const OOGProjects = () => {
 
                                         {/* Pagination dots if multiple images */}
                                         {project.images && project.images.length > 1 && (
-                                            <div className="flex gap-1 mt-2 transition-opacity">
-                                                {project.images.map((_, idx) => (
+                                            <div className="flex flex-wrap gap-1 mt-2 transition-opacity">
+                                                {project.images.slice(0, 15).map((_, idx, arr) => (
                                                     <div
                                                         key={idx}
-                                                        className={`w-1.5 h-1.5 rounded-full ${idx === activeIndex ? 'bg-orange-500' : 'bg-white/50'}`}
+                                                        className={`w-1.5 h-1.5 rounded-full ${idx === activeIndex % arr.length ? 'bg-orange-500' : 'bg-white/50'}`}
                                                     />
                                                 ))}
+                                                {project.images.length > 15 && (
+                                                    <span className="text-[10px] text-white/70 font-bold ml-1">
+                                                        +{project.images.length - 15}
+                                                    </span>
+                                                )}
                                             </div>
                                         )}
 

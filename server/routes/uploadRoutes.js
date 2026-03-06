@@ -29,8 +29,8 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage,
     limits: {
-        fileSize: 200 * 1024 * 1024, // 200MB
-        fieldSize: 200 * 1024 * 1024
+        fileSize: 500 * 1024 * 1024, // 500MB
+        fieldSize: 500 * 1024 * 1024
     }
 });
 
@@ -64,15 +64,15 @@ router.post('/', protect, (req, res) => {
 // Multiple Uploads
 router.post('/multiple', protect, (req, res) => {
     console.log('MULTIPLE UPLOAD: Request received');
-    upload.array('images', 50)(req, res, (err) => {
+    upload.array('images', 100)(req, res, (err) => {
         if (err) {
             console.error('CRITICAL MULTIPLE UPLOAD ERROR:', err);
             // Log more details for large file failures
             if (err.code === 'LIMIT_FILE_SIZE') {
-                return res.status(413).json({ message: 'File too large (Max 200MB)' });
+                return res.status(413).json({ message: 'File too large (Max 500MB)' });
             }
             if (err.code === 'LIMIT_UNEXPECTED_FILE') {
-                return res.status(400).json({ message: 'Too many files (Max 50)' });
+                return res.status(400).json({ message: 'Too many files (Max 100)' });
             }
             return res.status(500).json({
                 message: 'Multiple upload failed',

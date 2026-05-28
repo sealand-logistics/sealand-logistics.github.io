@@ -69,12 +69,12 @@ app.get('/api/status', (req, res) => {
 });
 
 // Admin panel client-side routing
-app.get('/admin*', (req, res) => {
+app.get('/admin(.*)', (req, res) => {
     res.sendFile(path.join(clientDistPath, 'admin', 'index.html'));
 });
 
 // Main website client-side routing
-app.get('*', (req, res) => {
+app.get('(.*)', (req, res) => {
     // Prevent intercepting API routes or upload folders that missed the handlers
     if (!req.path.startsWith('/api') && !req.path.startsWith('/uploads')) {
         res.sendFile(path.join(clientDistPath, 'index.html'));

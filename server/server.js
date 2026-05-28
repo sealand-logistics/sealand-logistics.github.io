@@ -52,16 +52,35 @@ app.use('/api/auth', authRoutes);
 app.use('/api', adminRoutes);
 app.use('/api/upload', uploadRoutes);
 
-// Static Folders
+// Static Folders (Uploads)
 const uploadsPath = path.join(__dirname, 'uploads');
 if (!require('fs').existsSync(uploadsPath)) {
     require('fs').mkdirSync(uploadsPath);
 }
 app.use('/uploads', express.static(uploadsPath));
 
+// Serve static assets in production
+const clientDistPath = path.join(__dirname, '../client/dist');
+app.use(express.static(clientDistPath));
+
 // Status route
 app.get('/api/status', (req, res) => {
     res.json({ status: 'Server is running', timestamp: new Date() });
+});
+
+// Admin panel client-side routing
+app.get('/admin*', (req, res) => {
+    res.sendFile(path.join(clientDistPath, 'admin', 'index.html'));
+});
+
+// Main website client-side routing
+app.get('*', (req, res) => {
+    // Prevent intercepting API routes or upload folders that missed the handlers
+    if (!req.path.startsWith('/api') && !req.path.startsWith('/uploads')) {
+        res.sendFile(path.join(clientDistPath, 'index.html'));
+    } else {
+        res.status(404).json({ message: 'API Route Not Found' });
+    }
 });
 
 // Error handling middleware
